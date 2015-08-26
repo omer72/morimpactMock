@@ -1,0 +1,80 @@
+<div layout="vertical" layout-fill style="height: inherit">
+
+    <md-content style="width: 100%;height: 100%">
+
+
+        <section  style="height: inherit" layout="column" layout-align="center center">
+            <img src="assets/images/logo.png" alt="MorImpact" style="width:50%"><br>
+            <h1>Login</h1>
+            <md-whiteframe class="md-whiteframe-z5" layout="column" layout-align="space-around center" style="background-color: floralwhite;width: 50%">
+                <div ng-if="!loginCtrl.showCreateAccount">
+                <md-content class="md-padding">
+                    <form name="loginForm">
+                        <div layout layout-sm="column">
+                            <md-input-container flex>
+                                <label>Email</label> <input ng-model="loginCtrl.user.email" type="email" required>
+                            </md-input-container>
+                        </div>
+                        <div layout layout-sm="column">
+                            <md-input-container flex>
+                                <label>Password</label> <input ng-model="loginCtrl.user.password" type="password" required>
+                            </md-input-container>
+                        </div>
+                        <span flex style="color: red">{{loginCtrl.error}}</span>
+                    </form>
+                </md-content>
+
+                <div class="md-actions" layout="row">
+                    <span flex></span>
+                    <md-button ng-click="loginCtrl.showCreateAccount = true;loginCtrl.error = ''" class="md-primary"> Create Account </md-button>
+                    <md-button ng-click="loginCtrl.login(loginForm.$valid)" class="md-primary"> Login </md-button>
+                </div>
+                </div>
+                <div ng-if="loginCtrl.showCreateAccount">
+                    <md-content class="md-padding">
+                        <form name="userForm">
+
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>First Name</label>
+                                    <input ng-model="loginCtrl.user.firstName" required>
+                                </md-input-container>
+
+                            </div>
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Last Name</label>
+                                    <input ng-model="loginCtrl.user.lastName">
+                                </md-input-container>
+                            </div>
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Email</label> <input ng-model="loginCtrl.user.email" type="email" required>
+                                </md-input-container>
+                            </div>
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Password</label> <input ng-model="loginCtrl.user.password" type="password" required>
+                                </md-input-container>
+                            </div>
+                            <span flex style="color: red">{{loginCtrl.error}}</span>
+                        </form>
+                    </md-content>
+
+                    <div class="md-actions" layout="row">
+
+                        <md-button ng-click="loginCtrl.showCreateAccount = false;loginCtrl.error = ''"> Cancel </md-button>
+                        <md-button ng-click="loginCtrl.createAccount(userForm.$valid)" class="md-primary"> Create Account </md-button>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+        </section>
+
+
+    </md-content>
+
+</div>
+
+<!--<meteor-include src="loginButtons"></meteor-include>-->
+

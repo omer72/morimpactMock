@@ -1,0 +1,40 @@
+<div layout="column" flex>
+    <md-toolbar layout="row" layout-align="end center">
+        <md-button hide-sm class="toolbar-button" aria-label="Search">
+            <i class="material-icons">search</i>
+        </md-button>
+        <md-button hide-sm class="toolbar-button" aria-label="Notifications">
+            <i class="material-icons">notifications</i>
+            <span class="notifications-label">7</span>
+        </md-button>
+        <md-button hide-sm class="toolbar-button" aria-label="Settings">
+            <i class="material-icons">settings</i>
+        </md-button>
+        <md-button hide-gt-sm ng-click="dc.toggleItemsList()" aria-label="Menu">
+            <i class="material-icons">menu</i>
+        </md-button>
+    </md-toolbar>
+    <div layout="row" flex>
+        <md-content flex class="md-padding page-content">
+            <div ui-view>adasd</div>
+        </md-content>
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="right"
+                class="md-whiteframe-z2 md-sidenav-right">
+            <md-button ng-repeat-start="item in dc.menuItems" layout="column" layout-align="center center"
+                       flex class="capitalize" ng-click="dc.selectItem(item)"
+                       ui-sref-active="md-warn" ui-sref="{{item.sref}}">
+                <div hide-sm hide-md class="md-tile-content">
+                    <i class="material-icons md-36">{{item.icon}}</i>
+                </div>
+                <div class="md-tile-content">
+                    {{item.name}} {{dc[item.scopeName].points}}
+
+                </div>
+            </md-button>
+            <md-divider ng-repeat-end></md-divider>
+    </md-sidenav>
+{{dc.generalPlace.position}}
+    </div>
+</div>
+
+
