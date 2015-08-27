@@ -12,7 +12,7 @@
                     <form name="loginForm">
                         <div layout layout-sm="column">
                             <md-input-container flex>
-                                <label>Email</label> <input ng-model="loginCtrl.user.email" type="email" required>
+                                <label>User Name</label> <input ng-model="loginCtrl.user.username" type="text" required>
                             </md-input-container>
                         </div>
                         <div layout layout-sm="column">
@@ -36,6 +36,11 @@
 
                             <div layout layout-sm="column">
                                 <md-input-container flex>
+                                    <label>User Name</label> <input ng-model="loginCtrl.user.username" type="text" required>
+                                </md-input-container>
+                            </div>
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
                                     <label>First Name</label>
                                     <input ng-model="loginCtrl.user.firstName" required>
                                 </md-input-container>
@@ -55,6 +60,14 @@
                             <div layout layout-sm="column">
                                 <md-input-container flex>
                                     <label>Password</label> <input ng-model="loginCtrl.user.password" type="password" required>
+                                </md-input-container>
+                            </div>
+                            <div layout layout-sm="column">
+                                <md-input-container>
+                                    <label>Group</label>
+                                    <md-select ng-model="loginCtrl.user.groupId">
+                                        <md-option ng-repeat="group in loginCtrl.groups" value="{{group._id}}">{{group.name}}</md-option>
+                                    </md-select>
                                 </md-input-container>
                             </div>
                             <span flex style="color: red">{{loginCtrl.error}}</span>

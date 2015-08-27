@@ -1,5 +1,6 @@
 <div layout="column" flex>
     <md-toolbar layout="row" layout-align="end center">
+        {{dc.userGroup.name}}
         <md-button hide-sm class="toolbar-button" aria-label="Search">
             <i class="material-icons">search</i>
         </md-button>
@@ -21,8 +22,8 @@
         <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="right"
                 class="md-whiteframe-z2 md-sidenav-right">
             <md-button ng-repeat-start="item in dc.menuItems" layout="column" layout-align="center center"
-                       flex class="capitalize" ng-click="dc.selectItem(item)"
-                       ui-sref-active="md-warn" ui-sref="{{item.sref}}">
+                       flex class="capitalize" ng-click="dc.showCompleteList(item)"
+                       ui-sref-active="md-warn" >
                 <div hide-sm hide-md class="md-tile-content">
                     <i class="material-icons md-36">{{item.icon}}</i>
                 </div>

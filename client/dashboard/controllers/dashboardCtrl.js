@@ -63,6 +63,7 @@ console.log("dashboardCtrl");
 
     function init(){
       var generalPlaceId = GeneralPlace.findOne({userId : $rootScope.currentUser._id });
+      dc.userGroup = $meteor.object(Groups,$rootScope.currentUser.profile.groupId);
 
       if (!generalPlaceId){
         var generalPlace =
@@ -109,6 +110,10 @@ console.log("dashboardCtrl");
     }
 
     init();
+
+    dc.showCompleteList = function(value){
+      console.log(value.scopeName);
+    }
 
     function find(id,values){
       angular.fo

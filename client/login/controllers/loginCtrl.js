@@ -4,17 +4,22 @@ console.log("loginCtrl");
 
     var loginCtrl = this;
     loginCtrl.showCreateAccount = false;
-
+    loginCtrl.groups = $meteor.collection(Groups);
+    Accounts.ui.config({
+      passwordSignupFields:  "USERNAME_ONLY"
+    })
     loginCtrl.createAccount = function(isValid){
       if (!isValid)
         return;
       loginCtrl.error = ""
       var email = loginCtrl.user.email;
+      var username = loginCtrl.user.username;
       var password = loginCtrl.user.password;
       var firstname = loginCtrl.user.firstName;
       var lastname = loginCtrl.user.lastName;
+      var groupId = loginCtrl.user.groupId;
 
-      var user = {'email':email,password:password,profile:{name:firstname +" "+lastname}};
+      var user = {username:username,password:password,profile:{'email':email,name:firstname +" "+lastname,groupId:groupId}};
 
       Accounts.createUser(user,function(err){
         if(!err) {
@@ -35,11 +40,11 @@ console.log("loginCtrl");
       if (!isValid)
         return;
       loginCtrl.error = ""
-      var email = loginCtrl.user.email;
+      var username = loginCtrl.user.username;
       var password = loginCtrl.user.password;
 
 
-      Meteor.loginWithPassword(email,password,function(err){
+      Meteor.loginWithPassword(username,password,function(err){
         if(!err) {
           console.log("login Account succeess");
           $state.transitionTo('dashboard');
