@@ -1,6 +1,4 @@
-<div style="background-size:cover;background:
-url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat,
-url('/assets/images/0001mainBGVars_daylightCloudy1364x768.png') no-repeat">
+<div class="dashboard">
     <div class="ui fixed inverted menu">
     <div class="ui container">
         <!--{{dc.userGroup.name}}-->
@@ -21,14 +19,43 @@ url('/assets/images/0001mainBGVars_daylightCloudy1364x768.png') no-repeat">
 </div>
 <div class="ui three column grid container equal height row ">
     <div class="column" >
-        <div class="ui segment" style="height: 100vh">Content</div>
+        <div class="ui container" style="height: 100vh">
+            <div style="height: 50vh"></div>
+            <div style="height: 50vh">
+                <img src='/assets/images/1001_robotPlatform360x354.png'>
+                <img src="/assets/images/1109_ROBOTare369x304.png" class="robot">
+
+            </div>
+        </div>
     </div>
-    <!--<div class="column">-->
-        <!--<div class="ui segment" style="height: 100vh">Content</div>-->
-    <!--</div>-->
-    <!--<div class="column">-->
-        <!--<div class="ui segment" style="height: 100vh">Content</div>-->
-    <!--</div>-->
+    <div class="column" style="width: 45% !important;">
+        <div class="ui container" style="height: 100vh;">
+            <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:5s;padding-bottom: 110px">
+            <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:4s;margin-left: -25px;padding-bottom: 0px">
+            <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:6s;margin-left: -28px;padding-bottom: 100px">
+            <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" style="position: absolute;top: 1%;left: -10px">
+        </div>
+    </div>
+    <div class="column" style="padding-top: 50px;width: 225px !important;">
+        <div class="ui container" style="height: 100vh;text-align: right">
+
+
+            <div ng-repeat="item in dc.menuItems" style="padding-bottom: 17px">
+
+
+                <div id="container">
+                    <a href=""> <img id="image" src="/assets/images/{{item.icon}}"/>
+                    <p id="text">
+                        {{item.name}}<br/> {{dc[item.scopeName].points}}
+                    </p>
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
 
 </div>
     </div>

@@ -1,0 +1,40 @@
+.dashboard{
+    background-size:cover;
+    background:
+        url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat,
+        url('/assets/images/0001mainBGVars_daylightCloudy1364x768.png');
+    overflow-y: hidden;
+
+
+}
+.robot{
+    position: relative;
+    bottom: 615px;
+    left: -4px;
+}
+
+#container
+{
+    height:65px;
+    width:65px;
+    position:relative;
+    text-align: center;
+    /*position: absolute;*/
+    right: 0px;
+}
+
+#image
+{
+    position:absolute;
+    left:0;
+    top:0;
+}
+#text
+{
+    z-index:100;
+    position:absolute;
+    color:white;
+    font-size:12px;
+    top:14px;
+    width: 100px;
+}

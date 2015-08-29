@@ -7,57 +7,58 @@ console.log("dashboardCtrl");
     dc.menuItems = [
       {
         name: 'מיקום כללי',
-        icon: 'dashboard',
+        icon: '0408SideMenuElements_DashBtn_ScoreIconFull170x74.png',
         sref: '.dashboard',
         id:'points',
         scopeName:'generalPlace'
       },
       {
         name: 'מיקום זמני שיחה',
-        icon: 'person',
+        icon: '0410SideMenuElements_DashBtn_CallLenghtIconFull170x70.png',
         sref: '.profile',
         id:'talks',
         scopeName:'talks'
       },
       {
         name: 'מיקום אדיבות',
-        icon: 'view_module',
+        icon: '0412SideMenuElements_DashBtn_NiceIconFull170x70.png',
         sref: '.table',
         id:'polite',
         scopeName:'polite'
       },
       {
         name: 'מיקום מכירות',
-        icon: 'view_module',
+        icon: '0414SideMenuElements_DashBtn_SalesIconFull170x70.png',
         sref: '.table',
         id:'sales',
         scopeName:'sales'
       },
       {
         name: 'תרומה לצוות',
-        icon: 'view_module',
+        icon: '0416SideMenuElements_DashBtn_TeamIconFull170x70.png',
         sref: '.table',
         id:'donation',
         point:'0/0'
-      },
-      {
-        name: 'Open Leaderboard',
-        icon: 'leaderboard',
-        sref: '.leaderboard'
-      },
-      {
-        name: 'פירגון לעמית',
-        icon: 'view_module',
-        sref: '.table',
-        point:''
-
-      },
-      {
-        name: 'Reports',
-        icon: 'reports',
-        sref: '.table',
-        point:'0/0'
       }
+      //,
+      //{
+      //  name: 'Open Leaderboard',
+      //  icon: 'leaderboard',
+      //  sref: '.leaderboard'
+      //},
+      //{
+      //  name: 'פירגון לעמית',
+      //  icon: 'view_module',
+      //  sref: '.table',
+      //  point:''
+      //
+      //},
+      //{
+      //  name: 'Reports',
+      //  icon: 'reports',
+      //  sref: '.table',
+      //  point:'0/0'
+      //}
     ];
 
 
