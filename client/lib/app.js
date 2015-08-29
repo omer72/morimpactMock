@@ -1,7 +1,6 @@
 angular.module('morimpact',[
     'angular-meteor',
-    'ui.router',
-    'ngMaterial']);
+    'ui.router']);
 
 function onReady() {
     angular.bootstrap(document, ['morimpact']);

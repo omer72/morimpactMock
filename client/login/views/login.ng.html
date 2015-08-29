@@ -1,93 +1,89 @@
-<div layout="vertical" layout-fill style="height: inherit">
+<div class="ui middle aligned center aligned grid">
 
-    <md-content style="width: 100%;height: 100%">
-
-
-        <section  style="height: inherit" layout="column" layout-align="center center">
-            <img src="assets/images/logo.png" alt="MorImpact" style="width:50%"><br>
-            <h1>Login</h1>
-            <md-whiteframe class="md-whiteframe-z5" layout="column" layout-align="space-around center" style="background-color: floralwhite;width: 50%">
-                <div ng-if="!loginCtrl.showCreateAccount">
-                <md-content class="md-padding">
-                    <form name="loginForm">
-                        <div layout layout-sm="column">
-                            <md-input-container flex>
-                                <label>User Name</label> <input ng-model="loginCtrl.user.username" type="text" required>
-                            </md-input-container>
-                        </div>
-                        <div layout layout-sm="column">
-                            <md-input-container flex>
-                                <label>Password</label> <input ng-model="loginCtrl.user.password" type="password" required>
-                            </md-input-container>
-                        </div>
-                        <span flex style="color: red">{{loginCtrl.error}}</span>
-                    </form>
-                </md-content>
-
-                <div class="md-actions" layout="row">
-                    <span flex></span>
-                    <md-button ng-click="loginCtrl.showCreateAccount = true;loginCtrl.error = ''" class="md-primary"> Create Account </md-button>
-                    <md-button ng-click="loginCtrl.login(loginForm.$valid)" class="md-primary"> Login </md-button>
-                </div>
-                </div>
-                <div ng-if="loginCtrl.showCreateAccount">
-                    <md-content class="md-padding">
-                        <form name="userForm">
-
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>User Name</label> <input ng-model="loginCtrl.user.username" type="text" required>
-                                </md-input-container>
-                            </div>
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>First Name</label>
-                                    <input ng-model="loginCtrl.user.firstName" required>
-                                </md-input-container>
-
-                            </div>
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>Last Name</label>
-                                    <input ng-model="loginCtrl.user.lastName">
-                                </md-input-container>
-                            </div>
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>Email</label> <input ng-model="loginCtrl.user.email" type="email" required>
-                                </md-input-container>
-                            </div>
-                            <div layout layout-sm="column">
-                                <md-input-container flex>
-                                    <label>Password</label> <input ng-model="loginCtrl.user.password" type="password" required>
-                                </md-input-container>
-                            </div>
-                            <div layout layout-sm="column">
-                                <md-input-container>
-                                    <label>Group</label>
-                                    <md-select ng-model="loginCtrl.user.groupId">
-                                        <md-option ng-repeat="group in loginCtrl.groups" value="{{group._id}}">{{group.name}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                            <span flex style="color: red">{{loginCtrl.error}}</span>
-                        </form>
-                    </md-content>
-
-                    <div class="md-actions" layout="row">
-
-                        <md-button ng-click="loginCtrl.showCreateAccount = false;loginCtrl.error = ''"> Cancel </md-button>
-                        <md-button ng-click="loginCtrl.createAccount(userForm.$valid)" class="md-primary"> Create Account </md-button>
+    <div class="column" ng-if="!loginCtrl.showCreateAccount">
+        <h2 class="ui teal image header">
+            <img src="/assets/images/1109_ROBOTare369x304.png" class="image">
+            <div class="content">
+                Log-in to your account
+            </div>
+        </h2>
+        <form class="ui large form" name="loginForm">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="text" placeholder="User Name" ng-model="loginCtrl.user.username" required>
                     </div>
                 </div>
-            </md-whiteframe>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password" ng-model="loginCtrl.user.password" required>
+                    </div>
+                </div>
+                <div class="ui fluid large teal submit button" ng-click="loginCtrl.login(loginForm.$valid)">Login</div>
+            </div>
+            <div class="ui error message" ng-class="{'showError':loginCtrl.error.length > 0}"  >{{loginCtrl.error}}</div>
 
-        </section>
+        </form>
 
+        <div class="ui message">
+            New to us? <a href="" ng-click="loginCtrl.showCreateAccount = true;loginCtrl.error = ''">Sign Up</a>
+        </div>
+    </div>
+    <div class="column" ng-if="loginCtrl.showCreateAccount">
+        <h2 class="ui teal image header">
+            <img src="/assets/images/1109_ROBOTare369x304.png" class="image">
+            <div class="content">
+                Create your account
+            </div>
+        </h2>
+        <form class="ui large form" name="userForm">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="text" placeholder="User Name" ng-model="loginCtrl.user.username" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password" ng-model="loginCtrl.user.password" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="text" placeholder="First Name" ng-model="loginCtrl.user.firstName" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="text" placeholder="Last Name" ng-model="loginCtrl.user.lastName" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="email" name="email" placeholder="Email" ng-model="loginCtrl.user.email" required>
+                    </div>
+                </div>
 
-    </md-content>
+                <div class="field">
+                    <dropdown ng-model="loginCtrl.user.groupId" data="loginCtrl.groups"></dropdown>
+                </div>
+                <div class="ui fluid large teal submit button" ng-click="loginCtrl.createAccount(userForm.$valid)">Submit</div>
+            </div>
 
+            <div class="ui error message">{{loginCtrl.error}}</div>
+
+        </form>
+
+        <div class="ui message">
+            <a href="" ng-click="loginCtrl.showCreateAccount = false;loginCtrl.error = ''">Cancel</a>
+        </div>
+    </div>
 </div>
-
-<!--<meteor-include src="loginButtons"></meteor-include>-->
 

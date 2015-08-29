@@ -1,0 +1,20 @@
+body {
+    background-color: #DADADA;
+}
+body > .grid {
+    height: 100%;
+}
+
+.ui.grid{
+    padding-top: 10%;
+}
+.image {
+    margin-top: -100px;
+}
+.column {
+    max-width: 450px;
+}
+.showError{
+    display: block !important;
+}
+
