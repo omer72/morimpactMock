@@ -1,5 +1,5 @@
-angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor',
-  function( $rootScope,$meteor){
+angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor','$state',
+  function( $rootScope,$meteor,$state){
 console.log("dashboardCtrl");
 
     var dc = this;
@@ -64,8 +64,10 @@ console.log("dashboardCtrl");
 
     function init(){
       var generalPlaceId = GeneralPlace.findOne({userId : $rootScope.currentUser._id });
+      var userPrefObject = UserPref.findOne({userId : $rootScope.currentUser._id });
+      dc.userPref = $meteor.object(UserPref,userPrefObject._id );
       dc.userGroup = $meteor.object(Groups,$rootScope.currentUser.profile.groupId);
-
+      dc.user  = $rootScope.currentUser;
       if (!generalPlaceId){
         var generalPlace =
           {'userId': $rootScope.currentUser._id,
@@ -120,8 +122,14 @@ console.log("dashboardCtrl");
       angular.fo
     }
 
-    dc.remove = function(party){
-      dc.parties.splice( dc.parties.indexOf(party), 1 );
+    dc.logout = function(){
+      Meteor.logout(function (value){
+          if (!value){
+              $state.transitionTo('login');
+          }else{
+              console.error(value);
+          }
+      });
     };
 
     dc.removeAll = function(){

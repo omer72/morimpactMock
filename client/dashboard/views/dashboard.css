@@ -1,9 +1,18 @@
 .dashboard{
-    background-size:cover;
+
     background:
-        url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat,
-        url('/assets/images/0001mainBGVars_daylightCloudy1364x768.png');
-    overflow-y: hidden;
+        url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat ,
+        url('/assets/images/0003mainBGVars_daylightSnowing1364x768.png') no-repeat;
+    background-size:100% auto;
+
+    /*background-size:cover;*/
+    /*background:*/
+    /*url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat center center fixed,*/
+    /*url('/assets/images/0001mainBGVars_daylightCloudy1364x768.png') no-repeat center center fixed;*/
+    /*-webkit-background-size:cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*overflow-y: hidden;*/
 
 
 }
@@ -37,4 +46,30 @@
     font-size:12px;
     top:14px;
     width: 100px;
+}
+.ui.inverted.menu{
+    background: #485655;
+    height: 70px;
+}
+.menuButton .label{
+
+    display: block;
+    font-size: 12px;
+    margin-top: -5px;
+    color: white;
+}
+
+.menuButton{
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+
+.menuButton .img{
+    padding-top: 2px;
+}
+
+.ui.inverted.menu .item{
+    padding-left: 0;
+    padding-right: 0;
 }
