@@ -17,9 +17,65 @@
 
 }
 .robot{
+    position: fixed;
+    bottom: 308px;
+
+    /*left: -4px;*/
+}
+
+.robotBase{
+    position: fixed;
+    bottom: 0;
+}
+.robotBall{
+    position: fixed;
+    bottom: 322px;
+    /*left: calc(100%-30px);*/
+}
+
+.goalAncor{
+    position: absolute;
+    top: 45px;
+    left:30px
+}
+
+.firstGoal{
+    position: absolute;
+    top: 110px;
+    left:15px
+}
+.secondGoal{
+    position: absolute;
+    top: 160px;
+    left:15px
+}
+.thirdGoal{
+    position: absolute;
+    top: 210px;
+    left:15px
+}
+
+.firstStar{
     position: relative;
-    bottom: 615px;
-    left: -4px;
+    top: 10%;
+    left: 225px;
+}
+.secondStar{
+    position: relative;
+    top: 40%;
+    left: 136px;
+}
+.thirdStar{
+    position: relative;
+    top: 70%;
+    left: 46px;
+}
+
+.starContainer{
+    position: fixed;
+    bottom: 0;
+    height: 28vh;
+    width: 100vh;
 }
 
 #container
@@ -63,10 +119,11 @@
     vertical-align: top;
     display: inline-block;
     text-align: center;
+    padding: 0 2px 0px 2px;
 }
 
 .menuButton .img{
-    padding-top: 2px;
+    padding-top: 4px;
 }
 
 .ui.inverted.menu .item{

@@ -40,25 +40,25 @@ console.log("dashboardCtrl");
         id:'donation',
         point:'0/0'
       }
-      //,
-      //{
-      //  name: 'Open Leaderboard',
-      //  icon: 'leaderboard',
-      //  sref: '.leaderboard'
-      //},
-      //{
-      //  name: 'פירגון לעמית',
-      //  icon: 'view_module',
-      //  sref: '.table',
-      //  point:''
-      //
-      //},
-      //{
-      //  name: 'Reports',
-      //  icon: 'reports',
-      //  sref: '.table',
-      //  point:'0/0'
-      //}
+      ,
+      {
+        name: 'Leader board',
+        icon: '0419SideMenuElements_BottomLeaderboardFull166x57.png',
+        sref: '.leaderboard'
+      },
+      {
+        name: 'פירגון לחברים',
+        icon: '0421SideMenuElements_BottomFirgunFull166x57.png',
+        sref: '.table',
+        point:''
+
+      },
+      {
+        name: 'Ace Statistics\n',
+        icon: '0423SideMenuElements_BottomStatsFull166x57.png',
+        sref: '.table',
+        point:'0/0'
+      }
     ];
 
 
@@ -68,6 +68,7 @@ console.log("dashboardCtrl");
       dc.userPref = $meteor.object(UserPref,userPrefObject._id );
       dc.userGroup = $meteor.object(Groups,$rootScope.currentUser.profile.groupId);
       dc.user  = $rootScope.currentUser;
+      dc.groups = $meteor.collection(Groups);
       if (!generalPlaceId){
         var generalPlace =
           {'userId': $rootScope.currentUser._id,

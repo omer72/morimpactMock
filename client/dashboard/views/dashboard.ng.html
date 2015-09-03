@@ -9,30 +9,13 @@
                 <img  class="menuButton img" src="assets/images/0312TopMenuElements_TestsIconFull52x52.png">
                 <label class="menuButton label">מבחנים</label>
             </div>
-            <div class="item">
+            <div class="item" style="padding-left: 10px;padding-right: 10px">
                 (<a ng-click="dc.logout()" style="padding-left: 0;padding-right: 0;" class="item">יציאה</a>)
             </div>
             <label class="item" style="padding-left: 0;padding-right: 0;">{{dc.user.profile.name}}</label><label class="item">:</label> <label class="item">שלום</label>
-            <a href="#" class="ui right floated dropdown item">
-                צוות <i class="dropdown icon"></i>
-                <div class="menu">
-                    <div class="item">Link Item</div>
-                    <div class="item">Link Item</div>
-                    <div class="divider"></div>
-                    <div class="header">Header Item</div>
-                    <div class="item">
-                        <i class="dropdown icon"></i>
-                        Sub Menu
-                        <div class="menu">
-                            <div class="item">Link Item</div>
-                            <div class="item">Link Item</div>
-                        </div>
-                    </div>
-                    <div class="item">Link Item</div>
-                </div>
-            </a>
+            <dropdown ng-model="dc.user.groupId" data="dc.groups" name="צוות" style="height:38px;margin:15px 0 0 17%"></dropdown>
 
-            <div href="#" class="header vertically menuButton">
+            <div href="#" class="header vertically menuButton" style="padding-left: 10px">
                 <img  class="menuButton img" src="assets/images/0310TopMenuElements_SettingIconFull52x52.png">
                 <label class="menuButton label">הגדרות</label>
             </div>
@@ -53,25 +36,41 @@
     <div class="ui three column grid container equal height row ">
         <div class="column" >
             <div class="ui container" style="height: 100vh">
-                <div style="height: 50vh"></div>
                 <div style="height: 50vh">
-                    <img src='/assets/images/1001_robotPlatform360x354.png'>
+                    <img src='/assets/images/0701_OpenGoalsNavigatorBG48x179.png' class="goalAncor">
+                    <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' class="firstGoal">
+                    <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' class="secondGoal">
+                    <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' class="thirdGoal">
+                </div>
+                <div style="height: 50vh;position:absolute " >
+                    <img src='/assets/images/1001_robotPlatform360x354.png' class="robotBase">
                     <img ng-src="/assets/images/{{dc.userPref.robotPicName}}_ROBOTare369x304.png" class="robot">
+                    <img src='/assets/images/0801_ImpactCoinsIcon83x72.png' class="robotBall">
+                    <div class="starContainer">
+                        <img src='/assets/images/1003_robotPlatformGoalClosed_1star87x44.png' class="firstStar">
+                        <img src='/assets/images/1004_robotPlatformGoalClosed_2stars87x44.png' class="secondStar">
+                        <img src='/assets/images/1005_robotPlatformGoalClosed_3stars87x44.png' class="thirdStar">
+                    </div>
 
                 </div>
             </div>
         </div>
         <div class="column" style="width: 45% !important;">
             <div class="ui container" style="height: 100vh;">
-                <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:5s;padding-bottom: 110px">
-                <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:4s;margin-left: -25px;padding-bottom: 0px">
-                <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:6s;margin-left: -28px;padding-bottom: 100px">
+                <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:10s;padding-bottom: 110px">
+                <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:14s;margin-left: -25px;padding-bottom: 0px">
+                <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:12s;margin-left: -28px;padding-bottom: 100px">
                 <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" style="position: absolute;top: 42px;left: -10px">
             </div>
         </div>
-        <div class="column" style="padding-top: 80px;width: 225px !important;">
+        <div class="column" style="padding-top: 60px;width: 225px !important;">
             <div class="ui container" style="height: 100vh;text-align: right">
-
+                <div id="container" style="width: 150px;height: 35px">
+                    <a href=""> <img id="image" style="position: relative" src="/assets/images/0405SideMenuElements_ViewBy_Campaign24x25.png"/></a>
+                    <a href=""> <img id="image" style="position: relative" src="/assets/images/0403SideMenuElements_ViewBy_Day24x25.png"/></a>
+                    <a href=""> <img id="image" style="position: relative" src="/assets/images/0401SideMenuElements_ViewBy_Month24x25.png"/></a>
+                    <label style="vertical-align: 10px">: תצוגה לפי</label>
+                </div>
 
                 <div ng-repeat="item in dc.menuItems" style="padding-bottom: 17px">
 

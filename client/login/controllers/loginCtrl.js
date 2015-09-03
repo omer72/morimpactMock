@@ -63,9 +63,10 @@ console.log("loginCtrl");
             replace: true,
             scope: {
                 ngModel: '=',
-                data: '='
+                data: '=',
+                name:'@'
             },
-            template: '<div class="ui selection dropdown"><input type="hidden" name="id"><div class="default text">Group</div><i class="dropdown icon"></i><div class="menu"><div class="item" ng-repeat="item in data" data-value="{{item._id}}">{{item.name}}</div></div></div>',
+            template: '<div class="ui selection dropdown"><input type="hidden" name="id"><div class="default text">{{name}}</div><i class="dropdown icon"></i><div class="menu"><div class="item" ng-repeat="item in data" data-value="{{item._id}}">{{item.name}}</div></div></div>',
             link: function (scope, elm, attr) {
                 // initialize the dropdown after angular is completely done
                 // digesting this directive
