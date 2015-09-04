@@ -111,6 +111,14 @@ console.log("dashboardCtrl");
         salesId._id = Sales.insert(sales);
       }
       dc.sales = $meteor.object(Sales, salesId._id);
+
+      var usersByGroup = Meteor.users.find({"profile.groupId":$rootScope.currentUser.profile.groupId}).fetch();
+      dc.userId = [];
+      dc.usersMap = {};
+      angular.forEach(usersByGroup, function(value, key) {
+          dc.userId.push(value._id);
+          dc.usersMap[value._id] = value.profile.name;
+      });
     }
 
     init();
@@ -133,7 +141,19 @@ console.log("dashboardCtrl");
       });
     };
 
-    dc.removeAll = function(){
-      dc.parties.remove();
-    };
+    dc.clickMenu = function(ev,value){
+        console.log(value);
+        dc.gp = GeneralPlace.find({userId:{"$in":dc.userId}}).fetch();
+        console.log(dc.gp);
+        dc.show_modal = true;
+    }
+     dc.close_modal = function(){
+        $scope.show_modal = false;
+    }
+
+    //dc.removeAll = function(){
+    //  dc.parties.remove();
+    //};
+
+
 }]);

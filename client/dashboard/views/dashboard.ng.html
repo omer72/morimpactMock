@@ -71,11 +71,38 @@
                     <a href=""> <img id="image" style="position: relative" src="/assets/images/0401SideMenuElements_ViewBy_Month24x25.png"/></a>
                     <label style="vertical-align: 10px">: תצוגה לפי</label>
                 </div>
-
+                <modal ng-model="dc.show_modal">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="header">
+                        Change Your Homepage
+                    </div>
+                    <div class="content">
+                        <div class="left">
+                            <i class="home icon"></i>
+                        </div>
+                        <div class="right">
+                            <div ng-repeat="item in dc.gp">
+                                {{dc.usersMap[item.userId]}} {{item.points}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div class="two fluid ui buttons">
+                            <div class="ui negative labeled icon button">
+                                <i class="remove icon"></i>
+                                No
+                            </div>
+                            <div class="ui positive right labeled icon button">
+                                Yes
+                                <i class="checkmark icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </modal>
                 <div ng-repeat="item in dc.menuItems" style="padding-bottom: 17px">
 
 
-                    <div id="container">
+                    <div id="container" ng-click="dc.clickMenu($event,item.id)">
                         <a href=""> <img id="image" src="/assets/images/{{item.icon}}"/>
                         <p id="text">
                             {{item.name}}<br/> {{dc[item.scopeName].points}}
