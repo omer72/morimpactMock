@@ -1,9 +1,7 @@
 .dashboard{
 
-    background:
-        url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat ,
-        url('/assets/images/0003mainBGVars_daylightSnowing1364x768.png') no-repeat;
-    background-size:100% auto;
+
+
 
     /*background-size:cover;*/
     /*background:*/
@@ -129,4 +127,31 @@
 .ui.inverted.menu .item{
     padding-left: 0;
     padding-right: 0;
+}
+
+.ui.dimmer{
+    background-color: transparent;
+
+}
+
+.leaderBoard{
+    background-color: transparent !important;
+    position: fixed !important;
+    top: 405px !important;
+    left: 562px !important;
+}
+
+.leaderBoardContent{
+    background: url('/assets/images/LeaderBoard/010101LeaderBoardTabletBG869x624.png') no-repeat !important;
+    width: 900px;
+    height: 630px;
+
+}
+
+.eight{
+    width: 12.5% !important;
+    text-align: center;
+    position:fixed;
+    bottom: 30px;
+    left: 10%
 }

@@ -1,4 +1,7 @@
-<div class="dashboard">
+<div class="dashboard" style="background:
+        url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat ,
+        url('/assets/images/{{dc.userPref.backgroundPicture}}1364x768.png') no-repeat;
+        background-size:100% auto;">
     <div class="ui fixed inverted menu">
         <div class="ui container">
             <div href="#" class="header vertically menuButton">
@@ -71,38 +74,79 @@
                     <a href=""> <img id="image" style="position: relative" src="/assets/images/0401SideMenuElements_ViewBy_Month24x25.png"/></a>
                     <label style="vertical-align: 10px">: תצוגה לפי</label>
                 </div>
-                <modal ng-model="dc.show_modal">
+                <modal ng-model="dc.show_modal" style="width: 200px;left: 85%;text-align: center;background: #485655 !important;color: white">
                     <i class="close icon" ng-click="dc.close_modal()"></i>
-                    <div class="header">
-                        Change Your Homepage
+                    <div class="header" style="background: #485655;color: white">
+                        {{dc.title}}
                     </div>
-                    <div class="content">
+                    <div class="content" style="background: #485655;height: 300px">
                         <div class="left">
-                            <i class="home icon"></i>
-                        </div>
-                        <div class="right">
-                            <div ng-repeat="item in dc.gp">
-                                {{dc.usersMap[item.userId]}} {{item.points}}
+                            <div ng-repeat="item in dc.gp" style="overflow: auto">
+                                <span style="float: left;">{{item.points}}</span>
+                                <span style="float: right;">{{dc.usersMap[item.userId]}}</span>
+
                             </div>
                         </div>
                     </div>
-                    <div class="actions">
-                        <div class="two fluid ui buttons">
-                            <div class="ui negative labeled icon button">
-                                <i class="remove icon"></i>
-                                No
-                            </div>
-                            <div class="ui positive right labeled icon button">
-                                Yes
+                    <div class="actions" style="background: #485655">
+                        <div class="one fluid ui buttons">
+
+                            <div class="ui positive right labeled icon button" style="width: auto">
+                                Close
                                 <i class="checkmark icon"></i>
                             </div>
                         </div>
                     </div>
                 </modal>
-                <div ng-repeat="item in dc.menuItems" style="padding-bottom: 17px">
+
+                <modal ng-model="dc.show_leaderboard" class="leaderBoard">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="image content leaderBoardContent" >
+
+                        <div class="description">
+                            <div class="ui grid animated fadeInRightBig" style="width: 97%; padding-left: 70px; margin-top: 200px;padding-top:inherit">
+                                <div style="position:fixed;bottom: 30px; left: 10%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010401LeaderBoardPlatformsRobots01_39x17.png" >
+                                    <img src="/assets/images/LeaderBoard/010301LeaderBoardPlatforms01White68x82.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 20%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010402LeaderBoardPlatformsRobots02_39x22.png" >
+                                    <img src="/assets/images/LeaderBoard/010303LeaderBoardPlatforms02White68x117.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 30%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010403LeaderBoardPlatformsRobots03_39x22.png" >
+                                    <img src="/assets/images/LeaderBoard/010305LeaderBoardPlatforms03White68x150.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 40%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010404LeaderBoardPlatformsRobots04_39x29.png" >
+                                    <img src="/assets/images/LeaderBoard/010307LeaderBoardPlatforms04White68x183.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 50%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010405LeaderBoardPlatformsRobots05_39x40.png" >
+                                    <img src="/assets/images/LeaderBoard/010309LeaderBoardPlatforms05White68x216.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 60%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010406LeaderBoardPlatformsRobots06_39x44.png" >
+                                    <img src="/assets/images/LeaderBoard/010311LeaderBoardPlatforms06White68x249.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 70%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010407LeaderBoardPlatformsRobots07_39x48.png" >
+                                    <img src="/assets/images/LeaderBoard/010313LeaderBoardPlatforms07White68x282.png">
+                                </div>
+                                <div style="position:fixed;bottom: 30px; left: 80%" class="eight column">
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010408LeaderBoardPlatformsRobots08_39x52.png" >
+                                    <img src="/assets/images/LeaderBoard/010315LeaderBoardPlatforms08White68x326.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </modal>
+
+                <div ng-repeat="item in dc.menuItems" style="padding-bottom: 10px">
 
 
-                    <div id="container" ng-click="dc.clickMenu($event,item.id)">
+                    <div id="container" ng-click="dc.clickMenu($event,item)">
                         <a href=""> <img id="image" src="/assets/images/{{item.icon}}"/>
                         <p id="text">
                             {{item.name}}<br/> {{dc[item.scopeName].points}}

@@ -5,9 +5,7 @@ console.log("loginCtrl");
     var loginCtrl = this;
     loginCtrl.showCreateAccount = false;
     loginCtrl.groups = $meteor.collection(Groups);
-    Accounts.ui.config({
-      passwordSignupFields:  "USERNAME_ONLY"
-    })
+
     loginCtrl.createAccount = function(isValid){
       if (!isValid)
         return;
