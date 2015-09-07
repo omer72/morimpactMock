@@ -130,7 +130,8 @@
 }
 
 .ui.dimmer{
-    background-color: transparent;
+    /*background-color: rgba(0, 0, 0, 0.87);*/
+    background-color:transparent;
 
 }
 
@@ -138,14 +139,47 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 405px !important;
-    left: 562px !important;
+    left: 575px !important;
 }
 
 .leaderBoardContent{
-    background: url('/assets/images/LeaderBoard/010101LeaderBoardTabletBG869x624.png') no-repeat !important;
+    background: url('/assets/images/LeaderBoard/010102LeaderBoardTabletBGNoBLroboticHand869x624.png') no-repeat !important;
     width: 900px;
     height: 630px;
 
+}
+.leaderBoardScore{
+    overflow: auto;
+    font-size: 12px;
+    font-family: Ariel;
+    font-weight: bold;
+
+}
+
+.leaderBoardHeader{
+    color: #ffffff;
+    font-size: 47px;
+    position: fixed;
+    bottom: 420px;
+    right: 130px;
+}
+
+.leaderBoardHeaderLeftArrow{
+    position: fixed;
+    bottom: 430px;
+    right: 460px;
+}
+.leaderBoardHeaderRightArrow{
+    position: fixed;
+    bottom: 430px;
+    right: 90px;
+}
+.leaderBoardSubHeader{
+    color: #ffffff;
+    font-size: 30px;
+    position: fixed;
+    bottom: 380px;
+    right: 190px;
 }
 
 .eight{

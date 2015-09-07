@@ -15,7 +15,7 @@
             <div class="item" style="padding-left: 10px;padding-right: 10px">
                 (<a ng-click="dc.logout()" style="padding-left: 0;padding-right: 0;" class="item">יציאה</a>)
             </div>
-            <label class="item" style="padding-left: 0;padding-right: 0;">{{dc.user.profile.name}}</label><label class="item">:</label> <label class="item">שלום</label>
+            <label class="item" style="padding-left: 0;padding-right: 0;">{{dc.user.profile.lastName}} {{dc.user.profile.firstName}}</label><label class="item">:</label> <label class="item">שלום</label>
             <dropdown ng-model="dc.user.groupId" data="dc.groups" name="צוות" style="height:38px;margin:15px 0 0 17%"></dropdown>
 
             <div href="#" class="header vertically menuButton" style="padding-left: 10px">
@@ -83,7 +83,7 @@
                         <div class="left">
                             <div ng-repeat="item in dc.gp" style="overflow: auto">
                                 <span style="float: left;">{{item.points}}</span>
-                                <span style="float: right;">{{dc.usersMap[item.userId]}}</span>
+                                <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
 
                             </div>
                         </div>
@@ -102,40 +102,151 @@
                 <modal ng-model="dc.show_leaderboard" class="leaderBoard">
                     <i class="close icon" ng-click="dc.close_modal()"></i>
                     <div class="image content leaderBoardContent" >
-
                         <div class="description">
-                            <div class="ui grid animated fadeInRightBig" style="width: 97%; padding-left: 70px; margin-top: 200px;padding-top:inherit">
-                                <div style="position:fixed;bottom: 30px; left: 10%" class="eight column">
+                            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                                <div class="leaderBoardHeaderLeftArrow" ng-click="dc.showPref()"><img src="/assets/images/LeaderBoard/0100501LeaderBoardPagingSubjectArrowBtnLeft12x27.png"></div>
+                                <div class="leaderBoardHeader">
+                                    אורך שיחה להיום
+                                </div>
+                                <div class="leaderBoardHeaderRightArrow" ng-click="dc.showNext()"><img src="/assets/images/LeaderBoard/0100502LeaderBoardPagingSubjectArrowBtnRight12x27.png"></div>
+                                <div class="leaderBoardSubHeader">
+מציג:
+                                    {{dc.leaderBoardData.length}} / {{dc.showingLeaderBoardValues}}
+                                </div>
+
+                                <div ng-if="dc.leaderBoardArray[0]" style="position:fixed;bottom: 30px; left: 10% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010401LeaderBoardPlatformsRobots01_39x17.png" >
                                     <img src="/assets/images/LeaderBoard/010301LeaderBoardPlatforms01White68x82.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 20%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[0]" style="position: fixed;margin-bottom: 56px;left: 13%; color: #89c43e; " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[0].points}}</div>
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[0]" style="position:fixed;margin-bottom: 25px; left: 10% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[0].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[0].clientSystemId][1]}}</div>
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[1]" style="position:fixed;bottom: 30px; left: 20%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010402LeaderBoardPlatformsRobots02_39x22.png" >
                                     <img src="/assets/images/LeaderBoard/010303LeaderBoardPlatforms02White68x117.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 30%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[1]" style="position:fixed;margin-bottom: 86px; left: 23%;color: #89c43e " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[1].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[1]" style="position:fixed;margin-bottom: 55px; left: 20% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[1].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[1].clientSystemId][1]}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[2]" style="position:fixed;bottom: 30px; left: 30%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010403LeaderBoardPlatformsRobots03_39x22.png" >
                                     <img src="/assets/images/LeaderBoard/010305LeaderBoardPlatforms03White68x150.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 40%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[2]" style="position:fixed;margin-bottom: 116px; left: 33%;color: #89c43e " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[2].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[2]" style="position:fixed;margin-bottom: 85px; left: 30% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[2].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[2].clientSystemId][1]}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[3]" style="position:fixed;bottom: 30px; left: 40%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010404LeaderBoardPlatformsRobots04_39x29.png" >
                                     <img src="/assets/images/LeaderBoard/010307LeaderBoardPlatforms04White68x183.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 50%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[3]" style="position:fixed;margin-bottom: 146px; left: 43% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[3].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[3]" style="position:fixed;margin-bottom: 115px; left: 40% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[3].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[3].clientSystemId][1]}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[4]" style="position:fixed;bottom: 30px; left: 50%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010405LeaderBoardPlatformsRobots05_39x40.png" >
                                     <img src="/assets/images/LeaderBoard/010309LeaderBoardPlatforms05White68x216.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 60%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[4]" style="position:fixed;margin-bottom: 176px; left: 53% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[4].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[4]" style="position:fixed;margin-bottom: 145px; left: 50% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[4].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[4].clientSystemId][1]}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[5]" style="position:fixed;bottom: 30px; left: 60%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010406LeaderBoardPlatformsRobots06_39x44.png" >
                                     <img src="/assets/images/LeaderBoard/010311LeaderBoardPlatforms06White68x249.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 70%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[5]" style="position:fixed;margin-bottom: 206px; left: 63%;color: #89c43e " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[5].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[5]" style="position:fixed;margin-bottom: 170px; left: 60% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[5].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[5].clientSystemId][1]}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[6]" style="position:fixed;bottom: 30px; left: 70%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010407LeaderBoardPlatformsRobots07_39x48.png" >
                                     <img src="/assets/images/LeaderBoard/010313LeaderBoardPlatforms07White68x282.png">
                                 </div>
-                                <div style="position:fixed;bottom: 30px; left: 80%" class="eight column">
+                                <div ng-if="dc.leaderBoardArray[6]" style="position:fixed;margin-bottom: 236px; left: 73% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[6].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[6]" style="position:fixed;margin-bottom: 200px; left: 70% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[6].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[6].clientSystemId][1]}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[7]" style="position:fixed;bottom: 30px; left: 80%" class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/010408LeaderBoardPlatformsRobots08_39x52.png" >
                                     <img src="/assets/images/LeaderBoard/010315LeaderBoardPlatforms08White68x326.png">
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[7]" style="position:fixed;bottom: 286px; left: 83% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.leaderBoardArray[7].points}}</div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="dc.leaderBoardArray[7]" style="position:fixed;bottom: 255px; left: 80% " class="eight column animated {{dc.leaderBoardAnimation}}">
+                                    <div class="leaderBoardScore">
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[7].clientSystemId][0]}}</div>
+                                        <div >{{dc.usersMap[dc.leaderBoardArray[7].clientSystemId][1]}}</div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

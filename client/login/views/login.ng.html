@@ -11,8 +11,8 @@
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <input type="text" name="text" placeholder="User Name" ng-model="loginCtrl.user.username" required>
+                        <i class="mail icon"></i>
+                        <input type="email" name="email" placeholder="Email" ng-model="loginCtrl.user.email" required>
                     </div>
                 </div>
                 <div class="field">
@@ -38,6 +38,9 @@
                 Create your account
             </div>
         </h2>
+        <input type="file" file-reader="loginCtrl.fileContent" />
+        <a ng-click="loginCtrl.saveFile()">Save File</a>
+
         <form class="ui large form" name="userForm">
             <div class="ui stacked segment">
                 <div class="field">

@@ -1,0 +1,1 @@
+Contributes = new Mongo.Collection("contributes");

@@ -5,6 +5,44 @@ console.log("loginCtrl");
     var loginCtrl = this;
     loginCtrl.showCreateAccount = false;
     loginCtrl.groups = $meteor.collection(Groups);
+    loginCtrl.fileContent = [];
+
+    loginCtrl.saveFile = function(){
+        console.log(loginCtrl.fileContent);
+        var fileContentArray = loginCtrl.fileContent.split('\n');
+        var fileContentArrayData = [];
+        for (var index = 1;index<fileContentArray.length;index++){
+            fileContentArrayData = fileContentArray[index].split(',');
+            var user = {
+
+                'email':fileContentArrayData[7],
+                'password':'123456',
+
+                'profile':{
+                    'email':fileContentArrayData[7],
+                    'firstName':fileContentArrayData[1],
+                    'lastName':fileContentArrayData[2],
+                    'groupId':fileContentArrayData[6],
+                    'phoneNumber':fileContentArrayData[8],
+                    'clientSystemId':fileContentArrayData[9],
+                    'userType':fileContentArrayData[11],
+                    'sumPoints':fileContentArrayData[11],
+                    'created':fileContentArrayData[3],
+                    'updated':fileContentArrayData[4],
+                    'id':fileContentArrayData[0]
+                }
+            };
+            Accounts.createUser(user,function(err){
+                if(!err) {
+                    //Router.go('/');
+                    console.log("create Account succeess");
+                    //$state.transitionTo('dashboard');
+                }else{
+                    loginCtrl.error = err.reason;
+                }
+            });
+        }
+    }
 
     loginCtrl.createAccount = function(isValid){
       if (!isValid)
@@ -16,7 +54,6 @@ console.log("loginCtrl");
       var firstname = loginCtrl.user.firstName;
       var lastname = loginCtrl.user.lastName;
       var groupId = loginCtrl.user.groupId;
-
       var user = {username:username,password:password,profile:{'email':email,name:firstname +" "+lastname,groupId:groupId}};
 
       Accounts.createUser(user,function(err){
@@ -38,11 +75,11 @@ console.log("loginCtrl");
       if (!isValid)
         return;
       loginCtrl.error = ""
-      var username = loginCtrl.user.username;
+      var email = loginCtrl.user.email;
       var password = loginCtrl.user.password;
 
 
-      Meteor.loginWithPassword(username,password,function(err){
+      Meteor.loginWithPassword(email,password,function(err){
         if(!err) {
           console.log("login Account succeess");
           $state.transitionTo('dashboard');
@@ -104,4 +141,27 @@ console.log("loginCtrl");
             });
         }
     }
-});
+})
+    .directive('fileReader', function() {
+        return {
+            scope: {
+                fileReader:"="
+            },
+            link: function(scope, element) {
+                $(element).on('change', function(changeEvent) {
+                    var files = changeEvent.target.files;
+                    if (files.length) {
+                        var r = new FileReader();
+                        r.onload = function(e) {
+                            var contents = e.target.result;
+                            scope.$apply(function () {
+                                scope.fileReader = contents;
+                            });
+                        };
+
+                        r.readAsText(files[0]);
+                    }
+                });
+            }
+        };
+    });

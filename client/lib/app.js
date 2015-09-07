@@ -4,9 +4,9 @@ angular.module('morimpact',[
 
 function onReady() {
     angular.bootstrap(document, ['morimpact']);
-    Accounts.ui.config({
-        passwordSignupFields:  "USERNAME_ONLY"
-    })
+    //Accounts.ui.config({
+    //    passwordSignupFields:  "USERNAME_ONLY"
+    //})
 }
 
 if (Meteor.isCordova)
