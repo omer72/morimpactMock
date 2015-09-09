@@ -1,0 +1,8 @@
+<div class="ui fluid search selection dropdown" style="text-align: right;border-radius: 500rem;">
+    <input type="hidden" name="clientSystemId">
+    <i class="search icon"></i>
+    <div class="default text">{{name}}</div>
+    <div class="menu">
+        <div class="item" data-value="{{item.name}}" ng-repeat="item in data" style="text-align: right">{{item.name}}</div>
+    </div>
+</div>

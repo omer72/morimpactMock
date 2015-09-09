@@ -1,13 +1,38 @@
 body {
-    background-color: #DADADA;
+    background-color: black;
     overflow: hidden;
+
+    background-size:cover;
+    background:
+    url("/assets/images/LoginScreen/050103LoginScreen_BGElements1363x707.png") no-repeat,
+    url("/assets/images/LoginScreen/050101LoginScreen_StarfieldBG1363x707.png") no-repeat;
+
+    /*background:*/
+    /*url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat center center fixed,*/
+    /*url('/assets/images/0001mainBGVars_daylightCloudy1364x768.png') no-repeat center center fixed;*/
+    background-size:100% auto;
+    overflow-y: hidden;
 }
 body > .grid {
     height: 100%;
 }
 
 .ui.grid{
-    padding-top: 10%;
+    padding-top: 195px;
+    margin-right: 70px;
+}
+.ui.segment{
+    background-color: transparent;
+    border: none;
+}
+
+.ui.teal.button {
+    width: 50%;
+    float: right;
+}
+.newUser{
+    padding-top: 60px;
+    text-align: right;
 }
 .image {
     margin-top: -100px;

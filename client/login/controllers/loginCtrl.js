@@ -26,7 +26,7 @@ console.log("loginCtrl");
                     'phoneNumber':fileContentArrayData[8],
                     'clientSystemId':fileContentArrayData[9],
                     'userType':fileContentArrayData[11],
-                    'sumPoints':fileContentArrayData[11],
+                    'sumPoints':fileContentArrayData[10],
                     'created':fileContentArrayData[3],
                     'updated':fileContentArrayData[4],
                     'id':fileContentArrayData[0]
@@ -103,6 +103,7 @@ console.log("loginCtrl");
             },
             template: '<div class="ui selection dropdown"><input type="hidden" name="id"><div class="default text">{{name}}</div><i class="dropdown icon"></i><div class="menu"><div class="item" ng-repeat="item in data" data-value="{{item._id}}">{{item.name}}</div></div></div>',
             link: function (scope, elm, attr) {
+                console.log("dropdown");
                 // initialize the dropdown after angular is completely done
                 // digesting this directive
                 $timeout(function() {
@@ -120,6 +121,8 @@ console.log("loginCtrl");
             }
         };
     }])
+
+
 
 .directive('modal', function () {
     return {
@@ -165,3 +168,4 @@ console.log("loginCtrl");
             }
         };
     });
+

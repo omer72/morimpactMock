@@ -17,12 +17,11 @@
             </div>
             <label class="item" style="padding-left: 0;padding-right: 0;">{{dc.user.profile.lastName}} {{dc.user.profile.firstName}}</label><label class="item">:</label> <label class="item">שלום</label>
             <dropdown ng-model="dc.user.groupId" data="dc.groups" name="צוות" style="height:38px;margin:15px 0 0 17%"></dropdown>
-
-            <div href="#" class="header vertically menuButton" style="padding-left: 10px">
+            <div href="#" class="header vertically menuButton" ng-click="dc.show_target = true;" style="cursor:pointer;padding-left: 10px">
                 <img  class="menuButton img" src="assets/images/0310TopMenuElements_SettingIconFull52x52.png">
                 <label class="menuButton label">הגדרות</label>
             </div>
-            <div href="#" class="header vertically menuButton">
+            <div class="header vertically menuButton" ng-click="dc.show_shop = true;" style="cursor:pointer">
                 <img  class="menuButton img" src="assets/images/0307TopMenuElements_ShopIconFull52x52.png">
                 <label class="menuButton label">חנות</label>
             </div>
@@ -83,6 +82,55 @@
                         <div class="left">
                             <div ng-repeat="item in dc.gp" style="overflow: auto">
                                 <span style="float: left;">{{item.points}}</span>
+                                <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions" style="background: #485655">
+                        <div class="one fluid ui buttons">
+
+                            <div class="ui positive right labeled icon button" style="width: auto">
+                                Close
+                                <i class="checkmark icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </modal>
+                <modal ng-model="dc.show_generalPlace" style="width: 200px;left: 85%;text-align: center;background: #485655 !important;color: white">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="header" style="background: #485655;color: white">
+                        {{dc.title}}
+                    </div>
+                    <div class="content" style="background: #485655;height: 300px">
+                        <div class="left">
+                            <div ng-repeat="item in dc.gp" style="overflow: auto">
+                                <span style="float: left;">{{item.profile.sumPoints}}</span>
+                                <span style="float: right;">{{dc.usersMap[item.profile.clientSystemId][0]+' '+dc.usersMap[item.profile.clientSystemId][1]}}</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions" style="background: #485655">
+                        <div class="one fluid ui buttons">
+
+                            <div class="ui positive right labeled icon button" style="width: auto">
+                                Close
+                                <i class="checkmark icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </modal>
+                <modal ng-model="dc.show_contributePercentage" style="width: 200px;left: 85%;text-align: center;background: #485655 !important;color: white">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="header" style="background: #485655;color: white">
+                        {{dc.title}}
+                    </div>
+                    <div class="content" style="background: #485655;height: 300px">
+                        <div class="left">
+                            <div ng-repeat="item in dc.gp" style="overflow: auto">
+                                {{item}}
+                                <span style="float: left;">{{item.contributePercentage}}</span>
                                 <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
 
                             </div>
@@ -254,6 +302,40 @@
 
                 </modal>
 
+                <modal ng-model="dc.show_shop" class="shop">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="image content shopContent" >
+                        <div class="description">
+                            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                                <div class="shopHeader">
+GOODIES בחר/י
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </modal>
+
+                <modal ng-model="dc.show_target" class="target">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="image content targetContent" >
+                        <div class="description">
+                            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                                <div class="targetHeader">
+                                    ניהול יעדים
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </modal>
+
+                <firgunim showfirgunim="dc.show_firgunim" users-records="dc.usersRecords"></firgunim>
+
+
+
                 <div ng-repeat="item in dc.menuItems" style="padding-bottom: 10px">
 
 
@@ -274,25 +356,6 @@
     </div>
 </div>
 
-    <!--<div layout="row" flex>-->
-        <!--<md-content flex class="md-padding page-content">-->
-            <!--<div ui-view>adasd</div>-->
-        <!--</md-content>-->
-        <!--<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="right"-->
-                <!--class="md-whiteframe-z2 md-sidenav-right">-->
-            <!--<md-button ng-repeat-start="item in dc.menuItems" layout="column" layout-align="center center"-->
-                       <!--flex class="capitalize" ng-click="dc.showCompleteList(item)"-->
-                       <!--ui-sref-active="md-warn" >-->
-                <!--<div hide-sm hide-md class="md-tile-content">-->
-                    <!--<i class="material-icons md-36">{{item.icon}}</i>-->
-                <!--</div>-->
-                <!--<div class="md-tile-content">-->
-                    <!--{{item.name}} {{dc[item.scopeName].points}}-->
 
-                <!--</div>-->
-            <!--</md-button>-->
-            <!--<md-divider ng-repeat-end></md-divider>-->
-        <!--</md-sidenav>-->
-    <!--</div>-->
 
 

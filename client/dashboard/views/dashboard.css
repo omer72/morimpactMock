@@ -118,6 +118,7 @@
     display: inline-block;
     text-align: center;
     padding: 0 2px 0px 2px;
+
 }
 
 .menuButton .img{
@@ -140,10 +141,55 @@
     position: fixed !important;
     top: 405px !important;
     left: 575px !important;
+    box-shadow: none !important;
+}
+
+.shop{
+    background-color: transparent !important;
+    position: fixed !important;
+    top: 435px !important;
+    left: 575px !important;
+    box-shadow: none !important;
+}
+
+.target{
+    background-color: transparent !important;
+    position: fixed !important;
+    top: 435px !important;
+    left: 575px !important;
+    box-shadow: none !important;
+}
+.firgunim{
+    background-color: transparent !important;
+    position: fixed !important;
+    top: 500px !important;
+    left: 575px !important;
+    box-shadow: none !important;
 }
 
 .leaderBoardContent{
     background: url('/assets/images/LeaderBoard/010102LeaderBoardTabletBGNoBLroboticHand869x624.png') no-repeat !important;
+    width: 900px;
+    height: 630px;
+
+}
+
+.shopContent{
+    background: url('/assets/images/Shop/020101ShopBGcover845x586.png') no-repeat !important;
+    width: 900px;
+    height: 630px;
+
+}
+
+.targetContent{
+    background: url('/assets/images/goalAdmin/040103GoalsAdmin_BGFull01_810x612.png') no-repeat !important;
+    width: 900px;
+    height: 630px;
+
+}
+
+.firgunimContent{
+    background: url('/assets/images/Firgunim/030102FirgunimBGwithConnector822x562.png') no-repeat !important;
     width: 900px;
     height: 630px;
 
@@ -163,6 +209,24 @@
     bottom: 420px;
     right: 130px;
 }
+
+.shopHeader{
+    color: #ffffff;
+    font-size: 47px;
+    position: fixed;
+    bottom: 420px;
+    right: 130px;
+}
+
+.targetHeader{
+    color: #acacac;
+    font-size: 47px;
+    position: fixed;
+    bottom: 420px;
+    right: 330px;
+}
+
+
 
 .leaderBoardHeaderLeftArrow{
     position: fixed;
@@ -189,3 +253,5 @@
     bottom: 30px;
     left: 10%
 }
+
+

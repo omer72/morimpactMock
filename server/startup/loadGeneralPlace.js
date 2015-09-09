@@ -8,3 +8,7 @@ Meteor.startup(function () {
   //    GeneralPlace.insert({userId: generalPlace[i].userId, position: generalPlace[i].position});
   //}
 });
+
+Meteor.publish("allUsers", function () {
+    return Meteor.users.find({});
+});

@@ -1,0 +1,51 @@
+.firgunimHeader{
+    color: #3e3e3f;
+    font-size: 47px;
+    position: fixed;
+    bottom: 520px;
+    right: 330px;
+    font-family: Ariel;
+}
+
+.firgunimSearch{
+    position: fixed;
+    top: 0;
+    right: 240px;
+    font-family: Ariel;
+    text-align: center;
+    margin-bottom: 300px;
+    /*overflow-y: scroll;*/
+    max-height: 400px;
+    width: 600px;
+    font-size: 18px;
+}
+
+.firgunimSelection{
+    position: fixed;
+    top: 60px;
+    right: 240px;
+    font-family: Ariel;
+    text-align: center;
+    margin-bottom: 300px;
+    /*overflow-y: scroll;*/
+    max-height: 400px;
+    width: 600px;
+    font-size: 18px;
+}
+
+.firgunimSearchResult{
+    text-align: right;
+    font-size: 16px;
+}
+
+.firgunimTable{
+    font-size: 14px;
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    padding: 20px;
+    width: inherit;
+    height: 320px;
+    background-color: white;
+    text-align: right;
+
+}

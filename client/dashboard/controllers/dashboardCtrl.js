@@ -1,10 +1,12 @@
-angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor','$state',
-    function( $rootScope,$meteor,$state) {
+angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor','$state','$scope',
+    function( $rootScope,$meteor,$state,$scope) {
         console.log("dashboardCtrl");
 
         var dc = this;
         var generalPointsIndex = -1;
         var leaderBoardIndex = 0;
+        dc.searchPosition = 1;
+        dc.searchData ="";
         dc.leaderBoardAnimation = "fadeInRightBig"
         dc.showingLeaderBoardValues = "1-8"
         dc.menuItems = [
@@ -55,7 +57,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 name: 'פירגון לחברים',
                 icon: '0421SideMenuElements_BottomFirgunFull166x57.png',
                 sref: '.table',
-                scopeName: 'firgon'
+                scopeName: 'firgunim'
 
             },
             {
@@ -150,6 +152,8 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 dc.userId.push(value.profile.clientSystemId);
                 dc.usersMap[value.profile.clientSystemId] = [value.profile.firstName,value.profile.lastName];
             });
+            dc.usersRecords = [{a:1}];
+            dc.usersRecords = $meteor.collection(UsersRecords);
         }
 
         init();
@@ -173,8 +177,8 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             console.log(value);
             switch (value.scopeName) {
                 case "generalPlace":
-                    dc.gp = GeneralPlace.find({userId: {"$in": dc.userId}}).fetch();
-                    dc.show_modal = true;
+                    dc.gp = Meteor.users.find({ "profile.groupId" : $rootScope.currentUser.profile.groupId}, {sort: {sumPoints: 1}}).fetch();
+                    dc.show_generalPlace = true;
                     break;
                 case "talks":
                     dc.gp = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
@@ -197,6 +201,10 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                     dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
                     leaderBoardIndex = 0;
                     dc.leaderBoardArray = getLeaderBoardArray(leaderBoardIndex);
+                    break;
+                case "firgunim":
+                    dc.show_firgunim = true;
+                    dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
                     break;
             }
 
@@ -237,4 +245,30 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             }
 
         }
+
+
+        $scope.$watch('dc.searchData',  function(val){
+            console.log(dc.searchData);
+            dc.usersResult = Meteor.users.find({ "profile.firstName" : {$regex:dc.searchData,$options:'i'}}).fetch();
+        });
+
+        dc.fargenUser = function(user){
+            dc.selectUser = user;
+            dc.searchPosition = 2;
+        }
+        
+        dc.sendFirgun = function () {
+            debugger;
+            var firgun =
+                {
+                    'userId': dc.selectUser._id,//$rootScope.currentUser._id,
+                    'clientSystemId': dc.selectUser.profile.clientSystemId,
+                    'firgunBy':$rootScope.currentUser._id,
+                    'firgunText':"blsbla",
+                    'firgunIcon':"030305FirgunimInnerPagesElements_Bages71x71"
+                }
+                ;
+            Firgunim.insert(firgun);
+        }
+
     }]);

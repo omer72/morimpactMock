@@ -1,0 +1,69 @@
+<modal ng-model="showfirgunim" class="firgunim">
+    <i class="close icon" ng-click="dc.close_modal()"></i>
+    <div class="image content firgunimContent" >
+        <div class="description">
+            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                <div class="firgunimHeader">
+                    פירגונים לחברים
+                </div>
+
+                <div class="firgunimSearch">
+
+                    <dropdownsearch ng-model="selectUser" data="usersRecords" name="חפש לפי שם עובד" style="height:40px;"></dropdownsearch>
+
+                </div>
+                <div class="firgunimSelection" ng-if="selectUser">
+                    <div class="ui form firgunimTable">
+                        {{selectUser.profile.firstName}} , {{selectUser.profile.lastName}}
+                        פרגן ל :
+
+                        {{dc.selectedFirgunText}}
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui checkbox checkbox">
+
+                                    <input type="radio" name="example2"  ng-model="dc.selectedFirgunText" checked="checked" style="float: right" value="1">
+                                    <label>Once a week</label>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui checkbox checkbox">
+
+                                    <input type="radio" name="example2" ng-model="dc.selectedFirgunText" value="2">
+                                    <label>2-3 times a week</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui checkbox checkbox">
+
+                                    <input type="radio" name="example2"  ng-model="dc.selectedFirgunText"  value="3">
+                                    <label>Once a day</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui checkbox checkbox">
+
+                                    <input type="radio" name="example2"   ng-model="dc.selectedFirgunText" value="4">
+                                    <label>Twice a day</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui checkbox checkbox">
+
+                                    <input type="radio" name="example2"   ng-model="dc.selectedFirgunText" value="4">
+                                    <textarea style="width: 400px ; height: 120px;"></textarea>
+                                </div>
+                                <div>
+                                    <img  class="menuButton img" ng-click="dc.sendFirgun()" src="assets/images/Firgunim/030201FirgunimInnerPagesElements_submitBtn84x38.png">
+                                    <button class="ui button" ng-click="dc.searchPosition = 1">Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</modal>
