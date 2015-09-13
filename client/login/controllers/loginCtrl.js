@@ -92,36 +92,6 @@ console.log("loginCtrl");
 
 
 }])
-    .directive('dropdown', ['$timeout', function ($timeout) {
-        return {
-            restrict: "EA",
-            replace: true,
-            scope: {
-                ngModel: '=',
-                data: '=',
-                name:'@'
-            },
-            template: '<div class="ui selection dropdown"><input type="hidden" name="id"><div class="default text">{{name}}</div><i class="dropdown icon"></i><div class="menu"><div class="item" ng-repeat="item in data" data-value="{{item._id}}">{{item.name}}</div></div></div>',
-            link: function (scope, elm, attr) {
-                console.log("dropdown");
-                // initialize the dropdown after angular is completely done
-                // digesting this directive
-                $timeout(function() {
-                    elm.dropdown({
-                        onChange: function(newValue) {
-                            // this function is executed outside of angular's
-                            // digest loop so in order to notify angular about
-                            // changes to the model you need to use $apply
-                            scope.$apply(function(scope) {
-                                scope.ngModel = newValue;
-                            });
-                        }
-                    });
-                });
-            }
-        };
-    }])
-
 
 
 .directive('modal', function () {

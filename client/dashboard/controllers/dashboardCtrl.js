@@ -154,9 +154,50 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             });
             dc.usersRecords = [{a:1}];
             dc.usersRecords = $meteor.collection(UsersRecords);
+            dc.usersRecordsMap = {}
+            angular.forEach(dc.usersRecords, function(value, key) {
+                dc.usersRecordsMap[value.clientSystemId] = value;
+            });
+            dc.currentUserRecords = $meteor.object(UsersRecords,dc.usersRecordsMap[$rootScope.currentUser.profile.clientSystemId]._id);
+            dc.firgunimText = $meteor.collection(FirgunimText);
+
+        }
+
+        $scope.$watch('dc.currentUserRecords.points',function(){
+            updateUserPref();
+        })
+
+        updateUserPref = function(){
+            dc.currentUser = dc.usersRecordsMap[$rootScope.currentUser.profile.clientSystemId];
+            var robotId = 1;
+            if (dc.currentUser.points <=200)
+                robotId = 1;
+            else if (dc.currentUser.points >200 && dc.currentUser.points <=400)
+                robotId = 2;
+            else if (dc.currentUser.points >400 && dc.currentUser.points <=600)
+                robotId = 3;
+            else if (dc.currentUser.points >600 && dc.currentUser.points <=800)
+                robotId = 4;
+            else if (dc.currentUser.points >800 && dc.currentUser.points <=1000)
+                robotId = 5;
+            else if (dc.currentUser.points >1000 && dc.currentUser.points <=1200)
+                robotId = 6;
+            else if (dc.currentUser.points >1200 && dc.currentUser.points <=1400)
+                robotId = 7;
+            else if (dc.currentUser.points >1400 && dc.currentUser.points <=1600)
+                robotId = 8;
+            else
+                robotId = 9;
+
+            dc.userPref.robotPicName =  '110'+robotId;
+            dc.userPref.save();
+
         }
 
         init();
+        updateUserPref();
+
+
 
         dc.showCompleteList = function (value) {
             console.log(value.scopeName);
@@ -198,7 +239,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                     break;
                 case "leaderBoard":
                     dc.show_leaderboard = true;
-                    dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
+                    dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
                     leaderBoardIndex = 0;
                     dc.leaderBoardArray = getLeaderBoardArray(leaderBoardIndex);
                     break;
@@ -230,17 +271,17 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         }
 
         getLeaderBoardArray = function (index) {
-            if (dc.leaderBoardData.length - (index+1) * 8 < -8){
+            if (dc.leaderBoardData.length - (index+1)  < -8){
                 dc.leaderBoardArray;
             }else{
                 var leaderBoardArray = []
-                var len = (dc.leaderBoardData.length - (index+1)*8) >0 ? 8 : (8-((index+1)*8-dc.leaderBoardData.length));
+                var len = (dc.leaderBoardData.length - (index+1)) >0 ? 8 : (8-((index+1)-dc.leaderBoardData.length));
                 var z = 0;
-                for (var i = index*8;i<(index * 8 + len); i++){
+                for (var i = index;i<(index  + len); i++){
                     leaderBoardArray[z] = dc.leaderBoardData[i];
                     z++;
                 }
-                dc.showingLeaderBoardValues = (index*8+1) + "-"+(index*8+z);
+                dc.showingLeaderBoardValues = (index+1) + "-"+(index+z);
                 return leaderBoardArray;
             }
 
@@ -257,18 +298,6 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             dc.searchPosition = 2;
         }
         
-        dc.sendFirgun = function () {
-            debugger;
-            var firgun =
-                {
-                    'userId': dc.selectUser._id,//$rootScope.currentUser._id,
-                    'clientSystemId': dc.selectUser.profile.clientSystemId,
-                    'firgunBy':$rootScope.currentUser._id,
-                    'firgunText':"blsbla",
-                    'firgunIcon':"030305FirgunimInnerPagesElements_Bages71x71"
-                }
-                ;
-            Firgunim.insert(firgun);
-        }
+
 
     }]);

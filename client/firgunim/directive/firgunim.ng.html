@@ -4,59 +4,67 @@
         <div class="description">
             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
                 <div class="firgunimHeader">
-                    פירגונים לחברים
+                     פירגונים לחברים
                 </div>
 
                 <div class="firgunimSearch">
-
-                    <dropdownsearch ng-model="selectUser" data="usersRecords" name="חפש לפי שם עובד" style="height:40px;"></dropdownsearch>
-
+                    <dropdownsearch ng-model="selectUser" data="usersRecords" loading="loading"></dropdownsearch>
+                    <!--<dropdownsearch ng-model="selectUser" data="usersRecords" name="חפש לפי שם עובד" style="height:40px;"></dropdownsearch>-->
                 </div>
-                <div class="firgunimSelection" ng-if="selectUser">
+
+                <div class="firgunimSelection" ng-show="selectUser">
+
                     <div class="ui form firgunimTable">
-                        {{selectUser.profile.firstName}} , {{selectUser.profile.lastName}}
-                        פרגן ל :
+                        <div class="firgunimNameHeader">
+                            פרגן ל :
+                            {{selectUser.name}}
+                        </div>
+                        <div class="grouped fields" ng-show="!showSelectTagState">
+                            <div class="field" ng-repeat="firgunText in firgunimText">
+                                <div class="ui checkbox checkbox custom">
+                                    <label>{{firgunText.firgunText}}</label>
+                                    <input type="radio" name="example2"  ng-model="selectedFirgunText" value="{{firgunText.firgunText}}">
 
-                        {{dc.selectedFirgunText}}
-                        <div class="grouped fields">
-                            <div class="field">
-                                <div class="ui checkbox checkbox">
-
-                                    <input type="radio" name="example2"  ng-model="dc.selectedFirgunText" checked="checked" style="float: right" value="1">
-                                    <label>Once a week</label>
                                 </div>
 
                             </div>
-                            <div class="field">
-                                <div class="ui checkbox checkbox">
+                            <div class="ui grid" style="padding-top: 0px">
+                                <div class="three wide column" style="margin-top: auto;">
+                                    <img  class="menuButton img" style="padding-bottom: 5px" ng-click="dc.close_modal()" src="assets/images/Firgunim/030211FirgunimInnerPagesElements_CancelFirgunBtnFull84x21.png">
+                                    <img  class="menuButton img" ng-click="sendFirgun()" src="assets/images/Firgunim/030201FirgunimInnerPagesElements_submitBtn84x38.png">
 
-                                    <input type="radio" name="example2" ng-model="dc.selectedFirgunText" value="2">
-                                    <label>2-3 times a week</label>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui checkbox checkbox">
-
-                                    <input type="radio" name="example2"  ng-model="dc.selectedFirgunText"  value="3">
-                                    <label>Once a day</label>
+                                <div class="two wide column" style="margin-top: auto;">{{selectedTagVisual}}
+                                    <img class="menuButton img" ng-click="showSelectTagState = true" src='assets/images/Firgunim/{{selectedTagVisual<10?"0"+selectedTagVisual:selectedTagVisual}}.png'>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui checkbox checkbox">
-
-                                    <input type="radio" name="example2"   ng-model="dc.selectedFirgunText" value="4">
-                                    <label>Twice a day</label>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui checkbox checkbox">
-
-                                    <input type="radio" name="example2"   ng-model="dc.selectedFirgunText" value="4">
+                                <div class="column">
                                     <textarea style="width: 400px ; height: 120px;"></textarea>
                                 </div>
-                                <div>
-                                    <img  class="menuButton img" ng-click="dc.sendFirgun()" src="assets/images/Firgunim/030201FirgunimInnerPagesElements_submitBtn84x38.png">
-                                    <button class="ui button" ng-click="dc.searchPosition = 1">Back</button>
+                                <div class="two wide column">
+                                    <input type="radio" name="example2"   ng-model="dc.selectedFirgunText" value="4">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-show="showSelectTagState">
+                            <div class="ui internally celled grid" style="padding-top: 10px">
+                                <div class="row">
+                                    <div class="four wide column" style="padding-top: 20px">{{selectedTagVisual}}
+                                        <img src="assets/images/Firgunim/{{selectedTagVisual}}.png">
+                                        <button class="ui button active " ng-click="addSelectedTag()">צרף תג</button>
+                                        <img  class="menuButton img" ng-click="showSelectTagState = false" style="padding-top: 50px" src="assets/images/Firgunim/030212FirgunimInnerPagesElements_CancelBadgeBtnFull84x21.png">
+
+                                    </div>
+
+                                    <div class="ten wide column" style="padding-top: 10px">
+                                        <div class="tagsRow ui four column grid "  >
+                                            <div class="column tagsColumn" ng-repeat="n in range ">
+                                                <div class="ui segment">
+                                                    <img ng-click="selectedTag($index)" src='assets/images/Firgunim/0303{{n<10?"0"+n:n}}FirgunimInnerPagesElements_Bages71x71.png'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

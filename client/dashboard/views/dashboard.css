@@ -61,7 +61,7 @@
 .secondStar{
     position: relative;
     top: 40%;
-    left: 136px;
+    left: 225px;
 }
 .thirdStar{
     position: relative;
@@ -208,6 +208,7 @@
     position: fixed;
     bottom: 420px;
     right: 130px;
+    font-family: Ariel;
 }
 
 .shopHeader{
@@ -231,12 +232,14 @@
 .leaderBoardHeaderLeftArrow{
     position: fixed;
     bottom: 430px;
-    right: 460px;
+    right: 490px;
+    cursor:pointer;
 }
 .leaderBoardHeaderRightArrow{
     position: fixed;
     bottom: 430px;
     right: 90px;
+    cursor:pointer;
 }
 .leaderBoardSubHeader{
     color: #ffffff;
@@ -252,6 +255,40 @@
     position:fixed;
     bottom: 30px;
     left: 10%
+}
+
+#textYadim
+{
+    z-index:100;
+    position:absolute;
+    color:black;
+    font-size:12px;
+    top:14px;
+    width: 100px;
+    text-align: right;
+    right: 30px;
+}
+#textYadimClosed
+{
+    z-index:100;
+    position:absolute;
+    color:black;
+    font-size:12px;
+    top:7px;
+    text-align: right;
+    padding-left: 30px;
+}
+
+#textCurrentUserPoints
+{
+    z-index:100;
+    position:absolute;
+    color:black;
+    font-size:12px;
+    top:14px;
+    width: 100px;
+    text-align: right;
+    right: 30px;
 }
 
 

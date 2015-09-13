@@ -1,0 +1,1 @@
+FirgunimText = new Mongo.Collection("firgunimText");

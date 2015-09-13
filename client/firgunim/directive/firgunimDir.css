@@ -18,6 +18,7 @@
     max-height: 400px;
     width: 600px;
     font-size: 18px;
+    z-index: 1000;
 }
 
 .firgunimSelection{
@@ -48,4 +49,36 @@
     background-color: white;
     text-align: right;
 
+}
+
+.custom label {
+    float: left;
+    margin: 0 5px 0;
+}
+
+.firgunimNameHeader{
+   text-align: center;
+    background-color: aliceblue;
+}
+
+.tagsRow{
+    padding-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: -11rem !important;
+}
+
+.tagsColumn{
+    padding-top: 0 !important;
+    max-height: 85px;
+    cursor:pointer;
+}
+
+.firgunimTextLabel{
+
+}
+.firgunimTextCheckBox{
+
+}
+.firgunimTextForm{
+    float: right;
 }

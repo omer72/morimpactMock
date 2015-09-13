@@ -4,8 +4,9 @@ body {
 
     background-size:cover;
     background:
-    url("/assets/images/LoginScreen/050103LoginScreen_BGElements1363x707.png") no-repeat,
+    url("/assets/images/LoginScreen/050107LoginScreen_fullBG1364x708.png") no-repeat,
     url("/assets/images/LoginScreen/050101LoginScreen_StarfieldBG1363x707.png") no-repeat;
+
 
     /*background:*/
     /*url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat center center fixed,*/
@@ -19,11 +20,14 @@ body > .grid {
 
 .ui.grid{
     padding-top: 195px;
-    margin-right: 70px;
 }
 .ui.segment{
     background-color: transparent;
     border: none;
+}
+
+.loginBackground{
+
 }
 
 .ui.teal.button {
