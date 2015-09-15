@@ -1,5 +1,5 @@
-angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor','$state','$scope',
-    function( $rootScope,$meteor,$state,$scope) {
+angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor','$state','$scope','$interval',
+    function( $rootScope,$meteor,$state,$scope,$interval) {
         console.log("dashboardCtrl");
 
         var dc = this;
@@ -7,61 +7,68 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         var leaderBoardIndex = 0;
         dc.searchPosition = 1;
         dc.searchData ="";
-        dc.leaderBoardAnimation = "fadeInRightBig"
-        dc.showingLeaderBoardValues = "1-8"
+        dc.leaderBoardAnimation = "fadeInRightBig";
+        dc.showingLeaderBoardValues = "1-8";
+        var firgunimLength = 0;
+        var latestFirgunIndex = 0;
         dc.menuItems = [
             {
+                header : 'Total Ace',
                 name: 'מיקום כללי',
                 icon: '0408SideMenuElements_DashBtn_ScoreIconFull170x74.png',
                 sref: '.dashboard',
                 id: 'points',
-                scopeName: 'generalPlace'
+                scopeName: 'generalPlaceRanks'
             },
             {
+                header : 'Ace Rank',
                 name: 'מיקום זמני שיחה',
                 icon: '0410SideMenuElements_DashBtn_CallLenghtIconFull170x70.png',
                 sref: '.profile',
                 id: 'talks',
-                scopeName: 'talks'
+                scopeName: 'talksRanks'
             },
             {
+                header : 'Ace Rank',
                 name: 'מיקום אדיבות',
                 icon: '0412SideMenuElements_DashBtn_NiceIconFull170x70.png',
                 sref: '.table',
                 id: 'polite',
-                scopeName: 'polite'
+                scopeName: 'politeRanks'
             },
             {
+                header : 'Ace Rank',
                 name: 'מיקום מכירות',
                 icon: '0414SideMenuElements_DashBtn_SalesIconFull170x70.png',
                 sref: '.table',
                 id: 'sales',
-                scopeName: 'sales'
+                scopeName: 'salesRanks'
             },
             {
+                header : 'Ace Rank',
                 name: 'תרומה לצוות',
                 icon: '0416SideMenuElements_DashBtn_TeamIconFull170x70.png',
                 sref: '.table',
                 id: 'contributes',
-                scopeName: 'contributes',
-                point: '0/0'
+                scopeName: 'contributesRanks',
             }
             ,
             {
-                name: 'Leader board',
+                header: 'Leader board',
                 icon: '0419SideMenuElements_BottomLeaderboardFull166x57.png',
                 sref: '.leaderboard',
                 scopeName: 'leaderBoard'
             },
             {
-                name: 'פירגון לחברים',
+                header: 'פירגון לחברים',
                 icon: '0421SideMenuElements_BottomFirgunFull166x57.png',
                 sref: '.table',
                 scopeName: 'firgunim'
 
             },
             {
-                name: 'Ace Statistics\n',
+                header: 'Ace Statistics',
+                name : 'הסטיסטיקה שלי',
                 icon: '0423SideMenuElements_BottomStatsFull166x57.png',
                 sref: '.table',
                 point: '0/0'
@@ -161,7 +168,20 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             dc.currentUserRecords = $meteor.object(UsersRecords,dc.usersRecordsMap[$rootScope.currentUser.profile.clientSystemId]._id);
             dc.firgunimText = $meteor.collection(FirgunimText);
 
+            //dc.firgunim = Firgunim.find({ clientSystemId: parseInt($rootScope.currentUser.profile.clientSystemId) }).fetch();
+            dc.firgunim = $meteor.collection(Firgunim);
+            if (dc.firgunim.length > 0 ){
+                dc.showFirgunObject = {
+                    firgunBy : dc.firgunim[0].firgunBy,
+                    firgunTo : dc.firgunim[0].firgunTo,
+                    firgunText : dc.firgunim[0].firgunText,
+                    firgunIcon : dc.firgunim[0].firgunIcon
+                }
+                latestFirgunIndex++;
+            }
         }
+
+
 
         $scope.$watch('dc.currentUserRecords.points',function(){
             updateUserPref();
@@ -194,9 +214,56 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
 
         }
 
+        updateRanks =  function(){
+            dc.generalPlaceRanks = UsersRecords.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
+            dc.generalPlaceRanks.points = findWithAttr(dc.generalPlaceRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.generalPlaceRanks.length;
+
+            dc.talksRanks = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
+            dc.talksRanks.points = findWithAttr(dc.talksRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.talksRanks.length;
+
+            dc.politeRanks = Polite.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
+            dc.politeRanks.points = findWithAttr(dc.politeRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.politeRanks.length;
+
+            dc.salesRanks = Sales.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
+            dc.salesRanks.points = findWithAttr(dc.salesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.salesRanks.length;
+
+            dc.contributesRanks = Contributes.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {sumPoints: -1}}).fetch();
+            dc.contributesRanks.points = findWithAttr(dc.contributesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.contributesRanks.length;
+
+        }
+
+        function findWithAttr(array, attr, value) {
+            for(var i = 0; i < array.length; i += 1) {
+                if(array[i][attr] == value) {
+                    return i+1;
+                }
+            }
+        }
+
+        function updateFirgun(){
+            $interval(function() {
+                if (dc.firgunim.length >0 ){
+                    if (dc.firgunim.length != firgunimLength || (latestFirgunIndex+1)> firgunimLength){
+                        firgunimLength = dc.firgunim.length;
+                        latestFirgunIndex = 0;
+                    }
+                    dc.showFirgunObject = {
+                        firgunBy : dc.firgunim[latestFirgunIndex].firgunBy,
+                        firgunTo : dc.firgunim[latestFirgunIndex].firgunTo,
+                        firgunText : dc.firgunim[latestFirgunIndex].firgunText,
+                        firgunIcon : dc.firgunim[latestFirgunIndex].firgunIcon
+                    }
+                    latestFirgunIndex++;
+                }else{
+                    dc.showFirgunObject = undefined;
+                }
+            }, 10000);
+        }
+
         init();
         updateUserPref();
-
+        updateRanks();
+        updateFirgun();
 
 
         dc.showCompleteList = function (value) {
@@ -215,27 +282,28 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         };
 
         dc.clickMenu = function (ev, value) {
+
             console.log(value);
             switch (value.scopeName) {
-                case "generalPlace":
-                    dc.gp = Meteor.users.find({ "profile.groupId" : $rootScope.currentUser.profile.groupId}, {sort: {sumPoints: 1}}).fetch();
-                    dc.show_generalPlace = true;
-                    break;
-                case "talks":
-                    dc.gp = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
+                case "generalPlaceRanks":
+                    dc.gp = dc.generalPlaceRanks;
                     dc.show_modal = true;
                     break;
-                case "polite":
-                    dc.gp = Polite.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
+                case "talksRanks":
+                    dc.gp = dc.talksRanks
                     dc.show_modal = true;
                     break;
-                case "sales":
-                    dc.gp = Sales.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
+                case "politeRanks":
+                    dc.gp = dc.politeRanks
                     dc.show_modal = true;
                     break;
-                case "contributes":
-                    dc.gp = Contributes.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
+                case "salesRanks":
+                    dc.gp = dc.salesRanks
                     dc.show_modal = true;
+                    break;
+                case "contributesRanks":
+                    dc.gp = dc.contributesRanks
+                    dc.show_contributePercentage = true;
                     break;
                 case "leaderBoard":
                     dc.show_leaderboard = true;

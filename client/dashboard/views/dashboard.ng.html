@@ -4,7 +4,6 @@
         background-size:100% auto;">
     <div class="ui fixed inverted menu">
         <div class="ui container">
-
             <div href="#" class="header vertically menuButton">
                 <img  class="menuButton img" src="assets/images/0315TopMenuElements_VideoIconFull52x52.png">
                 <label class="menuButton label">תכנים</label>
@@ -91,10 +90,54 @@
         </div>
         <div class="column" style="width: 45% !important;">
             <div class="ui container" style="height: 100vh;">
-                <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:10s;padding-bottom: 110px">
-                <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:14s;margin-left: -25px;padding-bottom: 0px">
-                <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:12s;margin-left: -28px;padding-bottom: 100px">
-                <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" style="position: absolute;top: 42px;left: -10px">
+                <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:40s;padding-bottom: 110px">
+                <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:44s;margin-left: -25px;padding-bottom: 0px">
+                <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:42s;margin-left: -28px;padding-bottom: 100px">
+                <div class="firgunimBigBox">
+                    <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" >
+                    <div class="firgunimBigBoxText">
+                        <p>
+אתגרים פתוחים 0
+                        </p>
+                    </div>
+
+                    <div class="firgunimSmallBox" ng-show="dc.showFirgunObject.firgunBy">
+                        <img src="/assets/images/0606_ChallangesTablet_pagingArrowsLeft12x27.png" style="float: left">
+                        <div class="firgunimSmallBoxText" ng-show="dc.showFirgunObject.firgunBy">
+                            <div ng-show="dc.showFirgunObject.firgunIcon">
+                                <img src="/assets/images/Firgunim/{{dc.showFirgunObject.firgunIcon}}.png" >
+                            </div>
+                            <div style="text-align: right;width: 125px;padding-right: 5px;">
+                                <div>
+                                    {{dc.showFirgunObject.firgunBy}}
+                                </div>
+                                <div>
+                                    {{dc.showFirgunObject.firgunTo}}
+                                </div>
+                                <div>
+                                    {{dc.showFirgunObject.firgunText}}
+                                </div>
+                            </div>
+                            <div style="text-align: right;width: 51px">
+                                <div>
+      :                              המפרגן
+                                </div>
+                                <div>
+       :                             המפורגן
+                                </div>
+                                <div>
+      :                              טקסט
+                                </div>
+                            </div>
+
+                        </div>
+                        <img src="/assets/images/0605_ChallangesTablet_pagingArrowsRight12x27.png" style="float: right">
+
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
         <div class="column" style="padding-top: 60px;width: 225px !important;">
@@ -129,30 +172,7 @@
                         </div>
                     </div>
                 </modal>
-                <modal ng-model="dc.show_generalPlace" style="width: 200px;left: 85%;text-align: center;background: #8A1111 !important;color: white">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
-                    <div class="header" style="background: #485655;color: white">
-                        {{dc.title}}
-                    </div>
-                    <div class="content" style="background: #485655;height: 300px">
-                        <div class="left">
-                            <div ng-repeat="item in dc.gp" style="overflow: auto">
-                                <span style="float: left;">{{item.profile.sumPoints}}</span>
-                                <span style="float: right;">{{dc.usersMap[item.profile.clientSystemId][0]+' '+dc.usersMap[item.profile.clientSystemId][1]}}</span>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="actions" style="background: #485655">
-                        <div class="one fluid ui buttons">
-
-                            <div class="ui positive right labeled icon button" style="width: auto">
-                                Close
-                                <i class="checkmark icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </modal>
                 <modal ng-model="dc.show_contributePercentage" style="width: 200px;left: 85%;text-align: center;background: #485655 !important;color: white">
                     <i class="close icon" ng-click="dc.close_modal()"></i>
                     <div class="header" style="background: #485655;color: white">
@@ -161,8 +181,7 @@
                     <div class="content" style="background: #485655;height: 300px">
                         <div class="left">
                             <div ng-repeat="item in dc.gp" style="overflow: auto">
-                                {{item}}
-                                <span style="float: left;">{{item.contributePercentage}}</span>
+                                <span style="float: left;">{{item.sumPoints}}</span>
                                 <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
 
                             </div>
@@ -374,7 +393,7 @@ GOODIES בחר/י
                     <div id="container" ng-click="dc.clickMenu($event,item)">
                         <a href=""> <img id="image" src="/assets/images/{{item.icon}}"/>
                         <p id="text">
-                            {{item.name}}<br/> {{dc[item.scopeName].points}}
+                            {{item.header}}<br/>{{item.name}}<br/> {{dc[item.scopeName].points}}
                         </p>
                         </a>
                     </div>

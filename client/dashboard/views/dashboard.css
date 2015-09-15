@@ -98,7 +98,7 @@
     position:absolute;
     color:white;
     font-size:12px;
-    top:14px;
+    top:8px;
     width: 100px;
 }
 .ui.inverted.menu{
@@ -290,5 +290,39 @@
     text-align: right;
     right: 30px;
 }
+
+.firgunimBigBox{
+    position: relative;
+    top: -238px;
+    left: -10px
+}
+
+.firgunimBigBoxText{
+    position: absolute;
+    bottom: 190px;
+    left: 200px;
+    color: white;
+}
+
+.firgunimSmallBox{
+    position: absolute;
+    bottom: 23px;
+    left: 72px;
+    background: url("/assets/images/0604_FirgunimTablet_bgBotomBo310x137.png") no-repeat;
+    width: 318px;
+    height: 137px;
+    padding-top: 50px;
+    padding-left: 13px;
+    padding-right: 10px;
+}
+
+.firgunimSmallBoxText{
+    position: absolute;
+    bottom: 35px;
+    left: 50px;
+    color: white;
+    display: flex;
+}
+
 
 

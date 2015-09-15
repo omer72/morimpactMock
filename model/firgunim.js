@@ -2,7 +2,7 @@ Firgunim = new Mongo.Collection("firgunim");
 
 Firgunim.allow({
     insert: function (userId, firgunim) {
-        return userId && firgunim.userId === userId;
+        return true;
     },
     update: function (userId, firgunim, fields, modifier) {
         if (userId !== firgunim.userId)

@@ -20,28 +20,59 @@
                             {{selectUser.name}}
                         </div>
                         <div class="grouped fields" ng-show="!showSelectTagState">
-                            <div class="field" ng-repeat="firgunText in firgunimText">
-                                <div class="ui checkbox checkbox custom">
-                                    <label>{{firgunText.firgunText}}</label>
-                                    <input type="radio" name="example2"  ng-model="selectedFirgunText" value="{{firgunText.firgunText}}">
-
+                            <form name="myForm" >
+                                <div style="padding:5px 0 5px 0">
+                                    <label>
+                                    כל הכבוד! אין עליך!
+                                    <input type="radio" ng-model="firgun.text" value="כל הכבוד! אין עליך!">
+                                    </label>
                                 </div>
+                                <div style="padding:5px 0 5px 0">
+                                    <label>
+                                        ישר כח, באמת הישג מדהים!
+                                        <input type="radio" ng-model="firgun.text" value="ישר כח, באמת הישג מדהים!">
+                                    </label>
+                                </div>
+                                <div style="padding:5px 0 5px 0">
+                                <label>
+                                    וואו! ראוי להערכה
+                                    <input type="radio" ng-model="firgun.text" value="וואו! ראוי להערכה">
+                                </label>
+                                </div>
+                                <div style="padding:5px 0 5px 0">
+                                    <label>
+                                        טקסט חופשי
+                                        <input type="radio" ng-model="firgun.text" value="freeText">
+                                    </label>
+                                </div>
+                                <!--<div style="padding:10px 0 10px 0">-->
+                                    <!--<textarea style="width: 400px ; height: 120px;">-->
+                                        <!--<input type="radio" ng-model="firgun.text" value="וואו! ראוי להערכה">-->
+                                    <!--</textarea>-->
+                                <!--</div>-->
+                            </form>
 
-                            </div>
-                            <div class="ui grid" style="padding-top: 0px">
+                            <!--<div class="field" ng-repeat="firgunText in firgunimText">-->
+                                <!--<div class="ui checkbox checkbox custom">-->
+                                    <!--<label>{{firgunText.firgunText}}</label>-->
+                                    <!--<input type="radio" name="{{firgunText.firgunText}}"  ng-model="firgun.selectedFirgunText" value="{{firgunText.firgunText}}">-->
+
+                                <!--</div>-->
+
+                            <!--</div>-->
+                            <div class="ui grid" style="padding-top: 0px;height: 170px;">
                                 <div class="three wide column" style="margin-top: auto;">
-                                    <img  class="menuButton img" style="padding-bottom: 5px" ng-click="dc.close_modal()" src="assets/images/Firgunim/030211FirgunimInnerPagesElements_CancelFirgunBtnFull84x21.png">
+                                    <!--<img  class="menuButton img" style="padding-bottom: 5px" ng-click="close_modal()" src="assets/images/Firgunim/030211FirgunimInnerPagesElements_CancelFirgunBtnFull84x21.png">-->
                                     <img  class="menuButton img" ng-click="sendFirgun()" src="assets/images/Firgunim/030201FirgunimInnerPagesElements_submitBtn84x38.png">
 
                                 </div>
-                                <div class="two wide column" style="margin-top: auto;">{{selectedTagVisual}}
+                                <div class="two wide column" style="margin-top: auto;">
+
                                     <img class="menuButton img" ng-click="showSelectTagState = true" src='assets/images/Firgunim/{{selectedTagVisual<10?"0"+selectedTagVisual:selectedTagVisual}}.png'>
-                                </div>
-                                <div class="column">
-                                    <textarea style="width: 400px ; height: 120px;"></textarea>
+
                                 </div>
                                 <div class="two wide column">
-                                    <input type="radio" name="example2"   ng-model="dc.selectedFirgunText" value="4">
+                                    <textarea style="width: 340px ; height: 140px;" ng-model="firgun.text" ng-disabled="firgun.text != 'freeText'" ng-hide="firgun.text != 'freeText'"></textarea>
                                 </div>
                             </div>
 
@@ -49,10 +80,11 @@
                         <div ng-show="showSelectTagState">
                             <div class="ui internally celled grid" style="padding-top: 10px">
                                 <div class="row">
-                                    <div class="four wide column" style="padding-top: 20px">{{selectedTagVisual}}
-                                        <img src="assets/images/Firgunim/{{selectedTagVisual}}.png">
+                                    <div class="four wide column" style="padding-top: 20px">
+                                        <img src="assets/images/Firgunim/{{selectedTagVisualMenu}}.png">
+
                                         <button class="ui button active " ng-click="addSelectedTag()">צרף תג</button>
-                                        <img  class="menuButton img" ng-click="showSelectTagState = false" style="padding-top: 50px" src="assets/images/Firgunim/030212FirgunimInnerPagesElements_CancelBadgeBtnFull84x21.png">
+                                        <img  class="menuButton img" ng-click="cancelSelectedTag();showSelectTagState = false" style="padding-top: 50px" src="assets/images/Firgunim/030212FirgunimInnerPagesElements_CancelBadgeBtnFull84x21.png">
 
                                     </div>
 
