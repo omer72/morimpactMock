@@ -1,5 +1,5 @@
 <modal ng-model="showfirgunim" class="firgunim">
-    <i class="close icon" ng-click="dc.close_modal()"></i>
+    <i class="close icon" ng-click="dc.close_modal()" style="top: -107px;right: 103px;"></i>
     <div class="image content firgunimContent" >
         <div class="description">
             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
@@ -45,21 +45,8 @@
                                         <input type="radio" ng-model="firgun.text" value="freeText">
                                     </label>
                                 </div>
-                                <!--<div style="padding:10px 0 10px 0">-->
-                                    <!--<textarea style="width: 400px ; height: 120px;">-->
-                                        <!--<input type="radio" ng-model="firgun.text" value="וואו! ראוי להערכה">-->
-                                    <!--</textarea>-->
-                                <!--</div>-->
                             </form>
 
-                            <!--<div class="field" ng-repeat="firgunText in firgunimText">-->
-                                <!--<div class="ui checkbox checkbox custom">-->
-                                    <!--<label>{{firgunText.firgunText}}</label>-->
-                                    <!--<input type="radio" name="{{firgunText.firgunText}}"  ng-model="firgun.selectedFirgunText" value="{{firgunText.firgunText}}">-->
-
-                                <!--</div>-->
-
-                            <!--</div>-->
                             <div class="ui grid" style="padding-top: 0px;height: 170px;">
                                 <div class="three wide column" style="margin-top: auto;">
                                     <!--<img  class="menuButton img" style="padding-bottom: 5px" ng-click="close_modal()" src="assets/images/Firgunim/030211FirgunimInnerPagesElements_CancelFirgunBtnFull84x21.png">-->
@@ -72,7 +59,7 @@
 
                                 </div>
                                 <div class="two wide column">
-                                    <textarea style="width: 340px ; height: 140px;" ng-model="firgun.text" ng-disabled="firgun.text != 'freeText'" ng-hide="firgun.text != 'freeText'"></textarea>
+                                    <textarea style="width: 340px ; height: 140px;" ng-model="firgun.freeText" ng-disabled="firgun.text != 'freeText'" ng-hide="firgun.text != 'freeText'"></textarea>
                                 </div>
                             </div>
 

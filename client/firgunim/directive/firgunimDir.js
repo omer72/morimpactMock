@@ -10,6 +10,8 @@ angular.module("morimpact").directive('firgunim', function () {
         },
         templateUrl: 'client/firgunim/directive/firgunim.ng.html',
         link: function (scope, element, attrs, ngModel) {
+            console.log("firgunim init");
+
             scope.selectedTagVisual = '030204FirgunimInnerPagesElements_addBagdeFull48x38';
             scope.selectedTagVisualMenu = "030205FirgunimInnerPagesElements_addBagdeLARGE_full_124x124";
             scope.selectTag = false;
@@ -33,15 +35,18 @@ angular.module("morimpact").directive('firgunim', function () {
                 console.log("sendFurgun");
                 var firgun =
                     {
+                        'createdAt' : new Date().getTime(),
                         'clientSystemId': scope.$$childHead.selectUser.clientSystemId,
                         'firgunTo': scope.$$childHead.selectUser.name,
                         'firgunById':scope.$root.currentUser.profile.clientSystemId,
                         'firgunBy':scope.$root.currentUser.profile.lastName + ' '+scope.$root.currentUser.profile.firstName,
-                        'firgunText':scope.$$childHead.firgun.text,
-                        'firgunIcon':scope.$$childHead.selectedTagVisual
+                        'firgunText':(scope.$$childHead.firgun.text == 'freeText')? scope.$$childHead.firgun.freeText :scope.$$childHead.firgun.text ,
+                        'firgunIcon':(scope.$$childHead.selectedTagVisual == '030204FirgunimInnerPagesElements_addBagdeFull48x38')?'':scope.$$childHead.selectedTagVisual
                     }
                     ;
                 Firgunim.insert(firgun);
+                scope.$parent.dc.close_modal();
+                scope.$parent.dc.getLatestFirgun();
             }
 
 
@@ -57,13 +62,11 @@ angular.module("morimpact").directive('firgunim', function () {
             //});
         },
         controller:function($scope){
+            console.log("firgunim initC");
             $scope.addSelectedTag = function(){
                 console.log("showSelectTagState");
                 $scope.$$childHead.showSelectTagState = false;
             }
-
-
-
 
         }
     }

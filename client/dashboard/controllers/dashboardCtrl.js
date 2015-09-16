@@ -4,10 +4,10 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
 
         var dc = this;
         var generalPointsIndex = -1;
-        var leaderBoardIndex = 0;
+        dc.leaderBoardIndex = 0;
         dc.searchPosition = 1;
         dc.searchData ="";
-        dc.leaderBoardAnimation = "fadeInRightBig";
+        dc.leaderBoardAnimation = "fadeInRight";
         dc.showingLeaderBoardValues = "1-8";
         var firgunimLength = 0;
         var latestFirgunIndex = 0;
@@ -96,11 +96,12 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 generalPlaceId._id = GeneralPlace.insert(generalPlace);
             }
 
-            var userPrefObject = UserPref.findOne({userId: $rootScope.currentUser._id});
+            var userPrefObject = UserPref.findOne({clientSystemId: $rootScope.currentUser.profile.clientSystemId});
 
             if (!userPrefObject) {
                 var userPref =
                     {
+                        'clientSystemId':$rootScope.currentUser.profile.clientSystemId,
                         'userId': $rootScope.currentUser._id,
                         "robotPicName": "1101",
                         "backgroundPicture": "0003mainBGVars_daylightSnowing"
@@ -110,7 +111,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 userPrefObject._id = UserPref.insert(userPref);
             }
             dc.userPref = $meteor.object(UserPref, userPrefObject._id);
-
+            var usersPref = $meteor.collection(UserPref);
             dc.generalPlace = $meteor.object(GeneralPlace, generalPlaceId._id);
 
             var talksId = Talks.findOne({userId: $rootScope.currentUser._id});
@@ -159,6 +160,10 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 dc.userId.push(value.profile.clientSystemId);
                 dc.usersMap[value.profile.clientSystemId] = [value.profile.firstName,value.profile.lastName];
             });
+            dc.usersPrefMap = {};
+            angular.forEach(usersPref, function (value, key) {
+                dc.usersPrefMap[value.clientSystemId] = value.robotPicName;
+            });
             dc.usersRecords = [{a:1}];
             dc.usersRecords = $meteor.collection(UsersRecords);
             dc.usersRecordsMap = {}
@@ -169,7 +174,11 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             dc.firgunimText = $meteor.collection(FirgunimText);
 
             //dc.firgunim = Firgunim.find({ clientSystemId: parseInt($rootScope.currentUser.profile.clientSystemId) }).fetch();
-            dc.firgunim = $meteor.collection(Firgunim);
+            dc.firgunim = $meteor.collection(Firgunim,  {sort: {createdAt: 1}});
+            dc.getLatestFirgun();
+        }
+
+        dc.getLatestFirgun = function(){
             if (dc.firgunim.length > 0 ){
                 dc.showFirgunObject = {
                     firgunBy : dc.firgunim[0].firgunBy,
@@ -186,6 +195,13 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         $scope.$watch('dc.currentUserRecords.points',function(){
             updateUserPref();
         })
+        $scope.$watch('dc.firgunim',function(){
+            console.log('dc.firgunim');
+            dc.getLatestFirgun();
+            latestFirgunIndex = 0;
+        })
+
+
 
         updateUserPref = function(){
             dc.currentUser = dc.usersRecordsMap[$rootScope.currentUser.profile.clientSystemId];
@@ -270,6 +286,10 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             console.log(value.scopeName);
         }
 
+        $scope.$watch('show_modal',function showModel(newValue,oldValue){
+            console.log('show_modal');
+        })
+
 
         dc.logout = function () {
             Meteor.logout(function (value) {
@@ -308,8 +328,9 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 case "leaderBoard":
                     dc.show_leaderboard = true;
                     dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
-                    leaderBoardIndex = 0;
-                    dc.leaderBoardArray = getLeaderBoardArray(leaderBoardIndex);
+                    dc.leaderBoardIndex = 0;
+                    dc.leaderBoardArray = getLeaderBoardArray(dc.leaderBoardIndex);
+                    dc.menuItems[5].icon = '0419SideMenuElements_BottomLeaderboardFullActive166x57.png';
                     break;
                 case "firgunim":
                     dc.show_firgunim = true;
@@ -323,20 +344,29 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         }
 
         dc.showNext = function(){
-            leaderBoardIndex++;
-            dc.leaderBoardArray = getLeaderBoardArray(leaderBoardIndex);
+            if ((dc.leaderBoardIndex+1) >= dc.leaderBoardData.length)
+                return;
+            dc.leaderBoardIndex++;
+            dc.leaderBoardArray = getLeaderBoardArray(dc.leaderBoardIndex);
         }
 
         dc.showPref = function(){
-
-            leaderBoardIndex--;
-            dc.leaderBoardArray = getLeaderBoardArray(leaderBoardIndex);
+            if (dc.leaderBoardIndex == 0)
+                return;
+            dc.leaderBoardIndex--;
+            dc.leaderBoardArray = getLeaderBoardArray(dc.leaderBoardIndex);
         }
+
+        
 
 
         dc.close_modal = function () {
             dc.show_modal = false;
+            dc.show_firgunim = false;
         }
+
+
+
 
         getLeaderBoardArray = function (index) {
             if (dc.leaderBoardData.length - (index+1)  < -8){
@@ -364,6 +394,14 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         dc.fargenUser = function(user){
             dc.selectUser = user;
             dc.searchPosition = 2;
+        }
+
+
+        dc.chooseLeaderBoardColor = function(value){
+            if (value.clientSystemId == $rootScope.currentUser.profile.clientSystemId)
+                return 'Green';
+            else
+                return 'White';
         }
         
 
