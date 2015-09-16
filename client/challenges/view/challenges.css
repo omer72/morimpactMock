@@ -1,0 +1,76 @@
+.challenges{
+    background-color: transparent !important;
+    position: relative !important;
+    top: 170px !important;
+    left: 510px !important;
+    box-shadow: none !important;
+}
+
+.challengesHeader{
+    color: #3e3e3f;
+    font-size: 47px;
+    position: absolute;
+    top: 80px;
+    left: 330px;
+    font-family: Ariel;
+}
+
+.challengesContent{
+    background: url('/assets/images/Challenges/060101ChallengesBGFull927x611.png') no-repeat !important;
+    width: 900px;
+    height: 630px;
+    position: absolute;
+
+}
+.challengesTabs{
+    position: absolute;
+    top: 170px;
+    left: 171px;
+}
+
+.challengesAccordion{
+    position: absolute;
+    top: 48px;
+    left: 25px;
+    max-height: 325px;
+    overflow-y: scroll;
+}
+.active{
+    border-style: solid;
+    border-width: 1px;
+}
+
+.subactive{
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    width: 95%;
+    margin-left: 12.5px;
+}
+
+.editState{
+    position: absolute;
+    top: 110px;
+    left: 171px;
+}
+
+.exitEditState{
+    position: absolute;
+    top: 2px;
+    right: 30px;
+    cursor: pointer;
+    width: 70px;
+    height: 27px;
+}
+
+.editStateSteps{
+    position: absolute;
+    top: 45px;
+    right: 20px;
+}
+
+.challengesButtons{
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+}

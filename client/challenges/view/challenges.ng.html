@@ -1,0 +1,41 @@
+<modal ng-model="showchallenges" class="challenges">
+    <i class="close icon" ng-click="dc.close_modal()" style="position: absolute;top: -56px;right: 54px;"></i>
+    <div class="image content challengesContent" >
+        <div class="description">
+            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                <div class="challengesHeader">
+{{modalTitle}}
+                </div>
+                <div class="challengesTabs" ng-if="viewState">
+                    <img src="/assets/images/Challenges/page{{state}}.png">
+                    <i  ng-click="changeStateManagement()" style="position: absolute;
+    top: 10px;
+    left: 110px;
+    cursor: pointer;
+    width: 60px;
+    height: 26px;"></i>
+                    <div class="challengesAccordion">
+                        <accordion close="true" ng-click="changeState()">
+                            <accordion-group  title="First tab" imgsrc="/assets/images/Challenges/060301ChallengesFLATinnerContent639x154.png">
+                                <img src="/assets/images/Challenges/060304ChallengesFLATinnerContent516x101.png"/>
+                            </accordion-group>
+                            <accordion-group title="Second tab" imgsrc="/assets/images/Challenges/060302ChallengesFLATinnerContent639x154.png">
+                                <img src="/assets/images/Challenges/060304ChallengesFLATinnerContent516x101.png"/>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+                <div class="editState" ng-if="editState">
+                    <img src="/assets/images/Challenges/pageManagement.png">
+                    <i  ng-click="exitEditStateFunction()" class="exitEditState"></i>
+                    <img class="editStateSteps" src="/assets/images/Challenges/06030{{stepNumber}}ChallengesFLATinnerContentSteps653x332.png">
+                    <div class="challengesButtons">
+                        <button class="ui button" ng-click="next()">&lt;&lt; הבא</button>
+                        <button class="ui button" ng-click="cancel()">ביטול</button>
+                        <button class="ui button" ng-click="before()">&gt;&gt; הקודם</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</modal>

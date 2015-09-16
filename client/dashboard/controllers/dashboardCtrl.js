@@ -45,7 +45,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 scopeName: 'salesRanks'
             },
             {
-                header : 'Ace Rank',
+                header : 'Team Ace',
                 name: 'תרומה לצוות',
                 icon: '0416SideMenuElements_DashBtn_TeamIconFull170x70.png',
                 sref: '.table',
@@ -336,6 +336,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                     dc.show_firgunim = true;
                     dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
                     break;
+
             }
 
             console.log(dc.gp);

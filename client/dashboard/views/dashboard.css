@@ -148,7 +148,7 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 435px !important;
-    left: 575px !important;
+    left: 600px !important;
     box-shadow: none !important;
 }
 
@@ -156,7 +156,7 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 435px !important;
-    left: 575px !important;
+    left: 564px !important;
     box-shadow: none !important;
 }
 .firgunim{
@@ -175,7 +175,7 @@
 }
 
 .shopContent{
-    background: url('/assets/images/Shop/020101ShopBGcover845x586.png') no-repeat !important;
+    background: url('/assets/images/Shop/020103ShopBGcoverPlusConnectorFULLFLAT841x586.png') no-repeat !important;
     width: 900px;
     height: 630px;
 

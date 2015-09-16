@@ -1,5 +1,5 @@
 <div class="dashboard" style="background:
-        url('/assets/images/0011mainBG_SmallRobotBG_overlay1364x768.png') no-repeat ,
+        url('/assets/images/0112mainBG_SmallRobotBG_overlay1364x1000.png') no-repeat ,
         url('/assets/images/{{dc.userPref.backgroundPicture}}1364x768.png') no-repeat;
         background-size:100% auto;">
     <div class="ui fixed inverted menu">
@@ -8,9 +8,9 @@
                 <img  class="menuButton img" src="assets/images/0315TopMenuElements_VideoIconFull52x52.png">
                 <label class="menuButton label">תכנים</label>
             </div>
-            <div href="#" class="header vertically menuButton">
+            <div href="#" class="header vertically menuButton" ng-click="dc.show_challenges = true;" style="cursor:pointer;padding-left: 10px">
                 <img  class="menuButton img" src="assets/images/0312TopMenuElements_TestsIconFull52x52.png">
-                <label class="menuButton label">מבחנים</label>
+                <label class="menuButton label">אתגרי ידע</label>
             </div>
             <div class="item" style="padding-left: 10px;padding-right: 10px">
                 (<a ng-click="dc.logout()" style="padding-left: 0;padding-right: 0;" class="item">יציאה</a>)
@@ -97,7 +97,8 @@
                     <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" >
                     <div class="firgunimBigBoxText">
                         <p>
-אתגרים פתוחים 0
+אתגרים פתוחים
+                            <div style="float: left;font-size: 45px"><b>0</b></div>
                         </p>
                     </div>
 
@@ -384,7 +385,23 @@ GOODIES בחר/י
 
                 </modal>
 
+                <modal ng-model="dc.show_target" class="target">
+                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <div class="image content targetContent" >
+                        <div class="description">
+                            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                                <div class="targetHeader">
+                                    ניהול יעדים
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </modal>
+
                 <firgunim showfirgunim="dc.show_firgunim" ng-if="dc.show_firgunim" users-records="dc.usersRecords" firgunim-text="dc.firgunimText"></firgunim>
+                <challenges showchallenges="dc.show_challenges" ></challenges>
 
 
                 <div ng-repeat="item in dc.menuItems" style="padding-bottom: 10px">
