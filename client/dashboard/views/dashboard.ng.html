@@ -44,21 +44,21 @@
                     <img src='/assets/images/0701_OpenGoalsNavigatorBG48x179.png' class="goalAncor">
                     <div class="firstGoal">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
-                        <p id="textYadim">
-יעד מכירות
-                        </p>
+                        <span id="textYadim">
+יעד <br/> מכירות
+                        </span>
                     </div>
                     <div class="secondGoal">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
-                        <p id="textYadim">
-                            יעד אדיבות
-                        </p>
+                        <span id="textYadim">
+יעד <br/>אדיבות
+                        </span>
                     </div>
                     <div class="thirdGoal">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
-                        <p id="textYadim">
-יעד ידע
-                        </p>
+                        <span id="textYadim">
+                            יעד <br/> ידע
+                        </span>
                     </div>
                 </div>
                 <div style="height: 50vh;position:absolute " >
@@ -96,10 +96,10 @@
                 <div class="firgunimBigBox">
                     <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" >
                     <div class="firgunimBigBoxText">
-                        <p>
+                        <span>
 אתגרים פתוחים
-                            <div style="float: left;font-size: 45px"><b>0</b></div>
-                        </p>
+                            <div style="padding-right: 40px;float: left;font-size: 45px"><b>0</b></div>
+                        </span>
                     </div>
 
                     <div class="firgunimSmallBox" ng-show="dc.showFirgunObject.firgunBy">
@@ -108,7 +108,7 @@
                             <div ng-show="dc.showFirgunObject.firgunIcon">
                                 <img src="/assets/images/Firgunim/{{dc.showFirgunObject.firgunIcon}}.png" >
                             </div>
-                            <div style="text-align: right;width: 125px;padding-right: 5px;">
+                            <div style="text-align: right;width: 120px;padding-right: 5px;">
                                 <div>
                                     {{dc.showFirgunObject.firgunBy}}
                                 </div>
@@ -182,7 +182,7 @@
                     <div class="content" style="background: #485655;height: 300px">
                         <div class="left">
                             <div ng-repeat="item in dc.gp" style="overflow: auto">
-                                <span style="float: left;">{{item.sumPoints}}</span>
+                                <span style="float: left;">{{item.contributePercentage}}</span>
                                 <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
 
                             </div>
@@ -204,6 +204,11 @@
                     <div class="image content leaderBoardContent" >
                         <div class="description">
                             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                                <div style="position: absolute;
+    top: 15px;
+    right: 80px;">
+                                    <img src="/assets/images/LeaderBoard/Switch_Stop.png"/>
+                                </div>
                                 <div class="leaderBoardHeaderLeftArrow" ng-click="dc.showPref()"><img src="/assets/images/LeaderBoard/0100501LeaderBoardPagingSubjectArrowBtnLeft12x27.png"></div>
                                 <div class="leaderBoardHeader">
                                     אורך שיחה להיום
@@ -211,7 +216,7 @@
                                 <div class="leaderBoardHeaderRightArrow" ng-click="dc.showNext()"><img src="/assets/images/LeaderBoard/0100502LeaderBoardPagingSubjectArrowBtnRight12x27.png"></div>
                                 <div class="leaderBoardSubHeader">
 מציג:
-                                    {{dc.leaderBoardData.length}} / {{dc.showingLeaderBoardValues}}
+                                    {{dc.leaderBoardData.length}} / <span style="color: #89C43E">{{dc.showingLeaderBoardValues}}</span>
                                 </div>
 
                                 <div ng-if="dc.leaderBoardArray[7]" style="position:fixed;bottom: 30px; left: 10% " class="eight column animated {{dc.leaderBoardAnimation}}">

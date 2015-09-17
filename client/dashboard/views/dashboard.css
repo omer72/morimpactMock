@@ -28,6 +28,7 @@
 .robotBall{
     position: fixed;
     bottom: 322px;
+    font-weight: bold;
     /*left: calc(100%-30px);*/
 }
 
@@ -207,7 +208,7 @@
     font-size: 47px;
     position: fixed;
     bottom: 420px;
-    right: 130px;
+    right: 120px;
     font-family: Ariel;
 }
 
@@ -263,10 +264,11 @@
     position:absolute;
     color:black;
     font-size:12px;
-    top:14px;
+    font-weight: bold;
+    top:0px;
     width: 100px;
     text-align: right;
-    right: 30px;
+    right: 32px;
 }
 #textYadimClosed
 {
@@ -300,7 +302,7 @@
 .firgunimBigBoxText{
     position: absolute;
     bottom: 190px;
-    left: 200px;
+    left: 145px;
     color: white;
 }
 

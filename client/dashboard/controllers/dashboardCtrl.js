@@ -244,7 +244,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             dc.salesRanks.points = findWithAttr(dc.salesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.salesRanks.length;
 
             dc.contributesRanks = Contributes.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {sumPoints: -1}}).fetch();
-            dc.contributesRanks.points = findWithAttr(dc.contributesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.contributesRanks.length;
+            dc.contributesRanks.points = findValueOfUser(dc.contributesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId).contributePercentage;
 
         }
 
@@ -252,6 +252,14 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             for(var i = 0; i < array.length; i += 1) {
                 if(array[i][attr] == value) {
                     return i+1;
+                }
+            }
+        }
+
+        function findValueOfUser(array, attr, value) {
+            for(var i = 0; i < array.length; i += 1) {
+                if(array[i][attr] == value) {
+                    return array[i];
                 }
             }
         }
@@ -308,22 +316,27 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 case "generalPlaceRanks":
                     dc.gp = dc.generalPlaceRanks;
                     dc.show_modal = true;
+                    dc.menuItems[0].icon = '0408SideMenuElements_DashBtn_ScoreIconFullActive170x74.png';
                     break;
                 case "talksRanks":
                     dc.gp = dc.talksRanks
                     dc.show_modal = true;
+                    dc.menuItems[1].icon = '0410SideMenuElements_DashBtn_CallLenghtIconFullActive170x70.png';
                     break;
                 case "politeRanks":
                     dc.gp = dc.politeRanks
                     dc.show_modal = true;
+                    dc.menuItems[2].icon = '0412SideMenuElements_DashBtn_NiceIconFullActive170x70.png';
                     break;
                 case "salesRanks":
                     dc.gp = dc.salesRanks
                     dc.show_modal = true;
+                    dc.menuItems[3].icon = '0414SideMenuElements_DashBtn_SalesIconFullActive170x70.png';
                     break;
                 case "contributesRanks":
                     dc.gp = dc.contributesRanks
                     dc.show_contributePercentage = true;
+                    dc.menuItems[4].icon = '0416SideMenuElements_DashBtn_TeamIconFullActive170x70.png';
                     break;
                 case "leaderBoard":
                     dc.show_leaderboard = true;
@@ -335,6 +348,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 case "firgunim":
                     dc.show_firgunim = true;
                     dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
+                    dc.menuItems[6].icon = '0421SideMenuElements_BottomFirgunFullActive166x57.png';
                     break;
 
             }
@@ -364,6 +378,13 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
         dc.close_modal = function () {
             dc.show_modal = false;
             dc.show_firgunim = false;
+            dc.menuItems[0].icon =  '0408SideMenuElements_DashBtn_ScoreIconFull170x74.png';
+            dc.menuItems[1].icon =  '0410SideMenuElements_DashBtn_CallLenghtIconFull170x70.png';
+            dc.menuItems[2].icon =  '0412SideMenuElements_DashBtn_NiceIconFull170x70.png';
+            dc.menuItems[3].icon =  '0416SideMenuElements_DashBtn_TeamIconFull170x70.png';
+            dc.menuItems[4].icon =  '0419SideMenuElements_BottomLeaderboardFull166x57.png';
+            dc.menuItems[5].icon =  '0421SideMenuElements_BottomFirgunFull166x57.png';
+            dc.menuItems[6].icon =  '0423SideMenuElements_BottomStatsFull166x57.png';
         }
 
 
