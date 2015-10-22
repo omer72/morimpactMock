@@ -19,7 +19,7 @@
             <dropdown ng-model="dc.user.groupId" data="dc.groups" name="צוות" style="height:38px;margin:15px 0 0 17%"></dropdown>
 
             {{dc.user.groupId}}
-            <div href="#" class="header vertically menuButton" ng-click="dc.show_target = true;" style="cursor:pointer;padding-left: 10px">
+            <div href="#" class="header vertically menuButton" ng-click="dc.show_goals = true;" style="cursor:pointer;padding-left: 10px">
                 <img  class="menuButton img" src="assets/images/0310TopMenuElements_SettingIconFull52x52.png">
                 <label class="menuButton label">הגדרות</label>
             </div>
@@ -149,8 +149,8 @@
                     <a href=""> <img id="image" style="position: relative" src="/assets/images/0402SideMenuElements_ViewBy_MonthACTIVE24x25.png"/></a>
                     <label style="vertical-align: 10px">: תצוגה לפי</label>
                 </div>
-                <modal ng-model="dc.show_modal" style="width: 200px;left: 85%;text-align: center;background: #485655 !important;color: white">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                <modal ng-model="dc.show_modal" style="width: 200px;left: 80%;text-align: center;background: #485655 !important;color: white">
+                    <i class="close icon" ng-click="dc.close_modal()" style="top: -4px;right: -7px;"></i>
                     <div class="header" style="background: #485655;color: white">
                         {{dc.title}}
                     </div>
@@ -175,7 +175,7 @@
                 </modal>
 
                 <modal ng-model="dc.show_contributePercentage" style="width: 200px;left: 85%;text-align: center;background: #485655 !important;color: white">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <i class="close icon" ng-click="dc.close_modal()" style="top: -4px;right: -7px;"></i>
                     <div class="header" style="background: #485655;color: white">
                         {{dc.title}}
                     </div>
@@ -200,7 +200,7 @@
                 </modal>
 
                 <modal ng-model="dc.show_leaderboard" class="leaderBoard">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <i class="close icon" ng-click="dc.close_modal()" style="top: -23px;right: 38px;"></i>
                     <div class="image content leaderBoardContent" >
                         <div class="description">
                             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
@@ -361,13 +361,11 @@
                 </modal>
 
                 <modal ng-model="dc.show_shop" class="shop">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <i class="close icon" ng-click="dc.close_modal()" style="top: -55px;right: 59px;"></i>
                     <div class="image content shopContent" >
                         <div class="description">
                             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
-                                <div class="shopHeader">
-GOODIES בחר/י
-                                </div>
+
 
                             </div>
                         </div>
@@ -376,7 +374,7 @@ GOODIES בחר/י
                 </modal>
 
                 <modal ng-model="dc.show_target" class="target">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
+                    <i class="close icon" ng-click="dc.close_modal()" style="top: -4px;right: -7px;"></i>
                     <div class="image content targetContent" >
                         <div class="description">
                             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
@@ -390,20 +388,7 @@ GOODIES בחר/י
 
                 </modal>
 
-                <modal ng-model="dc.show_target" class="target">
-                    <i class="close icon" ng-click="dc.close_modal()"></i>
-                    <div class="image content targetContent" >
-                        <div class="description">
-                            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
-                                <div class="targetHeader">
-                                    ניהול יעדים
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </modal>
+                <goals showgoals="dc.show_goals" ></goals>
 
                 <firgunim showfirgunim="dc.show_firgunim" ng-if="dc.show_firgunim" users-records="dc.usersRecords" firgunim-text="dc.firgunimText"></firgunim>
                 <challenges showchallenges="dc.show_challenges" ></challenges>

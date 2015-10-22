@@ -281,7 +281,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 }else{
                     dc.showFirgunObject = undefined;
                 }
-            }, 10000);
+            }, 5000);
         }
 
         init();
@@ -381,10 +381,12 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             dc.menuItems[0].icon =  '0408SideMenuElements_DashBtn_ScoreIconFull170x74.png';
             dc.menuItems[1].icon =  '0410SideMenuElements_DashBtn_CallLenghtIconFull170x70.png';
             dc.menuItems[2].icon =  '0412SideMenuElements_DashBtn_NiceIconFull170x70.png';
-            dc.menuItems[3].icon =  '0416SideMenuElements_DashBtn_TeamIconFull170x70.png';
-            dc.menuItems[4].icon =  '0419SideMenuElements_BottomLeaderboardFull166x57.png';
-            dc.menuItems[5].icon =  '0421SideMenuElements_BottomFirgunFull166x57.png';
-            dc.menuItems[6].icon =  '0423SideMenuElements_BottomStatsFull166x57.png';
+            dc.menuItems[3].icon =  '0414SideMenuElements_DashBtn_SalesIconFull170x70.png';
+            dc.menuItems[4].icon =  '0416SideMenuElements_DashBtn_TeamIconFull170x70.png';
+            dc.menuItems[5].icon =  '0419SideMenuElements_BottomLeaderboardFull166x57.png';
+            dc.menuItems[6].icon =  '0421SideMenuElements_BottomFirgunFull166x57.png';
+            dc.menuItems[7].icon =  '0423SideMenuElements_BottomStatsFull166x57.png';
+
         }
 
 

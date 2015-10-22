@@ -141,7 +141,7 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 405px !important;
-    left: 575px !important;
+    left: 605px !important;
     box-shadow: none !important;
 }
 
@@ -149,7 +149,7 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 435px !important;
-    left: 600px !important;
+    left: 635px !important;
     box-shadow: none !important;
 }
 
@@ -163,8 +163,8 @@
 .firgunim{
     background-color: transparent !important;
     position: fixed !important;
-    top: 500px !important;
-    left: 575px !important;
+    top: 510px !important;
+    left: 660px !important;
     box-shadow: none !important;
 }
 
@@ -324,6 +324,11 @@
     left: 50px;
     color: white;
     display: flex;
+}
+
+.ui.menu .item:before{
+    height: 0% !important;
+
 }
 
 

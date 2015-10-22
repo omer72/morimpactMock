@@ -1,0 +1,113 @@
+<modal ng-model="showgoals" class="goals">
+    <i class="close icon" ng-click="dc.close_modal()" style="position: absolute;top: -56px;right: 2px;"></i>
+    <div class="image content challengesContent" >
+        <div class="description">
+            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+                <div class="challengesHeader">
+{{modalTitle}}
+                </div>
+                <div class="goalsTabs">
+                    <div class="ui  pointing  menu">
+                        <a tab-item id="mytab1" class="tab item ">יעד חדש</a>
+                        <a tab-item id="mytab2" class="tab item">עריכה</a>
+                        <a tab-item id="mytab3" class="tab item">דוחות יעד</a>
+                        <div class="right menu">
+                            <a tab-item id="mytab4" class="tab item ">הסטוריית יעדים</a>
+                            <a tab-item id="mytab5" class="tab item active">יעדים פתוחים</a>
+                        </div>
+                    </div>
+
+                    <div class="ui bottom attached tab segment active mytab5">
+                        <p>open goals</p>
+                    </div>
+
+                    <div class="ui bottom attached tab segment mytab4">
+                        <p>history</p>
+                    </div>
+
+                    <div class="ui bottom attached tab segment mytab2">
+                        <p>Editor</p>
+                    </div>
+
+                    <div class="ui bottom attached tab segment mytab1">
+                        <wizard fullwidth="true" on-finish="finished()" current-step="currentStep">
+                            <wizard-pane title="שם ותחום">
+                                <h1>Step 1</h1>
+                                <form name="step1form">
+                                    <div class="ui input">
+                                        <input type="text">
+                                    </div>
+                                    <button type="submit" class="ui button" wz-next>Next</button>
+                                </form>
+                            </wizard-pane>
+                            <wizard-pane title="הגדרת תקופה">
+                                <h1>Step 2</h1>
+                                <form name="step2form">
+                                    <div class="ui input">
+                                        <input type="text">
+                                    </div>
+                                    <button type="submit" class="ui button" wz-next>Next</button>
+                                    <button type="submit" class="ui button" wz-previous>Previous</button>
+                                </form>
+                            </wizard-pane>
+                            <wizard-pane title="ניקוד">
+                                <h1>Step 3</h1>
+                                <form name="step3form">
+                                    <div class="ui input">
+                                        <input type="text">
+                                    </div>
+                                    <button type="submit" class="ui button" wz-next>Next</button>
+                                    <button type="submit" class="ui button" wz-previous>Previous</button>
+                                </form>
+                            </wizard-pane>
+                            <wizard-pane title="מצויינות">
+                                <h1>Step 4</h1>
+                                <form name="step4form">
+                                    <div class="ui input">
+                                        <input type="text">
+                                    </div>
+                                    <button type="submit" class="ui button" wz-finish>Finish</button>
+                                    <button type="submit" class="ui button" wz-previous>Previous</button>
+                                </form>
+                            </wizard-pane>
+                        </wizard>
+                    </div>
+
+
+
+
+
+                </div>
+                <!--<div class="challengesTabs" ng-if="viewState">-->
+                    <!--<img src="/assets/images/Challenges/page{{state}}.png">-->
+                    <!--<i  ng-click="changeStateManagement()" style="position: absolute;-->
+    <!--top: 10px;-->
+    <!--left: 110px;-->
+    <!--cursor: pointer;-->
+    <!--width: 60px;-->
+    <!--height: 26px;"></i>-->
+                    <!--<div class="challengesAccordion">-->
+                        <!--<accordion close="true" ng-click="changeState()">-->
+                            <!--<accordion-group  title="First tab" imgsrc="/assets/images/Challenges/060301ChallengesFLATinnerContent639x154.png">-->
+                                <!--<img src="/assets/images/Challenges/060304ChallengesFLATinnerContent516x101.png"/>-->
+                            <!--</accordion-group>-->
+                            <!--<accordion-group title="Second tab" imgsrc="/assets/images/Challenges/060302ChallengesFLATinnerContent639x154.png">-->
+                                <!--<img src="/assets/images/Challenges/060304ChallengesFLATinnerContent516x101.png"/>-->
+                            <!--</accordion-group>-->
+                        <!--</accordion>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="editState" ng-if="editState">-->
+                    <!--<img src="/assets/images/Challenges/pageManagement.png">-->
+                    <!--<i  ng-click="exitEditStateFunction()" class="exitEditState"></i>-->
+                    <!--<img class="editStateSteps" src="/assets/images/Challenges/06030{{stepNumber}}ChallengesFLATinnerContentSteps653x332.png">-->
+                    <!--<div class="challengesButtons">-->
+                        <!--<button class="ui button" ng-click="next()">&lt;&lt; הבא</button>-->
+                        <!--<button class="ui button" ng-click="cancel()">ביטול</button>-->
+                        <!--<button class="ui button" ng-click="before()">&gt;&gt; הקודם</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</modal>

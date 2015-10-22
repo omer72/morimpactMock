@@ -1,4 +1,4 @@
-.challenges{
+.goals{
     background-color: transparent !important;
     position: relative !important;
     top: 170px !important;
@@ -22,10 +22,15 @@
     position: absolute;
 
 }
-.challengesTabs{
+.goalsTabs{
     position: absolute;
-    top: 170px;
-    left: 171px;
+    top: 145px;
+    left: 170px;
+    width: 70%;
+}
+
+.attached{
+    height: 330px;
 }
 
 .challengesAccordion{
