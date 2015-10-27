@@ -5,7 +5,7 @@ angular.module("morimpact").directive('dropdown', ['$timeout', function ($timeou
         scope: {
             ngModel: '=',
             data: '=',
-            nsme:'@'
+            name:'@'
         },
         template: '<div class="ui selection dropdown"><input type="hidden" name="id"><div class="default text">{{name}}</div><i class="dropdown icon"></i><div class="menu"><div class="item" ng-repeat="item in data" data-value="{{item.id}}">{{item.name}}</div></div></div>',
         link: function (scope, elm, attr) {

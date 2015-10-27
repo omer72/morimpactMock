@@ -2,80 +2,87 @@
     background-color: transparent !important;
     position: relative !important;
     top: 170px !important;
-    left: 580px !important;
+    /*left: 580px !important;*/
     box-shadow: none !important;
 }
 
-.challengesHeader{
+.goalsHeader{
     color: #3e3e3f;
     font-size: 47px;
     position: absolute;
     top: 80px;
-    left: 330px;
+    left: 300px;
     font-family: Ariel;
 }
+.goalsTabs{
+    position: absolute;
+    /*right: 10px;*/
+    top:135px;
+    width: 78%;
+}
+.ui.menu{
+    margin: auto;
+}
+.ui.input{
+    position: inherit;
+}
 
-.challengesContent{
-    background: url('/assets/images/Challenges/060101ChallengesBGFull927x611.png') no-repeat !important;
+.ui.segment{
+    padding-top: 5px;
+    margin: 0px;
+}
+
+.ui.steps{
+    flex-direction: row-reverse;
+}
+
+.ui.steps .step.active {
+    background: #89c43e;
+}
+
+.rightInput {
+    position: relative !important;
+    right: 0px;
+    /*width: 500px;*/
+    padding: 10px;
+    height: 270px;
+}
+
+.rightInputElements{
+    position: absolute !important;
+    top: -10px;
+    right: 0px;
+    float: right;
+    height: 270px;
+    width: 300px;
+
+}
+
+.rightInputElement{
+    float: right;
+    padding: 5px;
+    dir:rtl;
+}
+
+.ui.table thead th{
+    padding: 4px;
+    background-color: #68922e;
+    color: white;
+}
+
+.ui.table tr{
+    text-align: center;
+}
+.wizardFoter{
+    float: right;
+    position: relative;
+    bottom: 35px;
+    right: 0px;
+}
+.goalsContent{
+    background: url('/assets/images/goalAdmin/040103GoalsAdmin_BGFull01_810x612.png') no-repeat !important;
     width: 900px;
     height: 630px;
     position: absolute;
 
-}
-.goalsTabs{
-    position: absolute;
-    top: 145px;
-    left: 170px;
-    width: 70%;
-}
-
-.attached{
-    height: 330px;
-}
-
-.challengesAccordion{
-    position: absolute;
-    top: 48px;
-    left: 25px;
-    max-height: 325px;
-    overflow-y: scroll;
-}
-.active{
-    border-style: solid;
-    border-width: 1px;
-}
-
-.subactive{
-    border-style: solid;
-    border-width: 1px;
-    text-align: center;
-    width: 95%;
-    margin-left: 12.5px;
-}
-
-.editState{
-    position: absolute;
-    top: 110px;
-    left: 171px;
-}
-
-.exitEditState{
-    position: absolute;
-    top: 2px;
-    right: 30px;
-    cursor: pointer;
-    width: 70px;
-    height: 27px;
-}
-
-.editStateSteps{
-    position: absolute;
-    top: 45px;
-    right: 20px;
-}
-
-.challengesButtons{
-    position: absolute;
-    bottom: 10px;
-    left: 25px;
 }

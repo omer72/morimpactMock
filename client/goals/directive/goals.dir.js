@@ -15,6 +15,15 @@ angular.module("morimpact").directive('goals', function () {
         controller:function($scope){
             console.log("goals initC");
             $scope.modalTitle = "ניהול יעדים";
+            $scope.goal = {};
+            $scope.fields = [
+                {id:"sales",name:"מכירות"},
+                {id:"generalExcellence",name:"הצטיינות כללית"},
+                {id:"campaignExcellence",name:"הצטיינות בקמפיין (אתגר)"},
+                {id:"talksLength",name:"אורך שיחה"},
+                {id:"professional",name:"מקצועיות"},
+                {id:"generalPoints",name:"ניקוד כללי"}
+            ];
             $scope.state = "Start";
             $scope.viewState = true;
             $scope.editState = false;

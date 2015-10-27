@@ -41,7 +41,8 @@ body > .grid {
 .image {
     margin-top: -100px;
 }
-.column {
+
+.loginScreen .column {
     max-width: 450px;
 }
 .showError{

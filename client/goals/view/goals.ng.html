@@ -1,9 +1,9 @@
 <modal ng-model="showgoals" class="goals">
-    <i class="close icon" ng-click="dc.close_modal()" style="position: absolute;top: -56px;right: 2px;"></i>
-    <div class="image content challengesContent" >
+    <i class="close icon" ng-click="dc.close_modal()" style="position: absolute;top: -56px;right: 85px;"></i>
+    <div class="image content goalsContent" >
         <div class="description">
             <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
-                <div class="challengesHeader">
+                <div class="goalsHeader">
 {{modalTitle}}
                 </div>
                 <div class="goalsTabs">
@@ -32,43 +32,160 @@
                     <div class="ui bottom attached tab segment mytab1">
                         <wizard fullwidth="true" on-finish="finished()" current-step="currentStep">
                             <wizard-pane title="שם ותחום">
-                                <h1>Step 1</h1>
-                                <form name="step1form">
-                                    <div class="ui input">
-                                        <input type="text">
+                                <div  class="rightInput">
+                                    <div class="rightInputElements">
+                                        <form name="step1form" style="direction: rtl">
+                                            <div class="ui input rightInputElement" >
+                                                <input  type="text" name="name" placeholder="שם היעד"  ng-model="goal.name" style="width: 300px" required>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <dropdown  data="fields" placeholder=""  style="width: 300px" ng-model="goal.destiny" required></dropdown>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="radio" ng-model="goal.target" value="personal">
+                                                    יעד אישי
+
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="radio" ng-model="goal.target" value="team">
+                                                    יעד קבוצתי
+
+                                                </label>
+                                            </div>
+
+                                        </form>
                                     </div>
-                                    <button type="submit" class="ui button" wz-next>Next</button>
-                                </form>
+                                </div>
+                                <div class="wizardFoter">
+                                    <button type="submit" class="ui button " wz-next>הבא</button>
+                                </div>
                             </wizard-pane>
                             <wizard-pane title="הגדרת תקופה">
-                                <h1>Step 2</h1>
-                                <form name="step2form">
-                                    <div class="ui input">
-                                        <input type="text">
+                                <div  class="rightInput">
+                                    <div class="rightInputElements">
+                                        <form name="step2form" style="direction: rtl">
+
+                                            <div class="rightInputElement">
+                                                <label>
+                                                    תאריך התחלה
+                                                    <input type="date" ng-model="goal.startDate">
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label>
+תאריך סיום
+                                                    <input type="date" ng-model="goal.endDate">
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="radio" ng-model="goal.refreshCycle" value="day">
+רענון כל תחילת יום
+
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="radio" ng-model="goal.refreshCycle" value="week">
+רענון כל תחילת שבוע
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="radio" ng-model="goal.refreshCycle" value="month">
+רענון כל תחילת חודש
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="radio" ng-model="goal.refreshCycle" value="none">
+אל תרענן כלל
+                                                </label>
+                                            </div>
+                                        </form>
+
                                     </div>
-                                    <button type="submit" class="ui button" wz-next>Next</button>
-                                    <button type="submit" class="ui button" wz-previous>Previous</button>
-                                </form>
+                                </div>
+                                <div style="position: fixed;top: 180px;">
+                                    {{goal.name}}<br/>
+                                    {{goal.destiny}}<br/>
+                                    {{goal.target}}<br/>
+                                    {{goal.startDate}}<br/>
+                                    {{goal.endDate}}<br/>
+                                    {{goal.refreshCycle}}
+                                </div>
+                                <div class="wizardFoter" style="width: 160px">
+                                    <button type="submit" class="ui button  " wz-next>הבא</button>
+                                    <button type="submit" class="ui button  " wz-previous>הקודם</button>
+
+
+                                </div>
                             </wizard-pane>
                             <wizard-pane title="ניקוד">
-                                <h1>Step 3</h1>
-                                <form name="step3form">
-                                    <div class="ui input">
-                                        <input type="text">
+                                <div  class="rightInput">
+                                    <div class="rightInputElements">
+                                        <form name="stepeform" style="direction: rtl">
+                                            <div class="rightInputElement">
+                                                <label>
+                                                ניקוד למכירת יחידה אחת בתוך הקמפיין
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <table class="ui celled table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>יחידות שנמכרו</th>
+                                                        <th>ניקוד</th>
+                                                    </tr></thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+1
+                                                        </td>
+                                                        <td>50</td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="date">
+                                                    תאריך סיום
+                                                </label>
+                                            </div>
+
+                                        </form>
                                     </div>
-                                    <button type="submit" class="ui button" wz-next>Next</button>
-                                    <button type="submit" class="ui button" wz-previous>Previous</button>
-                                </form>
+                                </div>
+                                <div class="wizardFoter" style="width: 160px">
+                                    <button type="submit" class="ui button  " wz-next>הבא</button>
+                                    <button type="submit" class="ui button  " wz-previous>הקודם</button>
+
+                                </div>
+
                             </wizard-pane>
                             <wizard-pane title="מצויינות">
-                                <h1>Step 4</h1>
-                                <form name="step4form">
-                                    <div class="ui input">
-                                        <input type="text">
+                                <div  class="rightInput">
+                                    <div class="rightInputElements">
+                                        <form name="stepeform" style="direction: rtl">
+
+                                            <div class="rightInputElement">
+                                                <label><input type="date">
+                                                    תאריך התחלה
+                                                </label>
+                                            </div>
+                                            <div class="rightInputElement">
+                                                <label><input type="date">
+                                                    תאריך סיום
+                                                </label>
+                                            </div>
+
+                                        </form>
                                     </div>
-                                    <button type="submit" class="ui button" wz-finish>Finish</button>
-                                    <button type="submit" class="ui button" wz-previous>Previous</button>
-                                </form>
+                                </div>
+                                <div class="wizardFoter" style="width: 160px">
+                                    <button type="submit" class="ui button  " wz-finish>סיום</button>
+                                    <button type="submit" class="ui button  " wz-previous>הקודם</button>
+
+
+                                </div>
                             </wizard-pane>
                         </wizard>
                     </div>
