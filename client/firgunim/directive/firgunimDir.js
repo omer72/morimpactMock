@@ -37,7 +37,7 @@ angular.module("morimpact").directive('firgunim', function () {
                     {
                         'createdAt' : new Date().getTime(),
                         'clientSystemId': scope.$$childHead.selectUser.clientSystemId,
-                        'firgunTo': scope.$$childHead.selectUser.name,
+                        'firgunTo': scope.$$childHead.selectUser,
                         'firgunById':scope.$root.currentUser.profile.clientSystemId,
                         'firgunBy':scope.$root.currentUser.profile.lastName + ' '+scope.$root.currentUser.profile.firstName,
                         'firgunText':(scope.$$childHead.firgun.text == 'freeText')? scope.$$childHead.firgun.freeText :scope.$$childHead.firgun.text ,

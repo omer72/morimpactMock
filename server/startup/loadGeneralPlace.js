@@ -9,6 +9,4 @@ Meteor.startup(function () {
   //}
 });
 
-Meteor.publish("allUsers", function () {
-    return Meteor.users.find({});
-});
+

@@ -1,8 +1,71 @@
-angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor','$state','$scope','$interval',
-    function( $rootScope,$meteor,$state,$scope,$interval) {
+angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor','$state','$scope','$interval',
+    function( $reactive,$meteor,$state,$scope,$interval) {
         console.log("dashboardCtrl");
-
+        $reactive(this).attach($scope);
         var dc = this;
+        this.subscribe('usersRecords');
+        this.subscribe('groups');
+        this.subscribe('userPref');
+        this.subscribe('contributes');
+        this.subscribe('talks');
+        this.subscribe('polite');
+        this.subscribe('sales');
+        this.subscribe('firgunim');
+        this.subscribe('users');
+
+        dc.currentUserProfile = Meteor.user().profile;
+
+        this.helpers({
+                usersRecords: () => {
+                    return UsersRecords.find({});
+                },
+                userGroup: () => {
+                    return Groups.findOne({groupId: dc.currentUserProfile.groupId});
+                },
+                groups: () =>{
+                    return Groups.find({});
+                },
+                userPref : () =>{
+                    return UserPref.findOne({clientSystemId: parseInt(dc.currentUserProfile.clientSystemId)});
+                },
+                usersPref : () =>{
+                    return UserPref.find({});
+                },
+                currentUserRecords: () =>{
+                    return UsersRecords.findOne({clientSystemId:parseInt(dc.currentUserProfile.clientSystemId)});
+                },
+                contributesRanks: () =>{
+                    return Contributes.find({groupId: dc.currentUserProfile.groupId}, {sort: {sumPoints: -1}});
+                },
+                talksRanks: () =>{
+                    return Talks.find({groupId:dc.currentUserProfile.groupId},{sort: {points: -1}});
+                },
+                polite: () =>{
+                    return Polite.findOne({clientSystemId:parseInt(dc.currentUserProfile.clientSystemId)});
+                },
+                sales: () =>{
+                    return Sales.findOne({clientSystemId:parseInt(dc.currentUserProfile.clientSystemId)});
+                },
+                firgunim: () =>{
+                    return Firgunim.find({},  {sort: {createdAt: 1}});
+                },
+                generalPlaceRanks:() =>{
+                    return UsersRecords.find({groupId: dc.currentUserProfile.groupId}, {sort: {points: -1}});
+                    return UsersRecords.find({groupId: dc.currentUserProfile.groupId}, {sort: {points: -1}});
+                },
+                politeRanks:() =>
+                {
+                    return Polite.find({groupId: dc.currentUserProfile.groupId}, {sort: {points: -1}});
+                },
+                usersByGroup:() =>{
+                    return Meteor.users.find({'profile.groupId': dc.currentUserProfile.groupId});
+                },
+                salesRanks:() =>{
+                    return Sales.find({groupId: dc.currentUserProfile.groupId}, {sort: {points: -1}});
+                }
+
+        });
+
         var generalPointsIndex = -1;
         dc.leaderBoardIndex = 0;
         dc.searchPosition = 1;
@@ -63,7 +126,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 header: 'פירגון לחברים',
                 icon: '0421SideMenuElements_BottomFirgunFull166x57.png',
                 sref: '.table',
-                scopeName: 'firgunim'
+                scopeName: 'firgun'
 
             },
             {
@@ -75,106 +138,26 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
             }
         ];
 
-
-        function init() {
-            var generalPlaceId = GeneralPlace.findOne({userId: $rootScope.currentUser._id});
-            dc.clientSystemId = $rootScope.currentUser.profile.clientSystemId;
-            dc.clientGroup = $rootScope.currentUser.profile.groupId;
-
-            dc.userGroup = Groups.findOne({groupId: dc.clientGroup});
-
-            dc.user = $rootScope.currentUser;
-            dc.groups = $meteor.collection(Groups);
-            if (!generalPlaceId) {
-                var generalPlace =
-                    {
-                        'userId': $rootScope.currentUser._id,
-                        'points': 0
-                    }
-                    ;
-                generalPlaceId = {};
-                generalPlaceId._id = GeneralPlace.insert(generalPlace);
-            }
-
-            var userPrefObject = UserPref.findOne({clientSystemId: $rootScope.currentUser.profile.clientSystemId});
-
-            if (!userPrefObject) {
-                var userPref =
-                    {
-                        'clientSystemId':$rootScope.currentUser.profile.clientSystemId,
-                        'userId': $rootScope.currentUser._id,
-                        "robotPicName": "1101",
-                        "backgroundPicture": "0003mainBGVars_daylightSnowing"
-                    }
-                    ;
-                userPrefObject = {};
-                userPrefObject._id = UserPref.insert(userPref);
-            }
-            dc.userPref = $meteor.object(UserPref, userPrefObject._id);
-            var usersPref = $meteor.collection(UserPref);
-            dc.generalPlace = $meteor.object(GeneralPlace, generalPlaceId._id);
-
-            var talksId = Talks.findOne({userId: $rootScope.currentUser._id});
-            if (!talksId) {
-                var talks =
-                    {
-                        'userId': $rootScope.currentUser._id,
-                        'points': 0
-                    }
-                    ;
-                talksId = {};
-                talksId._id = Talks.insert(talks);
-            }
-            dc.talks = $meteor.object(Talks, talksId._id);
-
-            var politeId = Polite.findOne({userId: $rootScope.currentUser._id});
-            if (!politeId) {
-                var polite =
-                    {
-                        'userId': $rootScope.currentUser._id,
-                        'points': 0
-                    }
-                    ;
-                politeId = {};
-                politeId._id = Polite.insert(polite);
-            }
-            dc.polite = $meteor.object(Polite, politeId._id);
-
-            var salesId = Sales.findOne({userId: $rootScope.currentUser._id});
-            if (!salesId) {
-                var sales =
-                    {
-                        'userId': $rootScope.currentUser._id,
-                        'points': 0
-                    }
-                    ;
-                salesId = {};
-                salesId._id = Sales.insert(sales);
-            }
-            dc.sales = $meteor.object(Sales, salesId._id);
-
-            var usersByGroup = Meteor.users.find({"profile.groupId": $rootScope.currentUser.profile.groupId}).fetch();
-            dc.userId = [];
-            dc.usersMap = {};
-            angular.forEach(usersByGroup, function (value, key) {
-                dc.userId.push(value.profile.clientSystemId);
-                dc.usersMap[value.profile.clientSystemId] = [value.profile.firstName,value.profile.lastName];
+        dc.getUserPrefByClientSystemId = function(value){
+            var userPref =  dc.usersPref.filter(function(item){
+                return (item.clientSystemId == value);
             });
+            return userPref[0];
+        }
+        function init() {
+
             dc.usersPrefMap = {};
-            angular.forEach(usersPref, function (value, key) {
+            angular.forEach(dc.usersPref, function (value, key) {
                 dc.usersPrefMap[value.clientSystemId] = value.robotPicName;
             });
-            dc.usersRecords = [{a:1}];
-            dc.usersRecords = $meteor.collection(UsersRecords);
+
             dc.usersRecordsMap = {}
             angular.forEach(dc.usersRecords, function(value, key) {
                 dc.usersRecordsMap[value.clientSystemId] = value;
             });
-            dc.currentUserRecords = $meteor.object(UsersRecords,dc.usersRecordsMap[$rootScope.currentUser.profile.clientSystemId]._id);
-            dc.firgunimText = $meteor.collection(FirgunimText);
 
-            //dc.firgunim = Firgunim.find({ clientSystemId: parseInt($rootScope.currentUser.profile.clientSystemId) }).fetch();
-            dc.firgunim = $meteor.collection(Firgunim,  {sort: {createdAt: 1}});
+            //dc.firgunimText = $meteor.collection(FirgunimText);
+
             dc.getLatestFirgun();
         }
 
@@ -189,65 +172,116 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                 latestFirgunIndex++;
             }
         }
+        dc.getUserByClientId = function(value){
+            var user =  (dc.usersByGroup.filter(function(item){
+                return (item.profile.clientSystemId == value.clientSystemId);
+            }));
+            if (user != undefined && user.length > 0)
+                return user[0].profile.firstName + " " + user[0].profile.lastName;
+            else
+                return "";
+        }
+
+        dc.getFirstNameUserByClientId = function(value){
+            var user =  (dc.usersByGroup.filter(function(item){
+                return (item.profile.clientSystemId == value.clientSystemId);
+            }));
+            if (user != undefined && user.length > 0)
+                return user[0].profile.firstName;
+            else
+                return "";
+        }
+
+        dc.getLastNameUserByClientId = function(value){
+            var user =  (dc.usersByGroup.filter(function(item){
+                return (item.profile.clientSystemId == value.clientSystemId);
+            }));
+            if (user != undefined && user.length > 0)
+                return user[0].profile.lastName;
+            else
+                return "";
+        }
+        $scope.$watch('dc.usersByGroup',function(value){
+            if (value != undefined) {
+                dc.userId = [];
+                dc.usersMap = {};
+                angular.forEach(dc.usersByGroup, function (value, key) {
+                    dc.userId.push(value.profile.clientSystemId);
+                    dc.usersMap[value.profile.clientSystemId] = [value.profile.firstName, value.profile.lastName];
+                });
+            }
+        })
+        $scope.$watch('dc.currentUserRecords.points',function(value){
+            updateUserPref();
+        });
 
 
-
-        $scope.$watch('dc.currentUserRecords.points',function(){
+        $scope.$watch('currentUserRecords',function(value){
             updateUserPref();
         })
-        $scope.$watch('dc.firgunim',function(){
+        $scope.$watch('dc.firgunim',function(value){
             console.log('dc.firgunim');
             dc.getLatestFirgun();
             latestFirgunIndex = 0;
-        })
+        });
 
 
 
-        updateUserPref = function(){
-            dc.currentUser = dc.usersRecordsMap[$rootScope.currentUser.profile.clientSystemId];
+        updateUserPref = function() {
+            dc.currentUser = dc.currentUserRecords;
             var robotId = 1;
-            if (dc.currentUser.points <=200)
-                robotId = 1;
-            else if (dc.currentUser.points >200 && dc.currentUser.points <=400)
-                robotId = 2;
-            else if (dc.currentUser.points >400 && dc.currentUser.points <=600)
-                robotId = 3;
-            else if (dc.currentUser.points >600 && dc.currentUser.points <=800)
-                robotId = 4;
-            else if (dc.currentUser.points >800 && dc.currentUser.points <=1000)
-                robotId = 5;
-            else if (dc.currentUser.points >1000 && dc.currentUser.points <=1200)
-                robotId = 6;
-            else if (dc.currentUser.points >1200 && dc.currentUser.points <=1400)
-                robotId = 7;
-            else if (dc.currentUser.points >1400 && dc.currentUser.points <=1600)
-                robotId = 8;
+            if (dc.currentUser != undefined) {
+
+                if (dc.currentUser.points <= 200)
+                    robotId = 1;
+                else if (dc.currentUser.points > 200 && dc.currentUser.points <= 400)
+                    robotId = 2;
+                else if (dc.currentUser.points > 400 && dc.currentUser.points <= 600)
+                    robotId = 3;
+                else if (dc.currentUser.points > 600 && dc.currentUser.points <= 800)
+                    robotId = 4;
+                else if (dc.currentUser.points > 800 && dc.currentUser.points <= 1000)
+                    robotId = 5;
+                else if (dc.currentUser.points > 1000 && dc.currentUser.points <= 1200)
+                    robotId = 6;
+                else if (dc.currentUser.points > 1200 && dc.currentUser.points <= 1400)
+                    robotId = 7;
+                else if (dc.currentUser.points > 1400 && dc.currentUser.points <= 1600)
+                    robotId = 8;
+                else
+                    robotId = 9;
+                if (dc.userPref != undefined){
+                    dc.userPref.robotPicName =  '110'+robotId;
+                    dc.saveUserPref(dc.userPref.robotPicName);
+                }
+
+            }
+
+
+        }
+
+        dc.saveUserPref = (value) => {
+            UserPref.update({_id: dc.userPref._id}, {
+                $set: {
+                    robotPicName: value
+                }
+                }, (error) => {
+                    if (error) {
+                    console.log('Oops, unable to update the UserPref...');
+                }
+                else {
+                    console.log('Done!');
+                }
+            });
+        };
+
+
+        dc.getPoints  = function(value){
+            if (dc[value]!= undefined)
+                return findWithAttr(dc[value],'clientSystemId',dc.currentUserProfile.clientSystemId) + "/"+dc[value].length;
             else
-                robotId = 9;
-
-            dc.userPref.robotPicName =  '110'+robotId;
-            dc.userPref.save();
-
+                return "";
         }
-
-        updateRanks =  function(){
-            dc.generalPlaceRanks = UsersRecords.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
-            dc.generalPlaceRanks.points = findWithAttr(dc.generalPlaceRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.generalPlaceRanks.length;
-
-            dc.talksRanks = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
-            dc.talksRanks.points = findWithAttr(dc.talksRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.talksRanks.length;
-
-            dc.politeRanks = Polite.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
-            dc.politeRanks.points = findWithAttr(dc.politeRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.politeRanks.length;
-
-            dc.salesRanks = Sales.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
-            dc.salesRanks.points = findWithAttr(dc.salesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId) + "/"+dc.salesRanks.length;
-
-            dc.contributesRanks = Contributes.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {sumPoints: -1}}).fetch();
-            dc.contributesRanks.points = findValueOfUser(dc.contributesRanks,'clientSystemId',$rootScope.currentUser.profile.clientSystemId).contributePercentage;
-
-        }
-
         function findWithAttr(array, attr, value) {
             for(var i = 0; i < array.length; i += 1) {
                 if(array[i][attr] == value) {
@@ -286,7 +320,6 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
 
         init();
         updateUserPref();
-        updateRanks();
         updateFirgun();
 
 
@@ -340,14 +373,13 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
                     break;
                 case "leaderBoard":
                     dc.show_leaderboard = true;
-                    dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: -1}}).fetch();
+                    dc.leaderBoardData = dc.talksRanks;
                     dc.leaderBoardIndex = 0;
                     dc.leaderBoardArray = getLeaderBoardArray(dc.leaderBoardIndex);
                     dc.menuItems[5].icon = '0419SideMenuElements_BottomLeaderboardFullActive166x57.png';
                     break;
-                case "firgunim":
+                case "firgun":
                     dc.show_firgunim = true;
-                    dc.leaderBoardData = Talks.find({groupId: $rootScope.currentUser.profile.groupId}, {sort: {points: 1}}).fetch();
                     dc.menuItems[6].icon = '0421SideMenuElements_BottomFirgunFullActive166x57.png';
                     break;
 
@@ -422,7 +454,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$rootScope','$meteor'
 
 
         dc.chooseLeaderBoardColor = function(value){
-            if (value.clientSystemId == $rootScope.currentUser.profile.clientSystemId)
+            if (value.clientSystemId == dc.currentUserProfile.clientSystemId)
                 return 'Green';
             else
                 return 'White';

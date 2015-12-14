@@ -1,47 +1,53 @@
-angular.module("morimpact").controller("LoginCtrl", [ '$rootScope','$meteor','$state',
-  function( $rootScope,$meteor,$state){
+angular.module("morimpact").controller("LoginCtrl", [ '$rootScope','$meteor','$state','$interval',
+  function( $rootScope,$meteor,$state,$interval){
 console.log("loginCtrl");
 
     var loginCtrl = this;
     loginCtrl.showCreateAccount = false;
     loginCtrl.groups = $meteor.collection(Groups);
     loginCtrl.fileContent = [];
-
+    loginCtrl.stop;
     loginCtrl.saveFile = function(){
         console.log(loginCtrl.fileContent);
         var fileContentArray = loginCtrl.fileContent.split('\n');
         var fileContentArrayData = [];
-        for (var index = 1;index<fileContentArray.length;index++){
-            fileContentArrayData = fileContentArray[index].split(',');
-            var user = {
+        var index = 0
+        loginCtrl.stop = $interval(function(){
+            index++;
+            if (index < fileContentArray.length){
+                fileContentArrayData = fileContentArray[index].split(',');
 
-                'email':fileContentArrayData[7],
-                'password':'123456',
+                var user = {
 
-                'profile':{
-                    'email':fileContentArrayData[7],
-                    'firstName':fileContentArrayData[1],
-                    'lastName':fileContentArrayData[2],
-                    'groupId':fileContentArrayData[6],
-                    'phoneNumber':fileContentArrayData[8],
-                    'clientSystemId':fileContentArrayData[9],
-                    'userType':fileContentArrayData[11],
-                    'sumPoints':fileContentArrayData[10],
-                    'created':fileContentArrayData[3],
-                    'updated':fileContentArrayData[4],
-                    'id':fileContentArrayData[0]
-                }
-            };
-            Accounts.createUser(user,function(err){
-                if(!err) {
-                    //Router.go('/');
-                    console.log("create Account succeess");
-                    //$state.transitionTo('dashboard');
-                }else{
-                    loginCtrl.error = err.reason;
-                }
-            });
-        }
+                    'email': fileContentArrayData[7],
+                    'password': '123456',
+
+                    'profile': {
+                        'email': fileContentArrayData[7],
+                        'firstName': fileContentArrayData[1],
+                        'lastName': fileContentArrayData[2],
+                        'groupId': fileContentArrayData[6],
+                        'phoneNumber': fileContentArrayData[8],
+                        'clientSystemId': fileContentArrayData[9],
+                        'userType': fileContentArrayData[11],
+                        'sumPoints': fileContentArrayData[10],
+                        'created': fileContentArrayData[3],
+                        'updated': fileContentArrayData[4],
+                        'id': fileContentArrayData[0]
+                    }
+                };
+                Accounts.createUser(user, function (err) {
+                    if (err)
+                        console.log(err);
+                    else
+                        console.log('success!');
+                });
+            }else{
+                loginCtrl.stop = undefined;
+            }
+
+        },3000);
+
     }
 
     loginCtrl.createAccount = function(isValid){

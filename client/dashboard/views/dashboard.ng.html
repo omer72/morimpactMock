@@ -15,10 +15,9 @@
             <div class="item" style="padding-left: 10px;padding-right: 10px">
                 (<a ng-click="dc.logout()" style="padding-left: 0;padding-right: 0;" class="item">יציאה</a>)
             </div>
-            <label class="item" style="padding-left: 0;padding-right: 0;">{{dc.user.profile.lastName}} {{dc.user.profile.firstName}}</label><label class="item">:</label> <label class="item">שלום</label>
-            <dropdown ng-model="dc.user.groupId" data="dc.groups" name="צוות" style="height:38px;margin:15px 0 0 17%"></dropdown>
+            <label class="item" style="padding-left: 0;padding-right: 0;">{{dc.currentUserProfile.lastName}} {{dc.currentUserProfile.firstName}}</label><label class="item">:</label> <label class="item">שלום</label>
+            <dropdown ng-model="dc.currentUserProfile.groupId" data="dc.groups" name="צוות" style="height:38px;margin:15px 0 0 17%"></dropdown>
 
-            {{dc.user.groupId}}
             <div href="#" class="header vertically menuButton" ng-click="dc.show_goals = true;" style="cursor:pointer;padding-left: 10px">
                 <img  class="menuButton img" src="assets/images/0310TopMenuElements_SettingIconFull52x52.png">
                 <label class="menuButton label">הגדרות</label>
@@ -158,7 +157,7 @@
                         <div class="left">
                             <div ng-repeat="item in dc.gp" style="overflow: auto">
                                 <span style="float: left;">{{item.points}}</span>
-                                <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
+                                <span style="float: right;">{{dc.getUserByClientId(item)}}</span>
 
                             </div>
                         </div>
@@ -183,7 +182,7 @@
                         <div class="left">
                             <div ng-repeat="item in dc.gp" style="overflow: auto">
                                 <span style="float: left;">{{item.contributePercentage}}</span>
-                                <span style="float: right;">{{dc.usersMap[item.clientSystemId][0]+' '+dc.usersMap[item.clientSystemId][1]}}</span>
+                                <span style="float: right;">{{dc.getUserByClientId(item)}}</span>
 
                             </div>
                         </div>
@@ -220,7 +219,7 @@
                                 </div>
 
                                 <div ng-if="dc.leaderBoardArray[7]" style="position:fixed;bottom: 30px; left: 10% " class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[7].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[7].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010301LeaderBoardPlatforms01{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[7])}}68x82.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[7]" style="position: fixed;margin-bottom: 56px;left: 13%; color: #89c43e; " class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -230,12 +229,12 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[7]" style="position:fixed;margin-bottom: 25px; left: 10% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[7].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[7].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[7])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[7])}}</div>
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[6]" style="position:fixed;bottom: 30px; left: 20%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[6].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[6].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010303LeaderBoardPlatforms02{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[6])}}68x117.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[6]" style="position:fixed;margin-bottom: 86px; left: 23%;color: #89c43e " class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -246,13 +245,13 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[6]" style="position:fixed;margin-bottom: 55px; left: 20% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[6].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[6].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[6])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[6])}}</div>
 
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[5]" style="position:fixed;bottom: 30px; left: 30%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[5].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[5].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010305LeaderBoardPlatforms03{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[5])}}68x150.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[5]" style="position:fixed;margin-bottom: 116px; left: 33%;color: #89c43e " class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -263,13 +262,13 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[5]" style="position:fixed;margin-bottom: 85px; left: 30% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[5].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[5].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[5])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[5])}}</div>
 
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[4]" style="position:fixed;bottom: 30px; left: 40%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[4].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[4].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010307LeaderBoardPlatforms04{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[4])}}68x183.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[4]" style="position:fixed;margin-bottom: 146px; left: 43% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -280,13 +279,13 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[4]" style="position:fixed;margin-bottom: 115px; left: 40% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[4].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[4].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[4])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[4])}}</div>
 
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[3]" style="position:fixed;bottom: 30px; left: 50%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[3].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[3].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010309LeaderBoardPlatforms05{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[3])}}68x216.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[3]" style="position:fixed;margin-bottom: 176px; left: 53% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -297,13 +296,13 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[3]" style="position:fixed;margin-bottom: 145px; left: 50% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[3].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[3].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[3])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[3])}}</div>
 
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[2]" style="position:fixed;bottom: 30px; left: 60%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[2].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[2].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010311LeaderBoardPlatforms06{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[2])}}68x249.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[2]" style="position:fixed;margin-bottom: 206px; left: 63%;color: #89c43e " class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -314,13 +313,13 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[2]" style="position:fixed;margin-bottom: 170px; left: 60% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[2].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[2].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[2])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[2])}}</div>
 
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[1]" style="position:fixed;bottom: 30px; left: 70%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[1].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[1].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010313LeaderBoardPlatforms07{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[1])}}68x282.png">
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[1]" style="position:fixed;margin-bottom: 236px; left: 73% ;color: #89c43e" class="eight column animated {{dc.leaderBoardAnimation}}">
@@ -331,13 +330,13 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[1]" style="position:fixed;margin-bottom: 200px; left: 70% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[1].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[1].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[1])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[1])}}</div>
 
                                     </div>
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[0]" style="position:fixed;bottom: 30px; left: 80%" class="eight column animated {{dc.leaderBoardAnimation}}">
-                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.usersPrefMap[dc.leaderBoardArray[0].clientSystemId]}}LeaderBoardPlatformsTransRobots.png" >
+                                    <img style="margin-bottom: -8px" src="/assets/images/LeaderBoard/{{dc.getUserPrefByClientSystemId(dc.leaderBoardArray[0].clientSystemId).robotPicName}}LeaderBoardPlatformsTransRobots.png" >
                                     <img src="/assets/images/LeaderBoard/010315LeaderBoardPlatforms08{{dc.chooseLeaderBoardColor(dc.leaderBoardArray[0])}}68x326.png">
                                     <img src="/assets/images/LeaderBoard/010317LeaderBoardPlatformsMedal32x48.png" ng-show="dc.leaderBoardIndex == 0" style="position: fixed;left: 41px;top: 54px;">
                                 </div>
@@ -349,8 +348,8 @@
                                 </div>
                                 <div ng-if="dc.leaderBoardArray[0]" style="position:fixed;bottom: 255px; left: 80% " class="eight column animated {{dc.leaderBoardAnimation}}">
                                     <div class="leaderBoardScore">
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[0].clientSystemId][0]}}</div>
-                                        <div >{{dc.usersMap[dc.leaderBoardArray[0].clientSystemId][1]}}</div>
+                                        <div >{{dc.getFirstNameUserByClientId(dc.leaderBoardArray[0])}}</div>
+                                        <div >{{dc.getLastNameUserByClientId(dc.leaderBoardArray[0])}}</div>
 
                                     </div>
                                 </div>
@@ -387,7 +386,7 @@
                     </div>
 
                 </modal>
-
+{{talksRanks}}
                 <goals showgoals="dc.show_goals" ></goals>
 
                 <firgunim showfirgunim="dc.show_firgunim" ng-if="dc.show_firgunim" users-records="dc.usersRecords" firgunim-text="dc.firgunimText"></firgunim>
@@ -400,7 +399,7 @@
                     <div id="container" ng-click="dc.clickMenu($event,item)">
                         <a href=""> <img id="image" src="/assets/images/{{item.icon}}"/>
                         <p id="text">
-                            {{item.header}}<br/>{{item.name}}<br/> {{dc[item.scopeName].points}}
+                            {{item.header}}<br/>{{item.name}}<br/> {{dc.getPoints(item.scopeName)}}
                         </p>
                         </a>
                     </div>

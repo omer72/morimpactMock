@@ -7,15 +7,13 @@ angular.module("morimpact").directive('dropdownsearch', ['$timeout', function ($
             data: '=',
             name: '@'
         },
-        template: '<div class="ui fluid search selection dropdown" style="text-align: right;border-radius: 500rem;width: 550px !important;"><input type="hidden" name="clientSystemId" style="text-align: right"><i class="search icon"></i><div class="default text">{{name}}</div><div class="menu"><div class="item" data-value="{{item}}" ng-repeat="item in data" style="text-align: right">{{item.name}}</div> </div> </div>',
-        //templateUrl: 'client/directives/dropdownSearch.ng.html',
-
+        template: '<div class="ui fluid search selection dropdown" style="text-align: right;border-radius: 500rem;width: 550px !important;"><input type="hidden" name="clientSystemId" style="text-align: right"><i class="search icon"></i><div class="default text">{{name}}</div><div class="menu"><div class="item" data-value="{{item.name}}" ng-repeat="item in data" style="text-align: right">{{item.name}}</div> </div> </div>',
         link: function (scope, elm, attr){
             var changeBound = false;
             elm.dropdown({
                 onShow: function() {
                     if(!changeBound) {
-                        console.log('binding change');
+                        console.log('binding change dropdown');
                         elm.dropdown({
                             onChange: function(value) {
                                 scope.$apply(function(scope) {
@@ -23,7 +21,6 @@ angular.module("morimpact").directive('dropdownsearch', ['$timeout', function ($
                                 });
                             }
                         })
-
                         changeBound = true;
                     }
                 }
@@ -31,7 +28,7 @@ angular.module("morimpact").directive('dropdownsearch', ['$timeout', function ($
             elm.focus({
                 onFocus: function() {
                     if(!changeBound) {
-                        console.log('binding change');
+                        console.log('binding change focus');
                         elm.search({
                             onFocus: function(value) {
                                 scope.$apply(function(scope) {
@@ -39,7 +36,6 @@ angular.module("morimpact").directive('dropdownsearch', ['$timeout', function ($
                                 });
                             }
                         })
-
                         changeBound = true;
                     }
                 }
