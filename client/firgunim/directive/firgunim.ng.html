@@ -65,27 +65,7 @@
 
                         </div>
                         <div ng-show="showSelectTagState">
-                            <div class="ui internally celled grid" style="padding-top: 10px">
-                                <div class="row">
-                                    <div class="four wide column" style="padding-top: 20px">
-                                        <img src="assets/images/Firgunim/{{selectedTagVisualMenu}}.png">
-
-                                        <button class="ui button active " ng-click="addSelectedTag()">צרף תג</button>
-                                        <img  class="menuButton img" ng-click="cancelSelectedTag();showSelectTagState = false" style="padding-top: 50px" src="assets/images/Firgunim/030212FirgunimInnerPagesElements_CancelBadgeBtnFull84x21.png">
-
-                                    </div>
-
-                                    <div class="ten wide column" style="padding-top: 10px">
-                                        <div class="tagsRow ui four column grid "  >
-                                            <div class="column tagsColumn" ng-repeat="n in range ">
-                                                <div class="ui segment">
-                                                    <img ng-click="selectedTag($index)" src='assets/images/Firgunim/0303{{n<10?"0"+n:n}}FirgunimInnerPagesElements_Bages71x71.png'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <choosetag selected-tag-visual="selectedTagVisual" show-select-tag-state="showSelectTagState"></choosetag>
                         </div>
                     </div>
 

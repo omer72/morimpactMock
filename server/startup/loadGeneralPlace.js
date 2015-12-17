@@ -1,4 +1,5 @@
 Meteor.startup(function () {
+
   //if (GeneralPlace.find().count() === 0) {
   //  var generalPlace = [
   //    {'userId': 1,

@@ -86,3 +86,9 @@
     position: absolute;
 
 }
+.goalsInput{
+    width: 50px;
+}
+.goalsLabelInput{
+    padding-bottom: 15px;
+}

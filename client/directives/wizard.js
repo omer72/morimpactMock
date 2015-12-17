@@ -81,11 +81,14 @@ angular.module('morimpact')
                 $scope.goTo(stepTo);
             };
 
+            //this.finish = function() {
+            //    if ($scope.onFinish) {
+            //        $scope.selectedStep.completed = true;
+            //        $scope.onFinish();
+            //    }
+            //};
             this.finish = function() {
-                if ($scope.onFinish) {
-                    $scope.selectedStep.completed = true;
-                    $scope.onFinish();
-                }
+                $scope.onFinish && $scope.onFinish();
             };
 
             this.cancel = this.previous = function() {
@@ -169,7 +172,33 @@ angular.module('morimpact')
                 WizardController.addStep(scope);
             }
         };
-    });
+    })
+.factory('WizardHandler', function() {
+    var service = {};
+
+    var wizards = {};
+
+    service.defaultName = "defaultWizard";
+
+    service.addWizard = function(name, wizard) {
+        wizards[name] = wizard;
+    };
+
+    service.removeWizard = function(name) {
+        delete wizards[name];
+    };
+
+    service.wizard = function(name) {
+        var nameToUse = name;
+        if (!name) {
+            nameToUse = service.defaultName;
+        }
+
+        return wizards[nameToUse];
+    };
+
+    return service;
+});
 
 
 function wizardButtonDirective(action) {
@@ -199,3 +228,4 @@ wizardButtonDirective('wzNext');
 wizardButtonDirective('wzPrevious');
 wizardButtonDirective('wzFinish');
 wizardButtonDirective('wzCancel');
+
