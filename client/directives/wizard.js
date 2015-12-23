@@ -81,14 +81,11 @@ angular.module('morimpact')
                 $scope.goTo(stepTo);
             };
 
-            //this.finish = function() {
-            //    if ($scope.onFinish) {
-            //        $scope.selectedStep.completed = true;
-            //        $scope.onFinish();
-            //    }
-            //};
             this.finish = function() {
-                $scope.onFinish && $scope.onFinish();
+                if ($scope.onFinish) {
+                    $scope.selectedStep.completed = true;
+                    $scope.onFinish();
+                }
             };
 
             this.cancel = this.previous = function() {

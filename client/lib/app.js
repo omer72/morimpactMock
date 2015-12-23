@@ -1,7 +1,8 @@
 angular.module('morimpact',[
     'angular-meteor',
     'ui.router',
-    'angularUtils.directives.dirPagination']);
+    'angularUtils.directives.dirPagination',
+    'angularMoment','backand']);
 
 function onReady() {
     angular.bootstrap(document, ['morimpact']);

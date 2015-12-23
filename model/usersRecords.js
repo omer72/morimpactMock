@@ -2,12 +2,9 @@ UsersRecords = new Mongo.Collection("usersRecords");
 
 UsersRecords.allow({
     insert: function (userId, usersRecords) {
-        return userId && usersRecords.clientSystemId === userId;
+        return true;
     },
     update: function (userId, usersRecords, fields, modifier) {
-        if (userId !== usersRecords.clientSystemId)
-            return false;
-
         return true;
     },
     remove: function (userId, usersRecords) {

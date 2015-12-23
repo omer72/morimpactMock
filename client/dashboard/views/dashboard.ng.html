@@ -41,22 +41,22 @@
             <div class="ui container" style="height: 100vh">
                 <div style="height: 50vh">
                     <img src='/assets/images/0701_OpenGoalsNavigatorBG48x179.png' class="goalAncor">
-                    <div class="firstGoal">
+                    <div class="firstGoal" ng-show="dc.getActiveGoal().length > 0">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
-יעד <br/> מכירות
+                            {{dc.getActiveGoal()[0].name}}
                         </span>
                     </div>
-                    <div class="secondGoal">
+                    <div class="secondGoal" ng-show="dc.getActiveGoal().length > 1">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
-יעד <br/>אדיבות
+                            {{dc.getActiveGoal()[1].name}}
                         </span>
                     </div>
-                    <div class="thirdGoal">
+                    <div class="thirdGoal" ng-show="dc.getActiveGoal().length > 2">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
-                            יעד <br/> ידע
+                            {{dc.getActiveGoal()[2].name}}
                         </span>
                     </div>
                 </div>
@@ -70,16 +70,16 @@
                     </div>
 
                     <div class="starContainer">
-                        <div class="firstStar">
+                        <div class="firstStar" ng-show="dc.getExpiredGoal().length > 0">
                             <img src='/assets/images/1003_robotPlatformGoalClosed_1star87x44.png' >
                             <p id="textYadimClosed">
-יעד מכירות
+                                {{dc.getExpiredGoal()[0].name}}
                             </p>
                         </div>
-                        <div class="secondStar">
+                        <div class="secondStar" ng-show="dc.getExpiredGoal().length > 1">
                             <img src='/assets/images/1004_robotPlatformGoalClosed_2stars87x44.png' >
                             <p id="textYadimClosed">
-יעד ידע
+                                {{dc.getExpiredGoal()[1].name}}
                             </p>
                         </div>
                     </div>
@@ -89,9 +89,11 @@
         </div>
         <div class="column" style="width: 45% !important;">
             <div class="ui container" style="height: 100vh;">
-                <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:40s;padding-bottom: 110px">
-                <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:44s;margin-left: -25px;padding-bottom: 0px">
-                <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:42s;margin-left: -28px;padding-bottom: 100px">
+                <div style="height: 260px">
+                    <img src="/assets/images/0501Badges_StarBagdeFull156x142.png" class="animated infinite bounce" style="animation-duration:40s;padding-bottom: 110px" ng-show="dc.currentUserRecords.tags.length>0">
+                    <img src="/assets/images/0509Badges_LightballBagdeFull156x242.png" class="animated infinite bounce" style="animation-duration:44s;margin-left: -25px;padding-bottom: 0px" ng-show="dc.currentUserRecords.tags.length>1">
+                    <img src="/assets/images/0505Badges_CupBagdeFull156x162.png" class="animated infinite bounce" style="animation-duration:42s;margin-left: -28px;padding-bottom: 100px" ng-show="dc.currentUserRecords.tags.length>2">
+                </div>
                 <div class="firgunimBigBox">
                     <img src="/assets/images/0601_ChallangesTablet_bg461x540.png" >
                     <div class="firgunimBigBoxText">
@@ -210,7 +212,7 @@
                                 </div>
                                 <div class="leaderBoardHeaderLeftArrow" ng-click="dc.showPref()"><img src="/assets/images/LeaderBoard/0100501LeaderBoardPagingSubjectArrowBtnLeft12x27.png"></div>
                                 <div class="leaderBoardHeader">
-                                    אורך שיחה להיום
+                                 שביעות רצון לקוח
                                 </div>
                                 <div class="leaderBoardHeaderRightArrow" ng-click="dc.showNext()"><img src="/assets/images/LeaderBoard/0100502LeaderBoardPagingSubjectArrowBtnRight12x27.png"></div>
                                 <div class="leaderBoardSubHeader">

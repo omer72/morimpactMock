@@ -12,12 +12,8 @@ angular.module("morimpact").directive('firgunim', function () {
         link: function (scope, element, attrs, ngModel) {
             console.log("firgunim init");
 
-            scope.selectedTagVisual = '030204FirgunimInnerPagesElements_addBagdeFull48x38';
-            scope.selectedTagVisualMenu = "030205FirgunimInnerPagesElements_addBagdeLARGE_full_124x124";
+            scope.tag = '030204FirgunimInnerPagesElements_addBagdeFull48x38';
             scope.selectTag = false;
-
-
-
 
             scope.sendFirgun = function () {
                 console.log("sendFurgun");
@@ -29,7 +25,7 @@ angular.module("morimpact").directive('firgunim', function () {
                         'firgunById':scope.$root.currentUser.profile.clientSystemId,
                         'firgunBy':scope.$root.currentUser.profile.lastName + ' '+scope.$root.currentUser.profile.firstName,
                         'firgunText':(scope.$$childHead.firgun.text == 'freeText')? scope.$$childHead.firgun.freeText :scope.$$childHead.firgun.text ,
-                        'firgunIcon':(scope.$$childHead.selectedTagVisual == '030204FirgunimInnerPagesElements_addBagdeFull48x38')?'':scope.$$childHead.selectedTagVisual
+                        'firgunIcon':(scope.$$childHead.tag == '030204FirgunimInnerPagesElements_addBagdeFull48x38')?'':scope.$$childHead.tag
                     }
                     ;
                 Firgunim.insert(firgun);
@@ -49,10 +45,12 @@ angular.module("morimpact").directive('firgunim', function () {
             //    element.modal(modelValue ? 'show' : 'hide');
             //});
         },
-        controller:function($scope){
+        controller:function($scope,$rootScope){
             console.log("firgunim initC");
-
-
+            $scope.toggleShowSelectTagState = function(){
+                $scope.selectedTagVisual = this;
+                $rootScope.showSelectTagState = true;
+            }
         }
     }
 })

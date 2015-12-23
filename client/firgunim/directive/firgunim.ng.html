@@ -19,7 +19,7 @@
                             פרגן ל :
                             {{selectUser.name}}
                         </div>
-                        <div class="grouped fields" ng-show="!showSelectTagState">
+                        <div class="grouped fields" ng-show="!$root.showSelectTagState">
                             <form name="myForm" >
                                 <div style="padding:5px 0 5px 0">
                                     <label>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="two wide column" style="margin-top: auto;">
 
-                                    <img class="menuButton img" ng-click="showSelectTagState = true" src='assets/images/Firgunim/{{selectedTagVisual<10?"0"+selectedTagVisual:selectedTagVisual}}.png'>
+                                    <img class="menuButton img" ng-click="toggleShowSelectTagState()" src='assets/images/Firgunim/{{tag<10?"0"+tag:tag}}.png'>
 
                                 </div>
                                 <div class="two wide column">
@@ -64,7 +64,7 @@
                             </div>
 
                         </div>
-                        <div ng-show="showSelectTagState">
+                        <div ng-show="$root.showSelectTagState">
                             <choosetag selected-tag-visual="selectedTagVisual" show-select-tag-state="showSelectTagState"></choosetag>
                         </div>
                     </div>

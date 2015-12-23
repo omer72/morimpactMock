@@ -12,6 +12,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
         this.subscribe('sales');
         this.subscribe('firgunim');
         this.subscribe('users');
+        this.subscribe('goals');
 
         dc.currentUserProfile = Meteor.user().profile;
 
@@ -30,6 +31,9 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 },
                 usersPref : () =>{
                     return UserPref.find({});
+                },
+                goals : () =>{
+                    return Goals.find({});
                 },
                 currentUserRecords: () =>{
                     return UsersRecords.findOne({clientSystemId:parseInt(dc.currentUserProfile.clientSystemId)});
@@ -137,6 +141,28 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 point: '0/0'
             }
         ];
+
+        dc.getActiveGoal = function(){
+            var tempData = [];
+            angular.forEach(dc.goals, function(value, key) {
+                if (moment().isBefore(value.endDate)){
+                    tempData.push(value);
+                };
+            });
+
+            return tempData;
+        }
+
+        dc.getExpiredGoal = function(){
+            var tempData = [];
+            angular.forEach(dc.goals, function(value, key) {
+                if (moment().isAfter(value.endDate)){
+                    tempData.push(value);
+                };
+            });
+
+            return tempData;
+        }
 
         dc.getUserPrefByClientSystemId = function(value){
             var userPref =  dc.usersPref.filter(function(item){
@@ -373,7 +399,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                     break;
                 case "leaderBoard":
                     dc.show_leaderboard = true;
-                    dc.leaderBoardData = dc.talksRanks;
+                    dc.leaderBoardData = dc.politeRanks;
                     dc.leaderBoardIndex = 0;
                     dc.leaderBoardArray = getLeaderBoardArray(dc.leaderBoardIndex);
                     dc.menuItems[5].icon = '0419SideMenuElements_BottomLeaderboardFullActive166x57.png';

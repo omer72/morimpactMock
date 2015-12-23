@@ -36,7 +36,18 @@ angular.module("morimpact").config(['$urlRouterProvider', '$stateProvider', '$lo
         templateUrl: 'client/login/views/login.ng.html',
           controller: 'LoginCtrl',
           controllerAs: 'loginCtrl'
-      });
+      })
+        .state('createFile', {
+          url: '/createFile',
+          templateUrl: 'client/createFile/views/createFile.ng.html',
+          controller: 'createFileCtrl'
+        })
+        .state('updateData', {
+          url: '/updateData',
+          templateUrl: 'client/clientData/views/update-data.ng.html',
+          controller: 'GettingStartedCtrl',
+          controllerAs : 'start'
+        });
 
     $urlRouterProvider.otherwise("/login");
   }]);

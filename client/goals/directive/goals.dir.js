@@ -10,15 +10,27 @@ angular.module("morimpact").directive('goals', function () {
         link: function (scope, element, attrs, ngModel) {
             console.log("goals init");
 
-
         },
-        controller:function($scope){
+         controller:function($scope,$rootScope,$reactive,$element){
+             $reactive(this).attach($scope);
+             this.subscribe('goals');
+             $scope.helpers({
+                     goals: () => {
+                     return Goals.find({});
+                    }
+            });
+            $rootScope.showSelectTagState = false;
             console.log("goals initC");
             $scope.modalTitle = "ניהול יעדים";
+            $scope.selectedTagVisual = '030204FirgunimInnerPagesElements_addBagdeFull48x38';
+
             $scope.goal = {};
+            $scope.goal.improv = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'improvement'};
+            $scope.goal.lead= {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'lead'};
             $scope.goal.points = {points:50,rank:7};
-            $scope.goal.ranges = [{points:50,from:7,to:8,tag:'image',test:''}];
-            $scope.fields = [
+            $scope.goal.ranges = [{points:50,from:7,to:8,test:'',tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'}];
+            $scope.goal.epoint = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'};
+             $scope.fields = [
                 {id:"sales",name:"מכירות"},
                 {id:"talksLength",name:"אורך שיחה"},
                 {id:"professional",name:"שביעות רצון לקוח"}
@@ -41,7 +53,7 @@ angular.module("morimpact").directive('goals', function () {
 
             $scope.addRange = function(){
                 if ($scope.goal.ranges.length < 2)
-                    $scope.goal.ranges.push({points:50,from:7,to:8,tag:'image',test:''});
+                    $scope.goal.ranges.push({points:50,from:7,to:8,tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',test:''});
             };
 
             $scope.deleteRange = function(value){
@@ -85,8 +97,40 @@ angular.module("morimpact").directive('goals', function () {
                 $scope.stepNumber --;
             }
 
-            $scope.finish = function(){
+            $scope.finished = function(){
                 console.log("OnFinish Done");
+                var newGoal = {};
+                newGoal.name = $scope.goal.name;
+                newGoal.type = $scope.goal.type;
+                newGoal.startDate = $scope.goal.startDate;
+                newGoal.endDate = $scope.goal.endDate;
+                newGoal.refreshCycle = $scope.goal.refreshCycle;
+                newGoal.points_rank = $scope.goal.points.rank;
+                newGoal.points_points = $scope.goal.points.points;
+                newGoal.timeLength = $scope.goal.timeLength;
+                newGoal.tragetAwaredPoints = $scope.goal.tragetAwaredPoints;
+                newGoal.ranges = [];
+                for (var i = 0 ; i < $scope.goal.ranges.length;i++){
+                    var range = {from:$scope.goal.ranges[i].from};
+                    range.to = $scope.goal.ranges[i].to;
+                    range.points = $scope.goal.ranges[i].points;
+                    range.tag = $scope.goal.ranges[i].tag;
+                    range.text = $scope.goal.ranges[i].text;
+                    newGoal.ranges.push(range);
+                };
+                newGoal.tragetAwaredAbovePoints = $scope.goal.tragetAwaredAbovePoints;
+                newGoal.epoint = {};
+                newGoal.epoint.points = $scope.goal.epoint.points;
+                newGoal.epoint.tag = $scope.goal.epoint.tag;
+                newGoal.epoint.text = $scope.goal.epoint.text;
+                newGoal.ahead = $scope.goal.ahead;
+                newGoal.aImprovement = $scope.goal.aImprovement;
+                newGoal.lead = {tag:$scope.goal.lead.tag,points:$scope.goal.lead.points};
+                newGoal.improv = {tag:$scope.goal.improv.tag,points:$scope.goal.improv.points};
+                newGoal.improvmenetPrecent = $scope.goal.improvmenetPrecent;
+
+                Goals.insert(newGoal);
+
             }
 
             $scope.getWorkingDays = function(){
@@ -104,6 +148,12 @@ angular.module("morimpact").directive('goals', function () {
 
                 $scope.calenderTimeLength =  result;
             }
+
+             $scope.toggleShowSelectTagState = function(selectedTag){
+                 console.log(selectedTag);
+                 $scope.selectedTagVisual = selectedTag;
+                 $rootScope.showSelectTagState = true;
+             }
 
 
         }

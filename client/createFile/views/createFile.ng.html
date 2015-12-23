@@ -1,0 +1,27 @@
+<div class="pure-g island1" style="background-color: snow;background-image: none !important;">
+    <h1><a href="/updateData">Update Data</a> / <a href="/createFile">Create File</a></h1>
+    <div class="content pure-u-1">
+
+
+            <div ng-repeat="q in questions">
+
+
+
+            <label for="singleSelect"> {{q}} Select value: </label>
+            <select name="singleSelect" ng-model="question[$index].answer">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select><br>
+            </div>
+        <br/>
+        <button type="file" ng-click="saveFile()">Save File</button>
+    </div>
+</div>

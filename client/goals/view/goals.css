@@ -92,3 +92,13 @@
 .goalsLabelInput{
     padding-bottom: 15px;
 }
+.goalTagImg{
+    width: 25px;
+    height: 21px;
+}
+
+.golsLir{
+    padding: 5px 5px 5px 5px;
+    direction: rtl;
+    text-align: right;
+}

@@ -19,19 +19,50 @@
                         </div>
                     </div>
 
-                    <div class="ui bottom attached tab segment active mytab5">
-                        <p>open goals</p>
+                    <div class="ui bottom attached tab segment active mytab5 " style="overflow-y: auto;max-height: 370px;">
+
+                        <div ng-repeat="goal in goals |dateFilter" class="golsLir">
+                            <div class="ui card">
+                                <div class="content">
+                                    <div class="header">{{goal.name}}</div>
+                                    <div class="meta">תאריך התחלה : {{goal.startDate| amDateFormat:'DD/MM/YYYY'}} </div>
+                                    <div class="meta">תאריך סיום : {{goal.endDate| amDateFormat:'DD/MM/YYYY'}}</div>
+                                    <div class="description">
+
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <i class="check icon"></i>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
-                    <div class="ui bottom attached tab segment mytab4">
-                        <p>history</p>
+                    <div class="ui bottom attached tab segment mytab4" style="overflow-y: auto;max-height: 370px;">
+                        <div ng-repeat="goal in goals |dateFilterExpired" class="golsLir">
+                            <div class="ui card">
+                                <div class="content">
+                                    <div class="header">{{goal.name}}</div>
+                                    <div class="meta">תאריך התחלה : {{goal.startDate| amDateFormat:'DD/MM/YYYY'}} </div>
+                                    <div class="meta">תאריך סיום : {{goal.endDate| amDateFormat:'DD/MM/YYYY'}}</div>
+                                    <div class="description">
+
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <i class="check icon"></i>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="ui bottom attached tab segment mytab2">
                         <p>Editor</p>
                     </div>
+                    <div class="ui bottom attached tab segment mytab1" ng-show="!$root.showSelectTagState">
 
-                    <div class="ui bottom attached tab segment mytab1">
                         <wizard fullwidth="true" on-finish="finished()" current-step="currentStep">
                             <wizard-pane title="שם ותחום">
                                 <div class="rightInput">
@@ -43,7 +74,7 @@
                                             </div>
                                             <div class="rightInputElement">
                                                 <dropdown data="fields" placeholder="" style="width: 300px"
-                                                          ng-model="goal.destiny" required></dropdown>
+                                                          ng-model="goal.type" required></dropdown>
                                             </div>
                                             <!--<div class="rightInputElement">-->
                                             <!--<label><input type="radio" ng-model="goal.target" value="personal">-->
@@ -112,8 +143,8 @@
                                     {{goal.name}}<br/>
                                     {{goal.destiny}}<br/>
                                     {{goal.target}}<br/>
-                                    {{goal.startDate}}<br/>
-                                    {{goal.endDate}}<br/>
+                                    {{goal.startDate| amDateFormat:'DD/MM/YYYY'}}<br/>
+                                    {{goal.endDate| amDateFormat:'DD/MM/YYYY'}}<br/>
                                     {{goal.refreshCycle}}
                                 </div>
                                 <div class="wizardFoter" style="width: 160px">
@@ -173,7 +204,7 @@
                                                     <label>
                                                         עמידה ביעד :
                                                         <input type="number" ng-model="goal.tragetAwaredPoints"
-                                                               value="{{(goal.timeLength * goal.points[0].points)}}">
+                                                               value="{{(goal.timeLength * goal.points.points)}}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -190,9 +221,8 @@
                             </wizard-pane>
                             <wizard-pane title="טווחי מצוינות">
                                 <div class="rightInput">
-                                    <div class="rightInputElements">
+                                    <div class="rightInputElements" >
                                         <form name="step4form" style="direction: rtl">
-
                                             <div class="rightInputElement">
                                                 <table class="ui celled table">
                                                     <thead>
@@ -209,26 +239,26 @@
                                                     <tbody>
                                                     <tr ng-repeat="range in goal.ranges">
                                                         <td>
-                                                            <input type="number" ng-model="point.from"
+                                                            <input type="number" ng-model="range.from"
                                                                    class="goalsInput">
                                                         </td>
                                                         <td>
-                                                            <input type="number" ng-model="point.to" class="goalsInput">
+                                                            <input type="number" ng-model="range.to" class="goalsInput">
                                                         </td>
                                                         <td>
-                                                            <input type="number" ng-model="point.points"
+                                                            <input type="number" ng-model="range.points"
                                                                    class="goalsInput">
                                                         </td>
                                                         <td>
                                                             <!--<input type="number" ng-model="point.tag"-->
                                                             <!--class="goalsInput">-->
-                                                            <img class="menuButton img"
-                                                                 ng-click="showSelectTagState = true"
-                                                                 src='assets/images/Firgunim/{{selectedTagVisual<10?"0"+selectedTagVisual:selectedTagVisual}}.png'>
+                                                            <img class="menuButton img goalTagImg"
+                                                                 ng-click="toggleShowSelectTagState(range)"
+                                                                 src='assets/images/Firgunim/{{range.tag<10?"0"+range.tag:range.tag}}.png'>
 
                                                         </td>
                                                         <td>
-                                                            <input type="text" ng-model="point.text">
+                                                            <input type="text" ng-model="range.text">
                                                         </td>
                                                         <td>
                                                             <input type="button" ng-click="addRange()" value="+">
@@ -251,7 +281,7 @@
                                                     <!--</label>-->
 
                                                     <label>
-                                                        מצוינות בגין עמידה מעבר ליד בשיעור של:
+                                   מצוינות בגין עמידה מעבר ליעד בשיעור של:
                                                         <input type="number" ng-model="goal.tragetAwaredAbovePoints"
                                                                class="goalsInput">
                                                         <!--מקנה לעובד את הבונוס:-->
@@ -270,15 +300,16 @@
                                                         <tr>
 
                                                             <td>
-                                                                <input type="number" ng-model="epoint.points"
+                                                                <input type="number" ng-model="goal.epoint.points"
                                                                        class="goalsInput">
                                                             </td>
                                                             <td>
-                                                                <input type="number" ng-model="epoint.tag"
-                                                                       class="goalsInput">
+                                                                <img class="menuButton img goalTagImg"
+                                                                     ng-click="toggleShowSelectTagState(goal.epoint)"
+                                                                     src='assets/images/Firgunim/{{goal.epoint.tag<10?"0"+goal.epoint.tag:goal.epoint.tag}}.png'>
                                                             </td>
                                                             <td>
-                                                                <input type="text" ng-model="epoint.text">
+                                                                <input type="text" ng-model="goal.epoint.text">
                                                             </td>
 
                                                         </tr>
@@ -302,16 +333,78 @@
                                         <form name="stepeform" style="direction: rtl">
 
                                             <div class="rightInputElement">
-                                                <label><input type="date">
-                                                    תאריך התחלה
-                                                </label>
-                                            </div>
-                                            <div class="rightInputElement">
-                                                <label><input type="date">
-                                                    תאריך סיום
-                                                </label>
-                                            </div>
 
+                                                <div  style="text-align: right;">
+                                                    <label>
+מצוינות בגין הובלה
+                                                    </label>
+                                                </div>
+                                                <div class="rightInputElement">
+                                                    <table class="ui celled table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ניקוד</th>
+                                                            <th>תג</th>
+                                                            <th>טקסט</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+
+                                                            <td>
+                                                                <input type="number" ng-model="goal.lead.points"
+                                                                       class="goalsInput">
+                                                            </td>
+                                                            <td>
+                                                                <img class="menuButton img goalTagImg"
+                                                                     ng-click="toggleShowSelectTagState(goal.lead)"
+                                                                     src='assets/images/Firgunim/{{goal.epoint.tag<10?"0"+goal.lead.tag:goal.lead.tag}}.png'>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" ng-model="goal.lead.text">
+                                                            </td>
+
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="rightInputElement">
+מצוינות בגין השתפרות מעל :
+                                                    <input type="number" ng-model="goal.improvPrecent"
+                                                           class="goalsInput">
+                                                </div>
+                                                <div class="rightInputElement">
+                                                    <table class="ui celled table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ניקוד</th>
+                                                            <th>תג</th>
+                                                            <th>טקסט</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+
+                                                            <td>
+                                                                <input type="number" ng-model="goal.improv.points"
+                                                                       class="goalsInput">
+                                                            </td>
+                                                            <td>
+                                                                <img class="menuButton img goalTagImg"
+                                                                     ng-click="toggleShowSelectTagState(goal.improv)"
+                                                                     src='assets/images/Firgunim/{{goal.improv.tag<10?"0"+goal.improv.tag:goal.improv.tag}}.png'>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" ng-model="goal.improv.text">
+                                                            </td>
+
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -322,42 +415,14 @@
                             </wizard-pane>
                         </wizard>
                     </div>
-
+                    <div ng-show="$root.showSelectTagState">
+                        <choosetag selected-tag-visual="selectedTagVisual"
+                                   show-select-tag-state="$root.showSelectTagState"></choosetag>
+                    </div>
 
                 </div>
-                <div ng-show="showSelectTagState">
-                    <choosetag selected-tag-visual="selectedTagVisual"
-                               show-select-tag-state="showSelectTagState"></choosetag>
-                </div>
-                <!--<div class="challengesTabs" ng-if="viewState">-->
-                <!--<img src="/assets/images/Challenges/page{{state}}.png">-->
-                <!--<i  ng-click="changeStateManagement()" style="position: absolute;-->
-                <!--top: 10px;-->
-                <!--left: 110px;-->
-                <!--cursor: pointer;-->
-                <!--width: 60px;-->
-                <!--height: 26px;"></i>-->
-                <!--<div class="challengesAccordion">-->
-                <!--<accordion close="true" ng-click="changeState()">-->
-                <!--<accordion-group  title="First tab" imgsrc="/assets/images/Challenges/060301ChallengesFLATinnerContent639x154.png">-->
-                <!--<img src="/assets/images/Challenges/060304ChallengesFLATinnerContent516x101.png"/>-->
-                <!--</accordion-group>-->
-                <!--<accordion-group title="Second tab" imgsrc="/assets/images/Challenges/060302ChallengesFLATinnerContent639x154.png">-->
-                <!--<img src="/assets/images/Challenges/060304ChallengesFLATinnerContent516x101.png"/>-->
-                <!--</accordion-group>-->
-                <!--</accordion>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="editState" ng-if="editState">-->
-                <!--<img src="/assets/images/Challenges/pageManagement.png">-->
-                <!--<i  ng-click="exitEditStateFunction()" class="exitEditState"></i>-->
-                <!--<img class="editStateSteps" src="/assets/images/Challenges/06030{{stepNumber}}ChallengesFLATinnerContentSteps653x332.png">-->
-                <!--<div class="challengesButtons">-->
-                <!--<button class="ui button" ng-click="next()">&lt;&lt; הבא</button>-->
-                <!--<button class="ui button" ng-click="cancel()">ביטול</button>-->
-                <!--<button class="ui button" ng-click="before()">&gt;&gt; הקודם</button>-->
-                <!--</div>-->
-                <!--</div>-->
+
+
             </div>
         </div>
     </div>

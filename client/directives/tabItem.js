@@ -5,12 +5,12 @@ angular.module("morimpact").directive('tabItem',  function () {
         link: function (scope, element, attrs) {
             var ACTIVE_CLASS = 'active';
             var id = attrs.id;
-
             element.on('click', changeTab);
 
             function removeClass (el) {
                 el.classList.remove(ACTIVE_CLASS);
             }
+
 
             function changeTab () {
                 // Remove the active class from all tab items and tab contents
