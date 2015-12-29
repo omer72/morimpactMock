@@ -61,7 +61,14 @@
 .rightInputElement{
     float: right;
     padding: 5px;
-    dir:rtl;
+    direction: rtl;
+    /*width: 310px;*/
+    /*text-align: left;*/
+}
+
+.goalWide{
+    width: 310px;
+    text-align: left;
 }
 
 .ui.table thead th{

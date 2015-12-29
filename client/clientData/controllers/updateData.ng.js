@@ -44,7 +44,7 @@
             start.selectedDateTime = {
                 value: new Date(2015, 11, 25)
             };
-            start.defaultObject = ['clientSystemId', 'sekerId','createdAt', 'groupId', 'id'];
+            start.defaultObject = ['clientSystemId', 'goalId','createdAt', 'groupId', 'id'];
             start.clientSystemId = 4501;
             loadObjects();
         }());
@@ -213,7 +213,7 @@
                 newData.Q9 = getRandomInt(5, 10);
                 newData.id = Math.floor(Math.random());
                 newData.createdAt = new Date();
-                newData.sekerId = 1;
+                newData.goalId = 3;
                 BackandService.postObjectData(testDataTable, newData).then(
                     function success(data) {
                         console.log(data);

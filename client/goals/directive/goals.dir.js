@@ -16,7 +16,7 @@ angular.module("morimpact").directive('goals', function () {
              this.subscribe('goals');
              $scope.helpers({
                      goals: () => {
-                     return Goals.find({});
+                     return Goals.find({},{sort: {startDate: 1}});
                     }
             });
             $rootScope.showSelectTagState = false;
@@ -25,15 +25,11 @@ angular.module("morimpact").directive('goals', function () {
             $scope.selectedTagVisual = '030204FirgunimInnerPagesElements_addBagdeFull48x38';
 
             $scope.goal = {};
-            $scope.goal.improv = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'improvement'};
-            $scope.goal.lead= {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'lead'};
-            $scope.goal.points = {points:50,rank:7};
-            $scope.goal.ranges = [{points:50,from:7,to:8,test:'',tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'}];
-            $scope.goal.epoint = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'};
+
              $scope.fields = [
-                {id:"sales",name:"מכירות"},
-                {id:"talksLength",name:"אורך שיחה"},
-                {id:"professional",name:"שביעות רצון לקוח"}
+                {id:"1",name:"מכירות"},
+                {id:"2",name:"אורך שיחה"},
+                {id:"3",name:"שביעות רצון לקוח"}
             ];
             $scope.state = "Start";
             $scope.viewState = true;
@@ -49,7 +45,24 @@ angular.module("morimpact").directive('goals', function () {
                 //    $scope.modalTitle = "ניהול אתגרי ידע";
                 //}
             };
+            initGoal();
 
+            function initGoal(){
+                $scope.goal = {};
+                $scope.goal.improv = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'improvement'};
+                $scope.goal.lead= {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'lead'};
+                $scope.goal.points_points = 50;
+                $scope.goal.points_rank = 7;
+                $scope.goal.ranges = [{points:60,from:8,to:9,test:'',tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'}];
+                $scope.goal.epoint = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'};
+            }
+
+            $scope.editGoal = function(goal){
+                console.log(goal);
+                initGoal();
+                $scope.goal = goal;
+                document.getElementById("mytab2").click()
+            }
 
             $scope.addRange = function(){
                 if ($scope.goal.ranges.length < 2)
@@ -100,13 +113,26 @@ angular.module("morimpact").directive('goals', function () {
             $scope.finished = function(){
                 console.log("OnFinish Done");
                 var newGoal = {};
+
+                if ($scope.goal.refreshCycle == 'day') {
+                    $scope.goal.refreshCycles = $scope.goal.timeLength;
+                }else if ($scope.goal.refreshCycle == 'week'){
+                    $scope.goal.refreshCycles = getWorkingWeeks();
+                }else if ($scope.goal.refreshCycle == 'month'){
+                    $scope.goal.refreshCycles = getWorkingMonths();
+                }else
+                    $scope.goal.refreshCycles = 0;
+
+
                 newGoal.name = $scope.goal.name;
-                newGoal.type = $scope.goal.type;
+                newGoal.goalId = $scope.goal.goalId;
                 newGoal.startDate = $scope.goal.startDate;
                 newGoal.endDate = $scope.goal.endDate;
                 newGoal.refreshCycle = $scope.goal.refreshCycle;
-                newGoal.points_rank = $scope.goal.points.rank;
-                newGoal.points_points = $scope.goal.points.points;
+                newGoal.refreshCycles = $scope.goal.refreshCycles;
+                newGoal.points_rank = $scope.goal.points_rank;
+                newGoal.points_points = $scope.goal.points_points;
+                newGoal.pointsPerDay = $scope.goal.pointsPerDay;
                 newGoal.timeLength = $scope.goal.timeLength;
                 newGoal.tragetAwaredPoints = $scope.goal.tragetAwaredPoints;
                 newGoal.ranges = [];
@@ -128,8 +154,10 @@ angular.module("morimpact").directive('goals', function () {
                 newGoal.lead = {tag:$scope.goal.lead.tag,points:$scope.goal.lead.points};
                 newGoal.improv = {tag:$scope.goal.improv.tag,points:$scope.goal.improv.points};
                 newGoal.improvmenetPrecent = $scope.goal.improvmenetPrecent;
-
+                newGoal.createdAt = new Date();
                 Goals.insert(newGoal);
+                initGoal();
+                document.getElementById("mytab5").click();
 
             }
 
@@ -148,6 +176,42 @@ angular.module("morimpact").directive('goals', function () {
 
                 $scope.calenderTimeLength =  result;
             }
+
+
+
+            function getWorkingWeeks(){
+                var result = 1;
+                var firstCycle = true;
+
+                var currentDate = angular.copy($scope.goal.startDate);
+                while (currentDate <= $scope.goal.endDate)  {
+
+                    var weekDay = currentDate.getDay();
+                    if (!firstCycle && weekDay == 0)
+                        result++;
+                    firstCycle = false;
+                    currentDate.setDate(currentDate.getDate()+1);
+                }
+
+                return result;
+            }
+
+            function getWorkingMonths(){
+                    var result = 1;
+                    var firstCycle = true;
+
+                    var currentDate = angular.copy($scope.goal.startDate);
+                    while (currentDate <= $scope.goal.endDate)  {
+
+                        var monthDay = currentDate.getDate();
+                        if (!firstCycle && monthDay == 1)
+                            result++;
+                        firstCycle = false;
+                        currentDate.setDate(currentDate.getDate()+1);
+                    }
+
+                    return result;
+                }
 
              $scope.toggleShowSelectTagState = function(selectedTag){
                  console.log(selectedTag);

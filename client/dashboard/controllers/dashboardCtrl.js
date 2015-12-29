@@ -237,14 +237,14 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 });
             }
         })
-        $scope.$watch('dc.currentUserRecords.points',function(value){
-            updateUserPref();
-        });
+        //$scope.$watch('dc.currentUserRecords.points',function(value){
+        //    updateUserPref();
+        //});
 
 
-        $scope.$watch('currentUserRecords',function(value){
-            updateUserPref();
-        })
+        //$scope.$watch('currentUserRecords',function(value){
+        //    updateUserPref();
+        //})
         $scope.$watch('dc.firgunim',function(value){
             console.log('dc.firgunim');
             dc.getLatestFirgun();
@@ -253,38 +253,38 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
 
 
 
-        updateUserPref = function() {
-            dc.currentUser = dc.currentUserRecords;
-            var robotId = 1;
-            if (dc.currentUser != undefined) {
-
-                if (dc.currentUser.points <= 200)
-                    robotId = 1;
-                else if (dc.currentUser.points > 200 && dc.currentUser.points <= 400)
-                    robotId = 2;
-                else if (dc.currentUser.points > 400 && dc.currentUser.points <= 600)
-                    robotId = 3;
-                else if (dc.currentUser.points > 600 && dc.currentUser.points <= 800)
-                    robotId = 4;
-                else if (dc.currentUser.points > 800 && dc.currentUser.points <= 1000)
-                    robotId = 5;
-                else if (dc.currentUser.points > 1000 && dc.currentUser.points <= 1200)
-                    robotId = 6;
-                else if (dc.currentUser.points > 1200 && dc.currentUser.points <= 1400)
-                    robotId = 7;
-                else if (dc.currentUser.points > 1400 && dc.currentUser.points <= 1600)
-                    robotId = 8;
-                else
-                    robotId = 9;
-                if (dc.userPref != undefined){
-                    dc.userPref.robotPicName =  '110'+robotId;
-                    dc.saveUserPref(dc.userPref.robotPicName);
-                }
-
-            }
-
-
-        }
+        //updateUserPref = function() {
+        //    dc.currentUser = dc.currentUserRecords;
+        //    var robotId = 1;
+        //    if (dc.currentUser != undefined) {
+        //
+        //        if (dc.currentUser.points <= 200)
+        //            robotId = 1;
+        //        else if (dc.currentUser.points > 200 && dc.currentUser.points <= 400)
+        //            robotId = 2;
+        //        else if (dc.currentUser.points > 400 && dc.currentUser.points <= 600)
+        //            robotId = 3;
+        //        else if (dc.currentUser.points > 600 && dc.currentUser.points <= 800)
+        //            robotId = 4;
+        //        else if (dc.currentUser.points > 800 && dc.currentUser.points <= 1000)
+        //            robotId = 5;
+        //        else if (dc.currentUser.points > 1000 && dc.currentUser.points <= 1200)
+        //            robotId = 6;
+        //        else if (dc.currentUser.points > 1200 && dc.currentUser.points <= 1400)
+        //            robotId = 7;
+        //        else if (dc.currentUser.points > 1400 && dc.currentUser.points <= 1600)
+        //            robotId = 8;
+        //        else
+        //            robotId = 9;
+        //        if (dc.userPref != undefined){
+        //            dc.userPref.robotPicName =  '110'+robotId;
+        //            dc.saveUserPref(dc.userPref.robotPicName);
+        //        }
+        //
+        //    }
+        //
+        //
+        //}
 
         dc.saveUserPref = (value) => {
             UserPref.update({_id: dc.userPref._id}, {
@@ -345,7 +345,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
         }
 
         init();
-        updateUserPref();
+        //updateUserPref();
         updateFirgun();
 
 
