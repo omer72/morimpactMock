@@ -111,7 +111,7 @@ Meteor.startup(function () {
         UsersRecords.update(usersRecords._id,{
             $set: {points:  usersRecords.points,tags : usersRecords.tags, texts : usersRecords.texts}
         });
-
+        console.log("goalsCalcData => ",goalsCalcData);
         GoalsClacData.update(goalsCalcData._id,{
             $set:goalsCalcData
         });
@@ -232,30 +232,34 @@ Meteor.startup(function () {
     function updateGoalsCalcData(total){
         // Add the results to the correct column according to the refresh cycle and the cycle
         var today = new Date();
-        //console.log(" before goalsCalcData ",goalsCalcData , total.points);
-        if (goalsCalcData.dailyPoints == undefined){
-            goalsCalcData.dailyPoints = {};
+        console.log(" before goalsCalcData ",goalsCalcData , total.points);
+        if (goalsCalcData.dailyPoints == undefined) {
+            initGoalsCalcData();
+        }
+        if (goalsCalcData.dailyPoints[dayOfTheYear()] == undefined) {
             goalsCalcData.dailyPoints[dayOfTheYear()] = 0;
         }
         goalsCalcData.dailyPoints[dayOfTheYear()] +=  total.points;
 
-        if (goalsCalcData.weeklyPoints == undefined) {
-            goalsCalcData.weeklyPoints = {};
+        if (goalsCalcData.weeklyPoints[getWeek()] == undefined) {
             goalsCalcData.weeklyPoints[getWeek()] = 0;
         }
         goalsCalcData.weeklyPoints[getWeek()]  +=   total.points;
 
-        if (goalsCalcData.monthlyPoints == undefined) {
-            goalsCalcData.monthlyPoints = {};
+        if (goalsCalcData.monthlyPoints[today.getMonth()+1] == undefined) {
             goalsCalcData.monthlyPoints[today.getMonth()+1] = 0;
         }
         goalsCalcData.monthlyPoints[today.getMonth()+1] +=   total.points;
 
-        if (goalsCalcData.totalPoints == undefined){
-            goalsCalcData.totalPoints = 0;
-        }
         goalsCalcData.totalPoints += total.points;
-        //console.log("after goalsCalcData ",goalsCalcData , total.points);
+        console.log("after goalsCalcData ",goalsCalcData , total.points);
+    }
+
+    function initGoalsCalcData() {
+        goalsCalcData.dailyPoints = {};
+        goalsCalcData.monthlyPoints = {};
+        goalsCalcData.weeklyPoints = {};
+        goalsCalcData.totalPoints = 0;
     }
 
     function dayOfTheYear(){
