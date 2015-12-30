@@ -128,6 +128,7 @@
                         newValue[key] = undefined;
                     }
                 })
+                newValue.handled = false;
                 this.push(newValue);
                 FilterData.insert(newValue);
             }, filterdValues);

@@ -175,7 +175,7 @@ Meteor.startup(function () {
     console.log("jobEveryDay  "+jobEveryDay);
 
     function handleNewData(value){
-        var total = {points:0,tags:[],texts:[]};
+        var total = {points:0,tags:[],texts:[],createdAt:value.createdAt};
         if (previousId != value.id){
             //console.log("filterDataCursor added: ", value);
             previousId = value.id;
@@ -224,32 +224,30 @@ Meteor.startup(function () {
                 }
             }
         };
-
-
         return total;
     }
 
     function updateGoalsCalcData(total){
         // Add the results to the correct column according to the refresh cycle and the cycle
-        var today = new Date();
+        var today = new Date(Date.parse(total.createdAt));
         console.log(" before goalsCalcData ",goalsCalcData , total.points);
         if (goalsCalcData.dailyPoints == undefined) {
             initGoalsCalcData();
         }
-        if (goalsCalcData.dailyPoints[dayOfTheYear()] == undefined) {
-            goalsCalcData.dailyPoints[dayOfTheYear()] = 0;
+        if (goalsCalcData.dailyPoints[dayOfTheYear(today)] == undefined) {
+            goalsCalcData.dailyPoints[dayOfTheYear(today)] = 0;
         }
-        goalsCalcData.dailyPoints[dayOfTheYear()] +=  total.points;
+        goalsCalcData.dailyPoints[dayOfTheYear(today)] +=  total.points;
 
-        if (goalsCalcData.weeklyPoints[getWeek()] == undefined) {
-            goalsCalcData.weeklyPoints[getWeek()] = 0;
+        if (goalsCalcData.weeklyPoints[getWeek(today)] == undefined) {
+            goalsCalcData.weeklyPoints[getWeek(today)] = 0;
         }
-        goalsCalcData.weeklyPoints[getWeek()]  +=   total.points;
+        goalsCalcData.weeklyPoints[getWeek(today)]  +=   total.points;
 
-        if (goalsCalcData.monthlyPoints[today.getMonth()+1] == undefined) {
-            goalsCalcData.monthlyPoints[today.getMonth()+1] = 0;
+        if (goalsCalcData.monthlyPoints[today.getMonth(today)+1] == undefined) {
+            goalsCalcData.monthlyPoints[today.getMonth(today)+1] = 0;
         }
-        goalsCalcData.monthlyPoints[today.getMonth()+1] +=   total.points;
+        goalsCalcData.monthlyPoints[today.getMonth(total)+1] +=   total.points;
 
         goalsCalcData.totalPoints += total.points;
         console.log("after goalsCalcData ",goalsCalcData , total.points);
@@ -262,8 +260,7 @@ Meteor.startup(function () {
         goalsCalcData.totalPoints = 0;
     }
 
-    function dayOfTheYear(){
-        var now = new Date();
+    function dayOfTheYear(now){
         var start = new Date(now.getFullYear(), 0, 0);
         var diff = now - start;
         var oneDay = 1000 * 60 * 60 * 24;
@@ -271,8 +268,7 @@ Meteor.startup(function () {
         return day;
     }
 
-    function getWeek() {
-        var now = new Date();
+    function getWeek(now) {
         var onejan = new Date(now.getFullYear(),0,1);
         return Math.ceil((((now - onejan) / 86400000) + onejan.getDay()+1)/7);
     }
