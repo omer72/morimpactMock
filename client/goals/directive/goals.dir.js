@@ -49,6 +49,7 @@ angular.module("morimpact").directive('goals', function () {
 
             function initGoal(){
                 $scope.goal = {};
+                $scope.goal.goalId = 0;
                 $scope.goal.improv = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'improvement'};
                 $scope.goal.lead= {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',name:'lead'};
                 $scope.goal.points_points = 50;
