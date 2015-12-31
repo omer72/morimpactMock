@@ -50,26 +50,28 @@ Meteor.startup(function () {
     });
 
     function handleData(id,doc){
-        goalsCalcData = GoalsClacData.findOne({
-            clientSystemId: doc.clientSystemId,
-            goalId: activeGoals[doc.goalId]._id
-        });
-        if (goalsCalcData == undefined) {
-            goalsCalcData = {clientSystemId: doc.clientSystemId, goalId: activeGoals[doc.goalId]._id};
-            goalsCalcData._id = GoalsClacData.insert(goalsCalcData);
-        }
-        var polite = Polite.findOne({clientSystemId: doc.clientSystemId});
-        //console.log("Doc ->" ,doc);
-        var totalPoints = handleNewData(doc);
+        if (Object.keys(activeGoals).length > 0) {
+            goalsCalcData = GoalsClacData.findOne({
+                clientSystemId: doc.clientSystemId,
+                goalId: activeGoals[doc.goalId]._id
+            });
+            if (goalsCalcData == undefined) {
+                goalsCalcData = {clientSystemId: doc.clientSystemId, goalId: activeGoals[doc.goalId]._id};
+                goalsCalcData._id = GoalsClacData.insert(goalsCalcData);
+            }
+            var polite = Polite.findOne({clientSystemId: doc.clientSystemId});
+            //console.log("Doc ->" ,doc);
+            var totalPoints = handleNewData(doc);
 
-        updateGoalsCalcData(totalPoints);
-        totalPoints.clientSystemId = doc.clientSystemId;
-        //console.log(totalPoints);
-        polite.points = polite.points + totalPoints.points;
-        Polite.update(polite._id, {
-            $set: {points: polite.points}
-        });
-        updateTotal(totalPoints);
+            updateGoalsCalcData(totalPoints);
+            totalPoints.clientSystemId = doc.clientSystemId;
+            //console.log(totalPoints);
+            polite.points = polite.points + totalPoints.points;
+            Polite.update(polite._id, {
+                $set: {points: polite.points}
+            });
+            updateTotal(totalPoints);
+        }
         FilterData.update(id, {
             $set: {handled: true}
         })
