@@ -1,0 +1,105 @@
+<modal ng-model="showgoal" class="firgunim">
+    <i class="close icon" ng-click="dc.close_modal()" style="top: -107px;right: 103px;"></i>
+
+    <div class="image content goalContent">
+        <div class="description">
+            <div class="ui grid " style="width: 97%; padding-left: 70px; margin-top: 610px;padding-top:inherit">
+
+                <table class="ui celled table goalTable" style="width: 40%;background: none">
+                    <thead>
+                    <tr>
+                        <th>יעד</th>
+                        <th>{{selectedgoal.name}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+התחלה
+                            {{selectedgoal.startDate | amDateFormat:'DD/MM/YYYY'}}
+                        </td>
+                        <td>
+                           סיום
+                            {{selectedgoal.endDate | amDateFormat:'DD/MM/YYYY'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ניקוד יעד
+                        </td>
+                        <td>
+                            {{selectedgoal.tragetAwaredPoints}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+עבור ציון
+                            {{selectedgoal.points_rank}}
+                        </td>
+                        <td>
+                            {{selectedgoal.points_points}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="range in selectedgoal.ranges">
+                        <td>
+                            עבור ציון
+                            {{range.from}}
+                        </td>
+                        <td>
+                            {{range.points}}
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="ui indicating progress goalProgressBar" id="progress" data-percent="{{(goalsCalcData[0].totalPoints/selectedgoal.tragetAwaredPoints)*100}}" style="position: fixed">
+                    <div class="bar">{{(goalsCalcData[0].totalPoints/selectedgoal.tragetAwaredPoints)*100}}%</div>
+                    <div class="label">השג עד כה</div>
+                </div>
+
+                <table class="ui celled table goalRewardsTable" style="width: 80%;background: none">
+                    <thead>
+                    <tr>
+                        <th>ההשגים שלי</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+נקודות שניצברו
+                        </td>
+                        <td>
+                            {{goalsCalcData[0].totalPoints}}
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>
+תגים שהוענקו לי
+                        </td>
+                        <td >
+                           <div class="imgcontainer">
+                            <div ng-repeat="tag in goalsCalcData[0].tags" class="imgblock">
+                                <img class="menuButton img goalTagImg" src='assets/images/Firgunim/{{tag}}.png'>
+                            </div>
+                           </div>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+
+                <!--<div class="firgunimSelection">-->
+                    <!--{{goalsCalcData[0].totalPoints}}-->
+                    <!--{{goalsCalcData[0].tags}}-->
+                <!--&lt;!&ndash;{{goalsCalcData}}&ndash;&gt;-->
+                <!--</div>-->
+
+            </div>
+        </div>
+    </div>
+
+</modal>

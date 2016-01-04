@@ -195,6 +195,13 @@
     height: 630px;
 
 }
+
+.goalContent{
+    background: url('/assets/images/goalAdmin/040101GoalsAdmin_BG810x612.png') no-repeat !important;
+    width: 900px;
+    height: 630px;
+
+}
 .leaderBoardScore{
     overflow: auto;
     font-size: 12px;

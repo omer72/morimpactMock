@@ -4,6 +4,10 @@ Meteor.startup(function () {
     var activeGoalsId = 0;
     var goalsCalcData = {};
     var employeesPerGroup = {};
+    var groupsId = [];
+    var twoStars = 85;
+    var oneStar = 70;
+    var leadPosition = 3;
 
     UsersRecords.find().observe({
         added: function (doc) {
@@ -14,6 +18,7 @@ Meteor.startup(function () {
         }
 
     });
+    groupsId = Object.keys(employeesPerGroup);
     Goals.find().observe({
         added: function (doc) {
             if (moment().isBefore(doc.endDate)) {
@@ -150,7 +155,74 @@ Meteor.startup(function () {
     }
 
     function processEndOfGoal(goal){
-            //calculate starts
+
+        var previousGoal = Goals.findOne({
+            $and: [
+                {goalId: goal.goalId},
+                {endData: {$lt: goal.endData}}
+            ]},{sort:{endData:-1}})
+
+        var goalsClacData = GoalsClacData.find({goalId : goal.id}).fetch();
+        for (var i = 0; i <goalsClacData.length ; i++) {
+            if (goalsClacData[i].bonusPointsForExellence == undefined) {
+                goalsClacData[i].bonusPointsForExellence = 0;
+            }
+
+            //calculate stars
+
+            if (goalsClacData[i].totalPoints > goal.tragetAwaredPoints) {
+                goalsClacData.stars = 3;
+            } else if (goalsClacData[i].totalPoints > (goal.tragetAwaredPoints * twoStars / 100)) {
+                goalsClacData.stars = 2;
+            } else if (goalsClacData[i].totalPoints > (goal.tragetAwaredPoints * oneStar / 100)) {
+                goalsClacData.stars = 1;
+            } else {
+                goalsClacData.stars = 0;
+            }
+
+            // More then the target awards
+
+            if (goalsClacData[i].totalPoints >= (goal.tragetAwaredPoints * (100 + goal.tragetAwaredAbovePoints) / 100 )) {
+                goalsClacData[i].totalPoints += goal.epoint.points;
+                goalsClacData[i].bonusPointsForExellence += goal.epoint.points;
+                if (goal.epoint.tag != undefined) goalsClacData[i].tags.push(goal.epoint.tag);
+                if (goal.epoint.text != undefined) goalsClacData[i].texts.push(goal.epoint.text);
+            }
+
+            // Lead calc $scope.goal.timeLength
+            var lead = Math.floor(goal.timeLength * 0.7);
+            if (goalsClacData[i].numOfLead >= lead) {
+                goalsClacData[i].totalPoints += goal.lead.points;
+                goalsClacData[i].bonusPointsForLeading += goal.lead.points;
+                if (goal.lead.tag != undefined) goalsClacData[i].tags.push(goal.lead.tag);
+                if (goal.lead.text != undefined) goalsClacData[i].texts.push(goal.lead.text);
+            }
+
+            // Compute improvement indicator
+            goalsClacData[i].improvementIndicator = Math.floor(goalsClacData[i].totalPoints / goal.timeLength);
+            var previousGoalsClacData = GoalsClacData.findOne({
+                $and: [
+                    {goalId: previousGoal.id},
+                    {clientSystemId: goalsClacData[i].clientSystemId}
+                ]
+            });
+
+            if (previousGoalsClacData.improvementIndicator != undefined &&
+                goalsClacData[i].improvementIndicator > (previousGoalsClacData.improvementIndicator * (100 + goal.improvPrecent) / 100)) {
+                goalsClacData[i].totalPoints += goal.improv.points;
+                goalsClacData[i].bonusPointsForImproment += goal.improv.points;
+                if (goal.improv.tag != undefined) goalsClacData[i].tags.push(goal.improv.tag);
+                if (goal.improv.text != undefined) goalsClacData[i].texts.push(goal.improv.text);
+            }
+
+            GoalsClacData.update(goalsClacData[0]._id, {
+                $set: goalsClacData[0]
+            });
+
+            // TODO: update total points
+
+        }
+
     }
     initializing = false;
 
@@ -169,7 +241,31 @@ Meteor.startup(function () {
             }
         }
         // update daily position table
-        var groupsId = Object.keys(employeesPerGroup);
+
+        endOfDayProcess();
+
+        //Handle weekley cycle
+        if (today.getDay() == 0){
+            endOfWeekProcess();
+        }
+
+        if (today.getDate() == 1){
+            endOfMonthProcess();
+        }
+        //if (activeGoals[0].refreshCycle == "day"){
+        //
+        //}else if (activeGoals[0].refreshCycle == "week"){
+        //    if (today.getDay() == 0){
+        //
+        //    }
+        //}else if (activeGoals[0].refreshCycle == "month"){
+        //    if (today.getDate() == 1){
+        //
+        //    }
+        //}
+    }, {hour:24});
+
+    function endOfDayProcess(){
         for (var j = 0; j < Object.keys(activeGoals).length; j++) {
             for (var i = 0; i < groupsId.length; i++) {
                 var groupName = groupsId[i];
@@ -201,6 +297,12 @@ Meteor.startup(function () {
                     if (client[0].dailyPosition == undefined) {
                         client[0].dailyPosition = {};
                     }
+                    if (client[0].numOfLead == undefined) {
+                        client[0].numOfLead = 0;
+                    }
+                    if (activeGoals[Object.keys(activeGoals)[j]].refreshCycle == "day" && position <= leadPosition){
+                        client[0].numOfLead += 1;
+                    }
                     client[0].dailyPosition[dayNumber] = position;
                     console.log(" client -> ", client[0]._id , position);
 
@@ -211,107 +313,99 @@ Meteor.startup(function () {
                 }
             }
         }
+    }
+    function endOfWeekProcess(){
+        for (var j = 0; j < Object.keys(activeGoals).length; j++) {
+            for (var i = 0; i < groupsId.length; i++) {
+                var groupName = groupsId[i];
+                //console.log(employeesPerGroup[groupName]);
+                var goalsCalcDataPerGroup = GoalsClacData.find({
+                    $and: [
+                        {goalId: activeGoals[Object.keys(activeGoals)[j]]._id},
+                        {clientSystemId: {$in: employeesPerGroup[groupName]}}
+                    ]
+                }).fetch();
+                //console.log(goalsCalcDataPerGroup);
+                var clients = [];
+                for (var z = 0; z < goalsCalcDataPerGroup.length; z++) {
+                    var c = {};
+                    c.clientSystemId = goalsCalcDataPerGroup[z].clientSystemId;
+                    c.weeklyPoints = goalsCalcDataPerGroup[z].weeklyPoints[dayNumber];
+                    clients.push(c);
+                    //console.log(goalsCalcDataPerGroup[z] + " "+c);
 
-        //Handle weekley cycle
-        if (today.getDay() == 0){
-            for (var j = 0; j < Object.keys(activeGoals).length; j++) {
-                for (var i = 0; i < groupsId.length; i++) {
-                    var groupName = groupsId[i];
-                    //console.log(employeesPerGroup[groupName]);
-                    var goalsCalcDataPerGroup = GoalsClacData.find({
-                        $and: [
-                            {goalId: activeGoals[Object.keys(activeGoals)[j]]._id},
-                            {clientSystemId: {$in: employeesPerGroup[groupName]}}
-                        ]
-                    }).fetch();
-                    //console.log(goalsCalcDataPerGroup);
-                    var clients = [];
-                    for (var z = 0; z < goalsCalcDataPerGroup.length; z++) {
-                        var c = {};
-                        c.clientSystemId = goalsCalcDataPerGroup[z].clientSystemId;
-                        c.weeklyPoints = goalsCalcDataPerGroup[z].weeklyPoints[dayNumber];
-                        clients.push(c);
-                        //console.log(goalsCalcDataPerGroup[z] + " "+c);
+                }
+                clients = clients.sort(dynamicSort('weeklyPoints'));
+                var position = 1;
+                for (var z = clients.length; z > 0; z--) {
 
+                    var client = goalsCalcDataPerGroup.filter(function (obj) {
+                        return obj.clientSystemId == clients[z-1].clientSystemId;
+                    })
+
+                    if (client[0].weeklyPosition == undefined) {
+                        client[0].weeklyPosition = {};
                     }
-                    clients = clients.sort(dynamicSort('weeklyPoints'));
-                    var position = 1;
-                    for (var z = clients.length; z > 0; z--) {
-
-                        var client = goalsCalcDataPerGroup.filter(function (obj) {
-                            return obj.clientSystemId == clients[z-1].clientSystemId;
-                        })
-
-                        if (client[0].weeklyPosition == undefined) {
-                            client[0].weeklyPosition = {};
-                        }
-                        client[0].weeklyPosition[dayNumber] = position;
-                        console.log(" client -> ", client[0]._id , position);
-
-                        GoalsClacData.update(client[0]._id, {
-                            $set: client[0]
-                        });
-                        position++;
+                    if (activeGoals[Object.keys(activeGoals)[j]].refreshCycle == "week" && position <= leadPosition){
+                        client[0].numOfLead += 1;
                     }
+                    client[0].weeklyPosition[dayNumber] = position;
+                    console.log(" client -> ", client[0]._id , position);
+
+                    GoalsClacData.update(client[0]._id, {
+                        $set: client[0]
+                    });
+                    position++;
                 }
             }
         }
+    }
+    function endOfMonthProcess(){
+        for (var j = 0; j < Object.keys(activeGoals).length; j++) {
+            for (var i = 0; i < groupsId.length; i++) {
+                var groupName = groupsId[i];
+                //console.log(employeesPerGroup[groupName]);
+                var goalsCalcDataPerGroup = GoalsClacData.find({
+                    $and: [
+                        {goalId: activeGoals[Object.keys(activeGoals)[j]]._id},
+                        {clientSystemId: {$in: employeesPerGroup[groupName]}}
+                    ]
+                }).fetch();
+                //console.log(goalsCalcDataPerGroup);
+                var clients = [];
+                for (var z = 0; z < goalsCalcDataPerGroup.length; z++) {
+                    var c = {};
+                    c.clientSystemId = goalsCalcDataPerGroup[z].clientSystemId;
+                    c.monthlyPoints = goalsCalcDataPerGroup[z].monthlyPoints[dayNumber];
+                    clients.push(c);
+                    //console.log(goalsCalcDataPerGroup[z] + " "+c);
 
-        if (today.getDate() == 1){
-            for (var j = 0; j < Object.keys(activeGoals).length; j++) {
-                for (var i = 0; i < groupsId.length; i++) {
-                    var groupName = groupsId[i];
-                    //console.log(employeesPerGroup[groupName]);
-                    var goalsCalcDataPerGroup = GoalsClacData.find({
-                        $and: [
-                            {goalId: activeGoals[Object.keys(activeGoals)[j]]._id},
-                            {clientSystemId: {$in: employeesPerGroup[groupName]}}
-                        ]
-                    }).fetch();
-                    //console.log(goalsCalcDataPerGroup);
-                    var clients = [];
-                    for (var z = 0; z < goalsCalcDataPerGroup.length; z++) {
-                        var c = {};
-                        c.clientSystemId = goalsCalcDataPerGroup[z].clientSystemId;
-                        c.monthlyPoints = goalsCalcDataPerGroup[z].monthlyPoints[dayNumber];
-                        clients.push(c);
-                        //console.log(goalsCalcDataPerGroup[z] + " "+c);
+                }
+                clients = clients.sort(dynamicSort('monthlyPoints'));
+                var position = 1;
+                for (var z = clients.length; z > 0; z--) {
 
+                    var client = goalsCalcDataPerGroup.filter(function (obj) {
+                        return obj.clientSystemId == clients[z-1].clientSystemId;
+                    })
+
+                    if (client[0].monthlyPosition == undefined) {
+                        client[0].monthlyPosition = {};
                     }
-                    clients = clients.sort(dynamicSort('monthlyPoints'));
-                    var position = 1;
-                    for (var z = clients.length; z > 0; z--) {
-
-                        var client = goalsCalcDataPerGroup.filter(function (obj) {
-                            return obj.clientSystemId == clients[z-1].clientSystemId;
-                        })
-
-                        if (client[0].monthlyPosition == undefined) {
-                            client[0].monthlyPosition = {};
-                        }
-                        client[0].monthlyPosition[dayNumber] = position;
-                        console.log(" client -> ", client[0]._id , position);
-
-                        GoalsClacData.update(client[0]._id, {
-                            $set: client[0]
-                        });
-                        position++;
+                    if (activeGoals[Object.keys(activeGoals)[j]].refreshCycle == "month" && position <= leadPosition){
+                        client[0].numOfLead += 1;
                     }
+                    client[0].monthlyPosition[dayNumber] = position;
+                    console.log(" client -> ", client[0]._id , position);
+
+                    GoalsClacData.update(client[0]._id, {
+                        $set: client[0]
+                    });
+                    position++;
                 }
             }
         }
-        //if (activeGoals[0].refreshCycle == "day"){
-        //
-        //}else if (activeGoals[0].refreshCycle == "week"){
-        //    if (today.getDay() == 0){
-        //
-        //    }
-        //}else if (activeGoals[0].refreshCycle == "month"){
-        //    if (today.getDate() == 1){
-        //
-        //    }
-        //}
-    }, {hour:24});
+    }
     var previousId = 0;
 
     function dynamicSort(property) {
@@ -470,7 +564,7 @@ Meteor.startup(function () {
         }
     }
 
-});
+})
 
 
 

@@ -78,7 +78,9 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
         dc.showingLeaderBoardValues = "1-8";
         var firgunimLength = 0;
         var latestFirgunIndex = 0;
+        var currentUserRecordsPoints = undefined;
         dc.menuItems = [
+
             {
                 header : 'Total Ace',
                 name: 'מיקום כללי',
@@ -237,9 +239,14 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 });
             }
         })
-        //$scope.$watch('dc.currentUserRecords.points',function(value){
-        //    updateUserPref();
-        //});
+        $scope.$watch('dc.currentUserRecords.points',function(value){
+            if (currentUserRecordsPoints == undefined || currentUserRecordsPoints == value){
+                currentUserRecordsPoints = value;
+            }else{
+                console.log("Value == > ",value);
+                dc.notifyMe(value);
+            }
+        });
 
 
         //$scope.$watch('currentUserRecords',function(value){
@@ -484,6 +491,44 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 return 'Green';
             else
                 return 'White';
+        }
+
+        dc.notifyMe = function(value){
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            }
+            else if (Notification.permission === "granted") {
+                var options = {
+                    body: "ציונך עלה ל: " + value,
+                    icon: "/assets/images/0411SideMenuElements_DashBtn_CallLenghtIcon69x70.png",
+                    dir : "ltr"
+                };
+                var notification = new Notification("Hi there",options);
+            }
+            else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function (permission) {
+                    if (!('permission' in Notification)) {
+                        Notification.permission = permission;
+                    }
+
+                    if (permission === "granted") {
+                        var options = {
+                            body: "ציונך עלה ל :" + value,
+                            icon: "/assets/images/0411SideMenuElements_DashBtn_CallLenghtIcon69x70.png",
+                            dir : "ltr"
+                        };
+                        var notification = new Notification("כל הכבוד",options);
+                    }
+                });
+
+
+            }
+        }
+
+        dc.showGoal = function(goal){
+            console.log("Selected goal ",goal);
+            dc.goal = goal;
+            dc.show_goal = true;
         }
         
 

@@ -1,0 +1,49 @@
+.goalHeader{
+    color: #3e3e3f;
+    font-size: 24px;
+    position: fixed;
+    top: -40px;
+    right: 30px;
+    font-family: Ariel;
+    direction: rtl;
+}
+
+.goalTable{
+    color: #3e3e3f;
+    font-size: 16px;
+    position: fixed;
+    top: -40px;
+    right: 150px;
+    font-family: Ariel;
+    direction: rtl;
+
+}
+
+.goalProgressBar{
+    top: 70px;
+    width: 33%;
+}
+
+.goalRewardsTable{
+    color: #3e3e3f;
+    font-size: 16px;
+    position: fixed;
+    top: 170px;
+    right: 150px;
+    font-family: Ariel;
+    direction: rtl;
+}
+
+.imgcontainer {
+    width: 80%;
+    /*background: #eee;*/
+    /*margin: 10px auto;*/
+    position: relative;
+    text-align:center;
+}
+
+.imgblock {
+    display:inline-block;
+    /*margin: 10px;*/
+}
+

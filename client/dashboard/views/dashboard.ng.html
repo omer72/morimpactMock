@@ -31,7 +31,7 @@
                 <label class="menuButton label">בית</label>
             </div>
             <div href="#" class="header">
-                <img  class="logo" style="margin-top: 10px" src="assets/images/0301TopMenuElements_Logo121x37.png">
+                <img  class="logo" style="margin-top: 10px" src="assets/images/0301TopMenuElements_Logo121x37.png" ng-click="dc.notifyMe()">
             </div>
 
         </div>
@@ -41,19 +41,19 @@
             <div class="ui container" style="height: 100vh">
                 <div style="height: 50vh">
                     <img src='/assets/images/0701_OpenGoalsNavigatorBG48x179.png' class="goalAncor">
-                    <div class="firstGoal" ng-show="dc.getActiveGoal().length > 0">
+                    <div class="firstGoal" ng-show="dc.getActiveGoal().length > 0" ng-click="dc.showGoal(dc.getActiveGoal()[0])">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
                             {{dc.getActiveGoal()[0].name}}
                         </span>
                     </div>
-                    <div class="secondGoal" ng-show="dc.getActiveGoal().length > 1">
+                    <div class="secondGoal" ng-show="dc.getActiveGoal().length > 1" ng-click="showGoal(dc.getActiveGoal()[1])">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
                             {{dc.getActiveGoal()[1].name}}
                         </span>
                     </div>
-                    <div class="thirdGoal" ng-show="dc.getActiveGoal().length > 2">
+                    <div class="thirdGoal" ng-show="dc.getActiveGoal().length > 2" ng-click="showGoal(dc.getActiveGoal()[2])">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
                             {{dc.getActiveGoal()[2].name}}
@@ -393,6 +393,7 @@
 
                 <firgunim showfirgunim="dc.show_firgunim" ng-if="dc.show_firgunim" users-records="dc.usersRecords" firgunim-text="dc.firgunimText"></firgunim>
                 <challenges showchallenges="dc.show_challenges" ></challenges>
+                <goal showgoal="dc.show_goal" ng-if="dc.show_goal" selectedgoal="dc.goal" user="dc.currentUserProfile.clientSystemId"></goal>
 
 
                 <div ng-repeat="item in dc.menuItems" style="padding-bottom: 10px">

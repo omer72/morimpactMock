@@ -136,12 +136,12 @@
                                     </div>
                                 </div>
                                 <!--<div style="position: fixed;top: 180px;">-->
-                                    <!--{{goal.name}}<br/>-->
-                                    <!--{{goal.destiny}}<br/>-->
-                                    <!--{{goal.target}}<br/>-->
-                                    <!--{{goal.startDate| amDateFormat:'DD/MM/YYYY'}}<br/>-->
-                                    <!--{{goal.endDate| amDateFormat:'DD/MM/YYYY'}}<br/>-->
-                                    <!--{{goal.refreshCycle}}-->
+                                <!--{{goal.name}}<br/>-->
+                                <!--{{goal.destiny}}<br/>-->
+                                <!--{{goal.target}}<br/>-->
+                                <!--{{goal.startDate| amDateFormat:'DD/MM/YYYY'}}<br/>-->
+                                <!--{{goal.endDate| amDateFormat:'DD/MM/YYYY'}}<br/>-->
+                                <!--{{goal.refreshCycle}}-->
                                 <!--</div>-->
                                 <div class="wizardFoter" style="width: 160px">
                                     <button type="submit" class="ui button  " wz-next>הבא</button>
@@ -154,9 +154,9 @@
                                 <div class="rightInput">
                                     <div class="rightInputElements">
                                         <form name="step3form" style="direction: rtl">
-                                            <div class="rightInputElement">
+                                            <div class="rightInputElement" style="padding:0px">
                                                 <label>
-                                                    ניקוד למכירת יחידה אחת בתוך הקמפיין
+                                                    ניקוד עבור ביצוע יחידה
                                                 </label>
                                             </div>
                                             <div class="rightInputElement">
@@ -164,9 +164,9 @@
                                                     <thead>
                                                     <tr>
                                                         <th>
-                                                            יחידה
+                                                            ציון מעל
                                                         </th>
-                                                        <th>ניקוד</th>
+                                                        <th>ניקוד ליחידה</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -182,25 +182,31 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="rightInputElement">
+                                            <div class="rightInputElement goalWide">
                                                 <div class="goalsLabelInput">
                                                     <label>
                                                         מספר ימים קלנדרים :
-                                                        <input type="number" ng-model="calenderTimeLength" disabled>
+                                                        <input type="number" ng-model="calenderTimeLength" disabled style="background-color: lightgrey">
                                                     </label>
                                                 </div>
                                                 <div class="goalsLabelInput">
                                                     <label>
-                                                        מספר ימים רלוונטים ליעד:
+                                                        מספר ימי עבודה בתקופה:
                                                         <input type="number" ng-model="goal.timeLength"
                                                                value="{{getWorkingDays()}}">
                                                     </label>
                                                 </div>
                                                 <div class="goalsLabelInput">
                                                     <label>
-                                                        עמידה ביעד :
+                                                        היקף יחידות ביום:
+                                                        <input type="number" ng-model="goal.pointsPerDay">
+                                                    </label>
+                                                </div>
+                                                <div class="goalsLabelInput">
+                                                    <label>
+                                                        סה״כ יעד לתקופה בנקודות:
                                                         <input type="number" ng-model="goal.tragetAwaredPoints"
-                                                               value="{{(goal.timeLength * goal.points_points)}}">
+                                                               value="{{(goal.timeLength * goal.points_points * goal.pointsPerDay)}}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -426,18 +432,6 @@
                                                 <dropdown data="fields" placeholder="" style="width: 300px"
                                                           ng-model="goal.goalId" required></dropdown>
                                             </div>
-                                            <!--<div class="rightInputElement">-->
-                                            <!--<label><input type="radio" ng-model="goal.target" value="personal">-->
-                                            <!--יעד אישי-->
-
-                                            <!--</label>-->
-                                            <!--</div>-->
-                                            <!--<div class="rightInputElement">-->
-                                            <!--<label><input type="radio" ng-model="goal.target" value="team">-->
-                                            <!--יעד ציוותי-->
-
-                                            <!--</label>-->
-                                            <!--</div>-->
 
                                         </form>
                                     </div>
