@@ -14,25 +14,26 @@ angular.module("morimpact").directive('goal', function () {
 
 
         },
-        controller:function($scope,$rootScope,$reactive){
+        controller:function($scope,$rootScope,$reactive,$timeout) {
             console.log("goal initC");
-
+            $scope.Math = window.Math;
             $reactive(this).attach($scope);
             this.subscribe('goalsCalcData');
             $scope.helpers({
                     goalsCalcData: () => {
-                        return GoalsClacData.find({clientSystemId: parseInt($scope.user)});
+                        return GoalsClacData.find({$and:[{goalId: $scope.selectedgoal._id},{clientSystemId: parseInt($scope.user)}]});
                     }
             });
 
-            console.log("goalsCalcData ",$scope.goalsCalcData);
 
+            var updateProgress = function () {
+                console.log("updateProgress ", $scope.goalsCalcData);
+                $('#progress').progress({
+                    percent: ($scope.goalsCalcData[0].totalPoints / $scope.selectedgoal.targetAwaredPoints) * 100
+                });
 
-            //TODO : fix porogress
-            //$('#progress').progress({
-            //    percent: ($scope.goalsCalcData[0].totalPoints/$scope.selectedgoal.tragetAwaredPoints)*100
-            //});
-
+            }
+            $timeout(updateProgress, 1000);
         }
     }
 })

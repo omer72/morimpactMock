@@ -438,7 +438,9 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
         }
 
         
-
+        $scope.$on("modalHide",function(){
+            dc.close_modal();
+        })
 
         dc.close_modal = function () {
             dc.show_modal = false;

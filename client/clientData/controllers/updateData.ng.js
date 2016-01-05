@@ -223,7 +223,7 @@
                         console.error(err);
                     }
                 )
-            }, 20000);
+            }, 5000);
         }
 
         function getRandomInt(min, max) {

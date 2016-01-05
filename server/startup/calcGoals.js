@@ -170,11 +170,11 @@ Meteor.startup(function () {
 
             //calculate stars
 
-            if (goalsClacData[i].totalPoints > goal.tragetAwaredPoints) {
+            if (goalsClacData[i].totalPoints > goal.targetAwaredPoints) {
                 goalsClacData.stars = 3;
-            } else if (goalsClacData[i].totalPoints > (goal.tragetAwaredPoints * twoStars / 100)) {
+            } else if (goalsClacData[i].totalPoints > (goal.targetAwaredPoints * twoStars / 100)) {
                 goalsClacData.stars = 2;
-            } else if (goalsClacData[i].totalPoints > (goal.tragetAwaredPoints * oneStar / 100)) {
+            } else if (goalsClacData[i].totalPoints > (goal.targetAwaredPoints * oneStar / 100)) {
                 goalsClacData.stars = 1;
             } else {
                 goalsClacData.stars = 0;
@@ -182,7 +182,7 @@ Meteor.startup(function () {
 
             // More then the target awards
 
-            if (goalsClacData[i].totalPoints >= (goal.tragetAwaredPoints * (100 + goal.tragetAwaredAbovePoints) / 100 )) {
+            if (goalsClacData[i].totalPoints >= (goal.targetAwaredPoints * (100 + goal.targetAwaredAbovePoints) / 100 )) {
                 goalsClacData[i].totalPoints += goal.epoint.points;
                 goalsClacData[i].bonusPointsForExellence += goal.epoint.points;
                 if (goal.epoint.tag != undefined) goalsClacData[i].tags.push(goal.epoint.tag);

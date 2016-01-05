@@ -28,7 +28,7 @@
                             ניקוד יעד
                         </td>
                         <td>
-                            {{selectedgoal.tragetAwaredPoints}}
+                            {{selectedgoal.targetAwaredPoints}}
                         </td>
                     </tr>
                     <tr>
@@ -53,9 +53,9 @@
                     </tbody>
                 </table>
 
-                <div class="ui indicating progress goalProgressBar" id="progress" data-percent="{{(goalsCalcData[0].totalPoints/selectedgoal.tragetAwaredPoints)*100}}" style="position: fixed">
-                    <div class="bar">{{(goalsCalcData[0].totalPoints/selectedgoal.tragetAwaredPoints)*100}}%</div>
-                    <div class="label">השג עד כה</div>
+                <div class="ui indicating progress goalProgressBar" id="progress" data-percent="{{(goalsCalcData[0].totalPoints/selectedgoal.targetAwaredPoints)*100}}" style="position: fixed">
+                    <div class="bar">{{((goalsCalcData[0].totalPoints/selectedgoal.targetAwaredPoints)*100)| number:2}}%</div>
+                    <div class="label"> הושג עד כה </div>
                 </div>
 
                 <table class="ui celled table goalRewardsTable" style="width: 80%;background: none">

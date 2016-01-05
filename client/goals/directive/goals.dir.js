@@ -67,7 +67,7 @@ angular.module("morimpact").directive('goals', function () {
 
             $scope.addRange = function(){
                 if ($scope.goal.ranges.length < 2)
-                    $scope.goal.ranges.push({points:50,from:7,to:8,tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',test:''});
+                    $scope.goal.ranges.push({points:50,from:$scope.goal.ranges[$scope.goal.ranges.length-1].to,to:$scope.goal.ranges[$scope.goal.ranges.length-1].to+1,tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38',test:''});
             };
 
             $scope.deleteRange = function(value){
@@ -135,7 +135,7 @@ angular.module("morimpact").directive('goals', function () {
                 newGoal.points_points = $scope.goal.points_points;
                 newGoal.pointsPerDay = $scope.goal.pointsPerDay;
                 newGoal.timeLength = $scope.goal.timeLength;
-                newGoal.tragetAwaredPoints = $scope.goal.tragetAwaredPoints;
+                newGoal.targetAwaredPoints = ($scope.goal.timeLength * $scope.goal.points_points * $scope.goal.pointsPerDay);
                 newGoal.ranges = [];
                 for (var i = 0 ; i < $scope.goal.ranges.length;i++){
                     var range = {from:$scope.goal.ranges[i].from};
@@ -145,7 +145,7 @@ angular.module("morimpact").directive('goals', function () {
                     range.text = $scope.goal.ranges[i].text;
                     newGoal.ranges.push(range);
                 };
-                newGoal.tragetAwaredAbovePoints = $scope.goal.tragetAwaredAbovePoints;
+                newGoal.targetAwaredAbovePoints = $scope.goal.targetAwaredAbovePoints;
                 newGoal.epoint = {};
                 newGoal.epoint.points = $scope.goal.epoint.points;
                 newGoal.epoint.tag = $scope.goal.epoint.tag;
@@ -213,9 +213,14 @@ angular.module("morimpact").directive('goals', function () {
 
                     return result;
                 }
-
+            $scope.$on("changeTab", function(event,args){
+                console.log("tabId ",args);
+                if (args == "mytab1"){
+                    initGoal();
+                }
+            })
              $scope.toggleShowSelectTagState = function(selectedTag){
-                 console.log(selectedTag);
+                 console.log("toggleShowSelectTagState ",selectedTag);
                  $scope.selectedTagVisual = selectedTag;
                  $rootScope.showSelectTagState = true;
              }

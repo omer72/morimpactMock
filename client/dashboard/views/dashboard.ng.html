@@ -31,7 +31,7 @@
                 <label class="menuButton label">בית</label>
             </div>
             <div href="#" class="header">
-                <img  class="logo" style="margin-top: 10px" src="assets/images/0301TopMenuElements_Logo121x37.png" ng-click="dc.notifyMe()">
+                <img  class="logo" style="margin-top: 10px" src="assets/images/0301TopMenuElements_Logo121x37.png" >
             </div>
 
         </div>
@@ -47,13 +47,13 @@
                             {{dc.getActiveGoal()[0].name}}
                         </span>
                     </div>
-                    <div class="secondGoal" ng-show="dc.getActiveGoal().length > 1" ng-click="showGoal(dc.getActiveGoal()[1])">
+                    <div class="secondGoal" ng-show="dc.getActiveGoal().length > 1" ng-click="dc.showGoal(dc.getActiveGoal()[1])">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
                             {{dc.getActiveGoal()[1].name}}
                         </span>
                     </div>
-                    <div class="thirdGoal" ng-show="dc.getActiveGoal().length > 2" ng-click="showGoal(dc.getActiveGoal()[2])">
+                    <div class="thirdGoal" ng-show="dc.getActiveGoal().length > 2" ng-click="dc.showGoal(dc.getActiveGoal()[2])">
                         <img src='/assets/images/0702_OpenGoalsNavigator_SingleBG80x39.png' >
                         <span id="textYadim">
                             {{dc.getActiveGoal()[2].name}}
@@ -70,13 +70,13 @@
                     </div>
 
                     <div class="starContainer">
-                        <div class="firstStar" ng-show="dc.getExpiredGoal().length > 0">
+                        <div class="firstStar" ng-show="dc.getExpiredGoal().length > 0" ng-click="dc.showGoal(dc.getExpiredGoal()[0])">
                             <img src='/assets/images/1003_robotPlatformGoalClosed_1star87x44.png' >
                             <p id="textYadimClosed">
                                 {{dc.getExpiredGoal()[0].name}}
                             </p>
                         </div>
-                        <div class="secondStar" ng-show="dc.getExpiredGoal().length > 1">
+                        <div class="secondStar" ng-show="dc.getExpiredGoal().length > 1" ng-click="dc.showGoal(dc.getExpiredGoal()[1])">
                             <img src='/assets/images/1004_robotPlatformGoalClosed_2stars87x44.png' >
                             <p id="textYadimClosed">
                                 {{dc.getExpiredGoal()[1].name}}
@@ -128,7 +128,6 @@
        :                             המפורגן
                                 </div>
                                 <div>
-      :                              טקסט
                                 </div>
                             </div>
 

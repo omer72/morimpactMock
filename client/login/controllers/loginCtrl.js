@@ -100,7 +100,7 @@ console.log("loginCtrl");
 }])
 
 
-.directive('modal', function () {
+.directive('modal', function ($rootScope) {
     return {
         restrict: 'E',
         replace: true,
@@ -110,6 +110,7 @@ console.log("loginCtrl");
         link: function (scope, element, attrs, ngModel) {
             element.modal({
                 onHide: function () {
+                    $rootScope.$broadcast("modalHide");
                     ngModel.$setViewValue(false);
                 }
             });
@@ -118,6 +119,11 @@ console.log("loginCtrl");
             }, function (modelValue){
                 element.modal(modelValue ? 'show' : 'hide');
             });
+            scope.$on('$destroy',function(){
+                element.modal('hide');
+                element.remove();
+                console.log("modal hide");
+            })
         }
     }
 })
