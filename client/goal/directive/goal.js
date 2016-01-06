@@ -28,8 +28,11 @@ angular.module("morimpact").directive('goal', function () {
 
             var updateProgress = function () {
                 console.log("updateProgress ", $scope.goalsCalcData);
+                var progress = ($scope.goalsCalcData[0].totalPoints / $scope.selectedgoal.targetAwaredPoints) * 100;
+                if (progress > 100)
+                    progress = 100;
                 $('#progress').progress({
-                    percent: ($scope.goalsCalcData[0].totalPoints / $scope.selectedgoal.targetAwaredPoints) * 100
+                    percent: progress
                 });
 
             }
