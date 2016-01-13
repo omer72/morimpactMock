@@ -141,7 +141,8 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 405px !important;
-    left: 605px !important;
+    left: 45% !important;
+    left: 43% !important;
     box-shadow: none !important;
 }
 
@@ -149,7 +150,7 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 435px !important;
-    left: 635px !important;
+    left: 45% !important;
     box-shadow: none !important;
 }
 
@@ -164,8 +165,9 @@
     background-color: transparent !important;
     position: fixed !important;
     top: 510px !important;
-    left: 660px !important;
+    left: 45% !important;
     box-shadow: none !important;
+    width: 900px !important;
 }
 
 .leaderBoardContent{
@@ -338,5 +340,61 @@
 
 }
 
+.ui.modal{
+    width: 900px;
+}
 
+.chatIcon{
+    border-radius: 50%;
+    background: black;
+    color: white;
+    font-size: 26px !important;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px 0px 0px 5px;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.chatView{
+    height: 300px;
+    bottom: 0;
+    right:0;
+    margin: 0;
+    top: 40% !important;
+    width: 300px !important;
+    position: fixed !important;
+    left: auto !important;
+    //right: 104%;
+    text-align: center !important;
+    color: white;
+
+}
+
+.chatView .content{
+    height: 400px !important;
+}
+
+.chatView .footer-chat {
+    background: #485655;
+    color: black;
+    .item-input-wrapper {
+        background-color: #FFF;
+    }
+
+    .button.button-icon {
+        margin: 0 10px;
+    }
+
+    .buttons-seperator {
+        color: gray;
+        font-size: 18px;
+        line-height: 32px;
+    }
+}
+
+.modals.dimmer .ui.scrolling.modal{
+    position: fixed !important;
+}
 

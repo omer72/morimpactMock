@@ -393,7 +393,7 @@
                 <firgunim showfirgunim="dc.show_firgunim" ng-if="dc.show_firgunim" users-records="dc.usersRecords" firgunim-text="dc.firgunimText"></firgunim>
                 <challenges showchallenges="dc.show_challenges" ></challenges>
                 <goal showgoal="dc.show_goal" ng-if="dc.show_goal" selectedgoal="dc.goal" user="dc.currentUserProfile.clientSystemId"></goal>
-
+                <chat showchat="dc.show_chat" ng-if="dc.show_chat" ></chat>
 
                 <div ng-repeat="item in dc.menuItems" style="padding-bottom: 10px">
 
@@ -407,6 +407,9 @@
                     </div>
 
 
+                </div>
+                <div ng-click="dc.show_chat = true">
+                        <i class="wechat icon chatIcon" ></i>
                 </div>
 
             </div>

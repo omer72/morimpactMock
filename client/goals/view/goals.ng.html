@@ -21,8 +21,8 @@
                     <div class="ui bottom attached tab segment active mytab5 " style="overflow-y: auto;max-height: 370px;">
 
                         <div ng-repeat="goal in goals |dateFilter" class="golsLir">
-                            <div class="ui card" ng-click="editGoal(goal)">
-                                <div class="content">
+                            <div class="ui card message" ng-click="editGoal(goal)"  ng-class-even="'message-mine'" ng-class-odd="'message-other'">
+                                <div class="content " >
                                     <div class="header">{{goal.name}}</div>
                                     <div class="meta">תאריך התחלה : {{goal.startDate| amDateFormat:'DD/MM/YYYY'}} </div>
                                     <div class="meta">תאריך סיום : {{goal.endDate| amDateFormat:'DD/MM/YYYY'}}</div>
@@ -39,9 +39,10 @@
                     </div>
 
                     <div class="ui bottom attached tab segment mytab4" style="overflow-y: auto;max-height: 370px;">
+
                         <div ng-repeat="goal in goals |dateFilterExpired" class="golsLir">
-                            <div class="ui card">
-                                <div class="content">
+                            <div class="ui card message"   ng-class-even="'message-mine'" ng-class-odd="'message-other'">
+                                <div class="content " >
                                     <div class="header">{{goal.name}}</div>
                                     <div class="meta">תאריך התחלה : {{goal.startDate| amDateFormat:'DD/MM/YYYY'}} </div>
                                     <div class="meta">תאריך סיום : {{goal.endDate| amDateFormat:'DD/MM/YYYY'}}</div>
@@ -55,6 +56,8 @@
                             </div>
 
                         </div>
+
+
                     </div>
 
                     <div class="ui bottom attached tab segment mytab2" ng-show="!$root.showSelectTagState">

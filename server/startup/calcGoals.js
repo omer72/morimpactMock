@@ -8,6 +8,9 @@ Meteor.startup(function () {
     var twoStars = 85;
     var oneStar = 70;
     var leadPosition = 3;
+    var dayNumber=0;
+    var weekNumber=0;
+    var monthNumber=0;
 
     UsersRecords.find().observe({
         added: function (doc) {
@@ -131,23 +134,23 @@ Meteor.startup(function () {
         var userPref = UserPref.findOne({clientSystemId: usersRecords.clientSystemId});
         var robotId = 1;
 
-        if (usersRecords.points > 400 && usersRecords.points <= 800)
+        if (usersRecords.points > 2000 && usersRecords.points <= 3000)
             robotId = 2;
-        else if (usersRecords.points > 800 && usersRecords.points <= 1200)
+        else if (usersRecords.points > 3000 && usersRecords.points <= 4000)
             robotId = 3;
-        else if (usersRecords.points > 1200 && usersRecords.points <= 1600)
+        else if (usersRecords.points > 4000 && usersRecords.points <= 5000)
             robotId = 4;
-        else if (usersRecords.points > 1600 && usersRecords.points <= 2000)
+        else if (usersRecords.points > 5000 && usersRecords.points <= 6000)
             robotId = 5;
-        else if (usersRecords.points > 2000 && usersRecords.points <= 2400)
+        else if (usersRecords.points > 6000 && usersRecords.points <= 7000)
             robotId = 6;
-        else if (usersRecords.points > 2400 && usersRecords.points <= 2800)
+        else if (usersRecords.points > 7000 && usersRecords.points <= 8000)
             robotId = 7;
-        else if (usersRecords.points > 2800 && usersRecords.points <= 3200)
+        else if (usersRecords.points > 8000 && usersRecords.points <= 10000)
             robotId = 8;
-        else
+        else if (usersRecords.points > 10000)
             robotId = 9;
-
+        console.log("userPref._id ",robotId);
         userPref.robotPicName = '110' + robotId;
         UserPref.update(userPref._id, {
             $set: {robotPicName: userPref.robotPicName}
@@ -230,9 +233,9 @@ Meteor.startup(function () {
         console.log("%^%^%^%^^ calculateLead");
         //validate if the job is still active
         var today = new Date();
-        var dayNumber = dayOfTheYear(today);
-        var weekNumber = getWeek(today);
-        var monthNumber = today.getMonth(today) + 1;
+        dayNumber = dayOfTheYear(today);
+        weekNumber = getWeek(today);
+        monthNumber = today.getMonth(today) + 1;
 
         for (var i = 0; i < Object.keys(activeGoals).length; i++) {
             if (activeGoals[Object.keys(activeGoals)[i]].endDate < today) {
