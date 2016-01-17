@@ -142,13 +142,13 @@ Meteor.startup(function () {
             robotId = 4;
         else if (usersRecords.points > 5000 && usersRecords.points <= 6000)
             robotId = 5;
-        else if (usersRecords.points > 6000 && usersRecords.points <= 7000)
+        else if (usersRecords.points > 6000 && usersRecords.points <= 8000)
             robotId = 6;
-        else if (usersRecords.points > 7000 && usersRecords.points <= 8000)
-            robotId = 7;
         else if (usersRecords.points > 8000 && usersRecords.points <= 10000)
+            robotId = 7;
+        else if (usersRecords.points > 10000 && usersRecords.points <= 13000)
             robotId = 8;
-        else if (usersRecords.points > 10000)
+        else if (usersRecords.points > 13000)
             robotId = 9;
         console.log("userPref._id ",robotId);
         userPref.robotPicName = '110' + robotId;
@@ -218,8 +218,8 @@ Meteor.startup(function () {
                 if (goal.improv.text != undefined) goalsClacData[i].texts.push(goal.improv.text);
             }
 
-            GoalsClacData.update(goalsClacData[0]._id, {
-                $set: goalsClacData[0]
+            GoalsClacData.update(goalsClacData[i]._id, {
+                $set: goalsClacData[i]
             });
 
             // TODO: update total points

@@ -71,13 +71,13 @@
 
                     <div class="starContainer">
                         <div class="firstStar" ng-show="dc.getExpiredGoal().length > 0" ng-click="dc.showGoal(dc.getExpiredGoal()[0])">
-                            <img src='/assets/images/1003_robotPlatformGoalClosed_1star87x44.png' >
+                            <img src='/assets/images/1003_robotPlatformGoalClosed_{{dc.getStarsForGoal(dc.getExpiredGoal()[0])}}star87x44.png' >
                             <p id="textYadimClosed">
                                 {{dc.getExpiredGoal()[0].name}}
                             </p>
                         </div>
                         <div class="secondStar" ng-show="dc.getExpiredGoal().length > 1" ng-click="dc.showGoal(dc.getExpiredGoal()[1])">
-                            <img src='/assets/images/1003_robotPlatformGoalClosed_3stars87x44.png' >
+                            <img src='/assets/images/1003_robotPlatformGoalClosed_{{dc.getStarsForGoal(dc.getExpiredGoal()[1])}}star87x44.png' >
                             <p id="textYadimClosed">
                                 {{dc.getExpiredGoal()[1].name}}
                             </p>
@@ -388,7 +388,7 @@
 
                 </modal>
 {{talksRanks}}
-                <goals showgoals="dc.show_goals" ></goals>
+                <goals showgoals="dc.show_goals" ng-if="dc.show_goals" ></goals>
 
                 <firgunim showfirgunim="dc.show_firgunim" ng-if="dc.show_firgunim" users-records="dc.usersRecords" firgunim-text="dc.firgunimText"></firgunim>
                 <challenges showchallenges="dc.show_challenges" ></challenges>

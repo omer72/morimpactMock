@@ -13,6 +13,7 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
         this.subscribe('firgunim');
         this.subscribe('users');
         this.subscribe('goals');
+        this.subscribe('goalsCalcData');
 
         dc.currentUserProfile = Meteor.user().profile;
 
@@ -66,6 +67,9 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 },
                 salesRanks:() =>{
                     return Sales.find({groupId: dc.currentUserProfile.groupId}, {sort: {points: -1}});
+                },
+                goalsCalcData:() =>{
+                    return GoalsClacData.find({clientSystemId: parseInt(dc.currentUserProfile.clientSystemId)});
                 }
 
         });
@@ -531,6 +535,19 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
             console.log("Selected goal ",goal);
             dc.goal = goal;
             dc.show_goal = true;
+        }
+
+        dc.getStarsForGoal = function(goal) {
+            var stars = 0;
+            if (dc.goalsCalcData != undefined) {
+                var goalsCalcDataByGoalId = dc.goalsCalcData.filter(function (item) {
+                    return (item.goalId == goal._id);
+                });
+                if (goalsCalcDataByGoalId[0].stars != undefined){
+                    stars = goalsCalcDataByGoalId[0].stars;
+                }
+            }
+            return stars;
         }
         
 

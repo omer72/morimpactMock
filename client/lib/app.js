@@ -4,7 +4,7 @@ angular.module('morimpact',[
     'angularUtils.directives.dirPagination',
     'angularMoment','backand'
     //,'mgo-angular-wizard'
-]);
+])
 
 function onReady() {
     angular.bootstrap(document, ['morimpact']);

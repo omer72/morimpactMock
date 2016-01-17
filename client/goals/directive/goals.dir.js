@@ -19,6 +19,10 @@ angular.module("morimpact").directive('goals', function () {
                      return Goals.find({},{sort: {startDate: 1}});
                     }
             });
+
+            $scope.$watch('$scope.showgoals',function(value){
+                console.log("showGoals");
+            })
             $rootScope.showSelectTagState = false;
             console.log("goals initC");
             $scope.modalTitle = "ניהול יעדים";
