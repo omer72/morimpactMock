@@ -37,6 +37,10 @@
     flex-direction: row-reverse;
 }
 
+.ui.button{
+    float: right;
+}
+
 .ui.steps .step.active {
     background: #89c43e;
 }
@@ -51,7 +55,7 @@
 
 .rightInputElements{
     position: absolute !important;
-    top: -10px;
+    top: 0px;
     right: 0px;
     float: right;
     height: 270px;
@@ -64,11 +68,11 @@
     padding: 5px;
     direction: rtl;
     /*width: 310px;*/
-    /*text-align: left;*/
+    text-align: right;
 }
 
 .goalWide{
-    width: 310px;
+    width: 330px;
     text-align: left;
 }
 
@@ -135,8 +139,26 @@
         clear: both;
     }
 }
+.ui.two.cards{
+    direction: rtl;
+    text-align: right;
+}
 
-.message {
+.ui.three.cards{
+    direction: rtl;
+    text-align: right;
+}
+
+.steps{
+    min-height: 315px;
+}
+.stepsForm{
+  direction: rtl;
+  height: 280px;
+}
+
+.card {
+
     display: inline-block;
     position: relative;
     max-width: 236px;

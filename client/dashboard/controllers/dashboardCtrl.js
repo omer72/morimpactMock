@@ -543,7 +543,8 @@ angular.module("morimpact").controller("DashboardCtrl", [ '$reactive','$meteor',
                 var goalsCalcDataByGoalId = dc.goalsCalcData.filter(function (item) {
                     return (item.goalId == goal._id);
                 });
-                if (goalsCalcDataByGoalId[0].stars != undefined){
+
+                if (goalsCalcDataByGoalId[0] != undefined && goalsCalcDataByGoalId[0].stars != undefined){
                     stars = goalsCalcDataByGoalId[0].stars;
                 }
             }

@@ -97,14 +97,7 @@
             )
         }
 
-        //start.loadLatestObjectDataFiltered = function () {
-        //    BackandService.objectData(testDataTableFiltered, 1, 1, JSON.stringify([{
-        //        "fieldName": "createdAt",
-        //        "order": "desc"
-        //    }])).then(
-        //        loadLatestObjectDataFilteredSuccess, errorHandler
-        //    )
-        //}
+
 
         function loadLatestObjectDataFilteredSuccess() {
             if (start.latestFilterData.length > 0) {
@@ -153,10 +146,7 @@
             }
         };
 
-        //start.$on('$destroy', function() {
-        //  // Make sure that the interval is destroyed too
-        //  $scope.stopProcess();
-        //});
+
 
         function loadObjectDataSuccess(ObjectData) {
             start.objectData = ObjectData.data.data;

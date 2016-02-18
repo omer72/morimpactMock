@@ -3,7 +3,7 @@ angular.module('morimpact',[
     'ui.router',
     'angularUtils.directives.dirPagination',
     'angularMoment','backand'
-    //,'mgo-angular-wizard'
+    ,'mgo-angular-wizard'
 ])
 
 function onReady() {

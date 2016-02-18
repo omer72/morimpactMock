@@ -11,7 +11,7 @@ angular.module("morimpact").directive('goals', function () {
             console.log("goals init");
 
         },
-         controller:function($scope,$rootScope,$reactive,$element){
+         controller:function($scope,$rootScope,$reactive,$element,WizardHandler){
              $reactive(this).attach($scope);
              this.subscribe('goals');
              $scope.helpers({
@@ -19,7 +19,7 @@ angular.module("morimpact").directive('goals', function () {
                      return Goals.find({},{sort: {startDate: 1}});
                     }
             });
-
+            $scope.edit = false;
             $scope.$watch('$scope.showgoals',function(value){
                 console.log("showGoals");
             })
@@ -62,11 +62,14 @@ angular.module("morimpact").directive('goals', function () {
                 $scope.goal.epoint = {tag:'030204FirgunimInnerPagesElements_addBagdeFull48x38'};
             }
 
-            $scope.editGoal = function(goal){
+            $scope.editGoal = function(goal,edit){
                 console.log(goal);
-                initGoal();
+
                 $scope.goal = goal;
-                document.getElementById("mytab2").click()
+                $scope.editMode = edit;
+                $scope.editState = true;
+
+                document.getElementById("mytab1").click()
             }
 
             $scope.addRange = function(){
@@ -218,9 +221,14 @@ angular.module("morimpact").directive('goals', function () {
                     return result;
                 }
             $scope.$on("changeTab", function(event,args){
-                console.log("tabId ",args);
-                if (args == "mytab1"){
+                console.log("tabId ",args,$scope.editMode);
+
+                if ($scope.editState){
+                    $scope.editState = false;
+                }else{
                     initGoal();
+                    WizardHandler.wizard().reset();
+                    $scope.editMode = false;
                 }
             })
              $scope.toggleShowSelectTagState = function(selectedTag){
@@ -228,6 +236,13 @@ angular.module("morimpact").directive('goals', function () {
                  $scope.selectedTagVisual = selectedTag;
                  $rootScope.showSelectTagState = true;
              }
+
+            $scope.validateStepOneNext = function(){
+                //if ($scope.goal.name != undefined && $scope.goal.name != '' && $scope.goal.goalId != 0){
+                    WizardHandler.wizard().next();
+                //}
+            }
+
 
 
         }
